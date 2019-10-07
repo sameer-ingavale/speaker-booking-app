@@ -1,0 +1,33 @@
+.formWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  background-color: #f4f6f8;
+  padding: 35px 35px 20px 35px;
+  border: 1px solid #dededf;
+  width: 35vw;
+  min-width: 300px !important;
+  max-width: 400px !important;
+  margin-bottom: 15px;
+  margin-top: 10px;
+}
+
+input {
+  margin-bottom: 15px !important;
+  margin-top: 5px !important;
+  width: 100%;
+}
+
+button {
+  margin-top: 10px !important;
+  width: 100%;
+}
