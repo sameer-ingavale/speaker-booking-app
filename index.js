@@ -2,6 +2,7 @@ const express = require("express");
 const connectDB = require("./config/db");
 const graphqlHttp = require("express-graphql");
 const cors = require("cors");
+const path = require("path");
 const authMiddleware = require("./middlewares/authMiddleware");
 
 const rootSchema = require("./graphql/schema/rootSchema");
@@ -31,7 +32,7 @@ app.use(
 
 connectDB();
 
-const port = process.env.PORT || 9000;
+const port = process.env.PORT || 8000;
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
