@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import "./mainAuth.css";
 
 export default class CreateAccount extends Component {
   constructor(props) {
