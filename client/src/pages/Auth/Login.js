@@ -86,7 +86,11 @@ export default class Login extends Component {
             />
             <i className="lock icon" />
           </div>
-          <button className="ui green button" type="submit">
+          <button
+            onTouchStart={this.handleSubmit}
+            className="ui green button"
+            type="submit"
+          >
             Submit
           </button>
           <p>
