@@ -12,8 +12,9 @@
   align-items: flex-start;
   flex-direction: column;
   background-color: #f4f6f8;
-  padding: 35px 35px 20px 35px;
+  padding: 25px 25px 10px 25px;
   border: 1px solid #dededf;
+  border-radius: 5px;
   width: 35vw;
   min-width: 300px !important;
   max-width: 400px !important;
@@ -21,7 +22,7 @@
   margin-top: 10px;
 }
 
-input {
+.signupInput {
   margin-bottom: 15px !important;
   margin-top: 5px !important;
   width: 100%;

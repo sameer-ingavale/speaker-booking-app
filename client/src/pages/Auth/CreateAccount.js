@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import "./CreateAccount.css";
+import "./createAccount.css";
 
 export default class CreateAccount extends Component {
   constructor(props) {
@@ -56,38 +56,43 @@ export default class CreateAccount extends Component {
         <h2>Create Account</h2>
         <form className="ui form" onSubmit={this.handleSubmit}>
           <input
+            className="signupInput"
             type="text"
             required
-            placeholder="First Name"
+            placeholder="Your First Name Here"
             name="firstName"
             onChange={this.handleChange}
             value={this.state.firstName}
           />
           <input
+            className="signupInput"
             type="text"
             required
-            placeholder="Last Name"
+            placeholder="Your Last Name Here"
             name="lastName"
             onChange={this.handleChange}
             value={this.state.lastName}
           />
           <input
+            className="signupInput"
             type="text"
             required
-            placeholder="Email"
+            placeholder="Your Email Here"
             name="email"
             onChange={this.handleChange}
             value={this.state.email}
           />
           <input
+            className="signupInput"
             type="password"
             required
-            placeholder="Password"
+            placeholder="New Password"
             name="password"
             onChange={this.handleChange}
             value={this.state.password}
           />
           <input
+            className="signupInput"
             type="password"
             required
             placeholder="Re-enter Password"
