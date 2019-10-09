@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+
 import "./login.css";
+import AuthContext from "../../context/AuthContext";
 
 export default class Login extends Component {
   constructor(props) {
@@ -11,6 +13,8 @@ export default class Login extends Component {
       password: ""
     };
   }
+
+  static contextType = AuthContext;
 
   handleChange = (event) => {
     const { name, value } = event.target;
@@ -43,6 +47,14 @@ export default class Login extends Component {
     });
 
     const userData = await loginResponse.json();
+
+    if (!userData.data.login.token) {
+      throw new Error("No token found");
+    }
+    const { token, userId, tokenExpiration } = userData.data.login;
+    this.context.login(token, userId, tokenExpiration);
+    document.cookie = "token=" + token;
+    document.cookie = "userId=" + userId;
 
     console.log(userData);
   };
