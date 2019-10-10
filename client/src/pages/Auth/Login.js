@@ -56,10 +56,8 @@ export default class Login extends Component {
     }
     const { token, userId, tokenExpiration } = userData.data.login;
     this.context.login(token, userId, tokenExpiration);
-    document.cookie = "token=" + token;
-    document.cookie = "userId=" + userId;
-
-    console.log(userData);
+    document.cookie = `token=${token};max-age=60*60*2`;
+    document.cookie = `userId=${userId}`;
   };
 
   render() {

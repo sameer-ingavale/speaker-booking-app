@@ -14,7 +14,7 @@ export default class MainNav extends Component {
         <nav className="navWrapper">
           <div>
             <NavLink to="/speakers">
-              <img src={planet} className="logo" />
+              <img alt="web-app logo" src={planet} className="logo" />
             </NavLink>
           </div>
           <div className="linkWrapper">

@@ -21,6 +21,7 @@ class App extends Component {
 
   logout = () => {
     this.setState({ token: "", userId: "" });
+    document.cookie = "userId=";
     document.cookie = "token=";
   };
 
@@ -44,7 +45,7 @@ class App extends Component {
           }}
         >
           <MainNav />
-          {/* <pre>{JSON.stringify(this.state, null, 2)}</pre> */}
+          {/*  <pre>{JSON.stringify(this.state, null, 2)}</pre> */}
           <Switch>
             {this.state.token && (
               <Redirect from="/login" to="/profile" exact></Redirect>

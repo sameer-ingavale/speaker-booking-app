@@ -64,13 +64,13 @@ module.exports = {
     const token = jwt.sign(
       { userId: user.id, email: user.email },
       `${privateKey}`,
-      { expiresIn: "1h" }
+      { expiresIn: "12h" }
     );
 
     return {
       userId: user.id,
       token,
-      tokenExpiration: 1
+      tokenExpiration: 12
     };
   }
 };
