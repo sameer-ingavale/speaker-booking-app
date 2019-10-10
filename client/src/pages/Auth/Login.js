@@ -38,13 +38,16 @@ export default class Login extends Component {
       `
     };
 
-    const loginResponse = await fetch("http://localhost:8000/graphql", {
-      method: "POST",
-      body: JSON.stringify(requestBody),
-      headers: {
-        "Content-Type": "application/json"
+    const loginResponse = await fetch(
+      "https://book-a-speaker.herokuapp.com/graphql",
+      {
+        method: "POST",
+        body: JSON.stringify(requestBody),
+        headers: {
+          "Content-Type": "application/json"
+        }
       }
-    });
+    );
 
     const userData = await loginResponse.json();
 

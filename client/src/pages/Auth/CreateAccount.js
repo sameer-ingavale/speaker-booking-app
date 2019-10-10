@@ -37,13 +37,16 @@ export default class CreateAccount extends Component {
       `
     };
 
-    let CreateUserResponse = await fetch("http://localhost:8000/graphql", {
-      method: "POST",
-      body: JSON.stringify(requestBody),
-      headers: {
-        "Content-Type": "application/json"
+    let CreateUserResponse = await fetch(
+      "https://book-a-speaker.herokuapp.com/graphql",
+      {
+        method: "POST",
+        body: JSON.stringify(requestBody),
+        headers: {
+          "Content-Type": "application/json"
+        }
       }
-    });
+    );
 
     let userData = await CreateUserResponse.json();
 
