@@ -50,7 +50,7 @@ export default class CreateAccount extends Component {
 
     let userData = await CreateUserResponse.json();
 
-    console.log(userData.data.createUser._id);
+    await console.log(userData.data.createUser._id);
   };
 
   render() {
