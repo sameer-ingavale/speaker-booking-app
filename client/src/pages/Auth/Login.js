@@ -89,9 +89,11 @@ export default class Login extends Component {
             />
             <i className="lock icon" />
           </div>
-          <button className="ui green button" type="submit">
-            Submit
-          </button>
+          <input
+            className="ui green button fluid"
+            type="submit"
+            value="Submit"
+          />
           <p>
             New to speaker booking?{" "}
             <Link to="/create-account"> Create an account.</Link>{" "}

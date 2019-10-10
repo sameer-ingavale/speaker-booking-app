@@ -108,7 +108,11 @@ export default class CreateAccount extends Component {
             onChange={this.handleChange}
             value={this.state.password}
           />
-          <input type="submit" value="Submit" />
+          <input
+            className="ui green button fluid"
+            type="submit"
+            value="Submit"
+          />
           <p>
             By creating an account, you agree to our{" "}
             <a
