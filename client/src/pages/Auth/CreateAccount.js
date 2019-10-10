@@ -21,7 +21,7 @@ export default class CreateAccount extends Component {
     this.setState({ [name]: value });
   };
 
-  handleSubmit = async (event) => {
+  handleSubmit = (event) => {
     event.preventDefault();
 
     const { firstName, lastName, email, password } = this.state;
@@ -37,20 +37,25 @@ export default class CreateAccount extends Component {
       `
     };
 
-    let CreateUserResponse = await fetch(
-      "https://book-a-speaker.herokuapp.com/graphql",
-      {
-        method: "POST",
-        body: JSON.stringify(requestBody),
-        headers: {
-          "Content-Type": "application/json"
-        }
+    fetch("https://book-a-speaker.herokuapp.com/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json"
       }
-    );
-
-    let userData = await CreateUserResponse.json();
-
-    console.log(userData.data.createUser._id);
+    })
+      .then((res) => {
+        if (res.status !== 200 && res.status !== 201) {
+          throw new Error("Failed!");
+        }
+        return res.json();
+      })
+      .then((resData) => {
+        console.log(resData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   render() {
