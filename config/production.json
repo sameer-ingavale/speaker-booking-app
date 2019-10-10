@@ -1,4 +1,4 @@
 {
-  "MONGO_URI": "mongodb+srv://sameer:mongodb007@database-nxhu2.mongodb.net/admin?retryWrites=true&w=majority",
+  "MONGO_URI": "mongodb+srv://sameer:<password>@database-nxhu2.mongodb.net/test?retryWrites=true&w=majority",
   "TOKEN_PRIVATE_KEY": "$C&F)J@NcRfTjWnZ"
 }
