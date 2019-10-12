@@ -8,12 +8,12 @@ const typeDefs = require("./graphql/typeDefs");
 const resolvers = require("./graphql/resolvers");
 
 const app = express();
-/* 
+
 app.use(express.static(path.join(__dirname, "client/build")));
 
 app.get("*", (req, res) => {
   res.sendFile(__dirname + "/client/build/index.html");
-}); */
+});
 
 // app.use(express.urlencoded({ extended: true }));
 
@@ -21,7 +21,7 @@ app.use(express.json());
 
 app.use(cors());
 
-connectDB(() => console.log("wow"));
+connectDB();
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
