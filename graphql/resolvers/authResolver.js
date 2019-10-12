@@ -5,72 +5,76 @@ const config = require("config");
 const privateKey = config.get("TOKEN_PRIVATE_KEY");
 
 module.exports = {
-  createUser: async (args) => {
-    try {
-      const { firstName, lastName, email, password } = args.input;
+  Query: {
+    users: async () => {
+      try {
+        const users = await User.find().populate({
+          path: "createdEvents",
+          populate: { path: "creator" }
+        });
+        const newUsers = JSON.parse(JSON.stringify(users));
+        return newUsers.map((user) => {
+          return {
+            ...user,
+            password: null
+          };
+        });
+      } catch (err) {
+        throw err;
+      }
+    },
+    login: async ({ email, password }) => {
+      const user = await User.findOne({ email });
 
-      const existingUser = await User.findOne({ email });
-
-      if (existingUser) {
-        throw new Error("User already exists");
+      if (!user) {
+        throw new Error("Invalid credentials - email");
       }
 
-      const hashedPassword = await bcrypt.hash(password, 12);
+      const userPassword = await bcrypt.compare(password, user.password);
 
-      const user = new User({
-        firstName,
-        lastName,
-        email,
-        password: hashedPassword,
-        dateCreated: new Date().toString()
-      });
+      if (!userPassword) {
+        throw new Error("Invalid credentials - password");
+      }
+      const token = jwt.sign(
+        { userId: user.id, email: user.email },
+        `${privateKey}`,
+        { expiresIn: "12h" }
+      );
 
-      const savedUser = await user.save();
-      const finalUser = JSON.parse(JSON.stringify(savedUser));
-      return { ...finalUser, password: null };
-    } catch (error) {
-      throw error;
+      return {
+        userId: user.id,
+        token,
+        tokenExpiration: 12
+      };
     }
   },
-  users: async () => {
-    try {
-      const users = await User.find().populate({
-        path: "createdEvents",
-        populate: { path: "creator" }
-      });
-      const newUsers = JSON.parse(JSON.stringify(users));
-      return newUsers.map((user) => {
-        return {
-          ...user,
-          password: null
-        };
-      });
-    } catch (err) {
-      throw err;
+  Mutation: {
+    createUser: async (args) => {
+      try {
+        const { firstName, lastName, email, password } = args.input;
+
+        const existingUser = await User.findOne({ email });
+
+        if (existingUser) {
+          throw new Error("User already exists");
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 12);
+
+        const user = new User({
+          firstName,
+          lastName,
+          email,
+          password: hashedPassword,
+          dateCreated: new Date().toString()
+        });
+
+        const savedUser = await user.save();
+        const finalUser = JSON.parse(JSON.stringify(savedUser));
+        return { ...finalUser, password: null };
+      } catch (error) {
+        throw error;
+      }
     }
-  },
-  login: async ({ email, password }) => {
-    const user = await User.findOne({ email });
-
-    if (!user) {
-      throw new Error("Invalid credentials - email");
-    }
-
-    const userPassword = await bcrypt.compare(password, user.password);
-
-    if (!userPassword) {
-      throw new Error("Invalid credentials - password");
-    }
-    const token = jwt.sign(
-      { userId: user.id, email: user.email },
-      `${privateKey}`,
-      { expiresIn: "12h" }
-    );
-
-    return {
-      userId: user.id,
-      token,
-      tokenExpiration: 12
-    };
   }
 };
