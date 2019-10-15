@@ -1,9 +1,8 @@
 const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
 const cors = require("cors");
-// const path = require("path");
+const path = require("path");
 const connectDB = require("./config/db");
-const authMiddleware = require("./middlewares/authMiddleware");
 const typeDefs = require("./graphql/typeDefs");
 const resolvers = require("./graphql/resolvers");
 
@@ -19,15 +18,21 @@ app.get("*", (req, res) => {
 
 app.use(express.json());
 
-app.use(cors());
+app.use(
+  cors({
+    optionsSuccessStatus: 204
+  })
+);
 
 connectDB();
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: ({ req }) => ({ req })
+});
 
-server.applyMiddleware({ app, path: "/graphql" });
-
-app.use(authMiddleware);
+server.applyMiddleware({ app, path: "/" });
 
 const port = process.env.PORT || 8000;
 

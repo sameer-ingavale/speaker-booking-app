@@ -1,6 +1,42 @@
 const { gql } = require("apollo-server-express");
 
 module.exports = gql`
+  enum UserTypeEnum {
+    SPEAKER
+    EVENT_PLANNER
+  }
+
+  type Address {
+    streetAddress1: String!
+    streetAddress2: String
+    zip: String!
+    city: String!
+    state: String!
+    country: String!
+  }
+
+  enum CompanyTypeEnum {
+    PUBLIC_COMPANY
+    SELF_EMPLOYED
+    GOVERNMENT_AGENCY
+    NON_PROFIT
+    SOLE_PROPRIETORSHIP
+    PRIVATELY_HELD
+    PARTNERSHIP
+  }
+
+  type Company {
+    _id: ID!
+    name: String!
+    address: [Address!]!
+    phone: String!
+    einNumber: String!
+    companyType: CompanyTypeEnum!
+    dateCreated: String!
+    creator: User!
+    createdEvents: [Event]!
+  }
+
   type User {
     _id: ID!
     firstName: String!
@@ -8,43 +44,135 @@ module.exports = gql`
     email: String!
     password: String
     dateCreated: String!
-    createdEvents: [Event!]
+    userType: UserTypeEnum!
+    createdCompany: [Company!]
+    bookingRequests: [Booking]!
   }
 
   type AuthData {
     userId: ID!
     token: String!
-    tokenExpiration: Int!
+  }
+
+  enum PayTypeEnum {
+    FREE
+    PAID
+  }
+
+  enum EventTypeEnum {
+    RELIGIOUS
+    CHARITY
+    CONFERENCE
+    SEMINAR
+    NETWORKING
+    RALLY
+    COMMUNITY
+    OTHER
+  }
+
+  enum EventTopicEnum {
+    RELIGION_SPIRITUALITY
+    SOCIAL_CAUSE
+    CULTURE
+    EDUCATION
+    HEALTH_WELLNESS
+    SPORTS_FITNESS
+    MUSIC
+    HOBBIES_SPECIAL_INTERESTS
+    BUSINESS
+    TECHNOLOGY
+    OTHER
+    POLITICS
   }
 
   type Event {
     _id: ID!
     title: String!
-    pay: Float!
-    dateCreated: String!
-    creator: User!
+    eventDate: String!
+    startTime: String!
+    endTime: String!
+    payType: PayTypeEnum!
+    eventType: EventTypeEnum!
+    eventTopic: EventTopicEnum!
+    payAmount: Float!
+    expectedTurnout: Int!
+    address: [Address!]!
+    expired: Boolean!
+    public: Boolean!
+    creatorPerson: User!
+    creatorCompany: Company!
+    createdAt: String!
+    updatedAt: String!
+  }
+
+  type Booking {
+    _id: ID!
+    event: Event!
+    creatorCompany: Company!
+    creatorPerson: User!
+    requestedSpeakers: [User]!
+    confirmedSpeaker: User
+  }
+
+  type BookingIds {
+    _id: ID!
+    event: ID!
+    creatorCompany: ID!
+    creatorPerson: ID!
+    requestedSpeakers: [ID!]
+    confirmedSpeaker: ID
   }
 
   type Query {
-    users: [User!]!
+    getSpeakers: [User]!
     login(email: String!, password: String!): AuthData!
-    events: [Event!]!
+    getEvents: [Event]!
   }
 
-  input CreateUserInput {
+  input RegisterUserInput {
     firstName: String!
     lastName: String!
+    userType: UserTypeEnum!
     email: String!
     password: String!
+    confirmPassword: String!
+  }
+
+  input address {
+    streetAddress1: String!
+    streetAddress2: String
+    zip: String!
+    city: String!
+    state: String!
+    country: String!
   }
 
   input CreateEventInput {
     title: String!
-    pay: Float!
+    eventDate: String!
+    startTime: String!
+    endTime: String!
+    payType: PayTypeEnum!
+    eventType: EventTypeEnum!
+    eventTopic: EventTopicEnum!
+    payAmount: Float
+    expectedTurnout: Int!
+    address: [address!]!
+    public: Boolean!
+  }
+
+  input CreateCompanyInput {
+    name: String!
+    address: [address!]!
+    phone: String!
+    einNumber: String!
+    companyType: CompanyTypeEnum!
   }
 
   type Mutation {
-    createUser(input: CreateUserInput): User
-    createEvent(input: CreateEventInput): Event
+    register(input: RegisterUserInput): AuthData!
+    createEvent(input: CreateEventInput): Event!
+    createCompany(input: CreateCompanyInput): Company!
+    requestBooking(requestedSpeakerId: ID!, eventId: ID!): BookingIds!
   }
 `;

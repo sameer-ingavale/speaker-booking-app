@@ -3,30 +3,22 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  firstName: {
-    type: String,
-    required: true
-  },
-  lastName: {
-    type: String,
-    required: true
-  },
-  email: {
-    type: String,
-    required: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  dateCreated: {
-    type: Date,
-    required: true
-  },
-  createdEvents: [
+  firstName: String,
+  lastName: String,
+  email: String,
+  password: String,
+  dateCreated: String,
+  userType: String,
+  createdCompany: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Event"
+      ref: "Company"
+    }
+  ],
+  bookingRequests: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Booking"
     }
   ]
 });
