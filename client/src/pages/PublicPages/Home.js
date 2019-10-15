@@ -9,10 +9,7 @@ function Home() {
   const { loading, error, data } = useQuery(GET_SPEAKERS_QUERY);
 
   return (
-    <Grid columns={1}>
-      <Grid.Row className="page-title">
-        <h1>Recent Posts</h1>
-      </Grid.Row>
+    <Grid columns={2} className="mainWrapper">
       <Grid.Row>
         {loading ? (
           <h1>Loading posts..</h1>

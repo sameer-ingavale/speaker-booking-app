@@ -6,7 +6,6 @@ const bookingResolver = require("./booking");
 
 module.exports = {
   Query: {
-    ...authResolver.Query,
     ...eventResolver.Query,
     ...speakersResolver.Query
   },

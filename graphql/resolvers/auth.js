@@ -11,7 +11,7 @@ const {
 } = require("../../helpers/validators");
 
 module.exports = {
-  Query: {
+  Mutation: {
     login: async (parent, { email, password }) => {
       const { errors, valid } = validateLoginInput(email, password);
 
@@ -32,18 +32,20 @@ module.exports = {
         throw new UserInputError("Invalid credentials - password", { errors });
       }
       const token = jwt.sign(
-        { userId: user.id, email: user.email },
+        { userId: user.id, firstName: user.firstName },
         PRIVATE_KEY,
         { expiresIn: "2h" }
       );
 
+      const { firstName, lastName } = user;
+
       return {
         userId: user.id,
+        firstName,
+        lastName,
         token
       };
-    }
-  },
-  Mutation: {
+    },
     register: async (parent, args) => {
       const {
         firstName,
@@ -87,11 +89,11 @@ module.exports = {
       const savedUser = await user.save();
 
       const token = jwt.sign(
-        { userId: user.id, email: user.email },
+        { userId: user.id, firstName: user.firstName },
         PRIVATE_KEY,
         { expiresIn: "2h" }
       );
-      return { userId: savedUser.id, token };
+      return { userId: savedUser.id, firstName, lastName, token };
     }
   }
 };

@@ -50,6 +50,8 @@ module.exports = gql`
   }
 
   type AuthData {
+    firstName: String!
+    lastName: String!
     userId: ID!
     token: String!
   }
@@ -125,7 +127,6 @@ module.exports = gql`
 
   type Query {
     getSpeakers: [User]!
-    login(email: String!, password: String!): AuthData!
     getEvents: [Event]!
   }
 
@@ -171,6 +172,7 @@ module.exports = gql`
 
   type Mutation {
     register(input: RegisterUserInput): AuthData!
+    login(email: String!, password: String!): AuthData!
     createEvent(input: CreateEventInput): Event!
     createCompany(input: CreateCompanyInput): Company!
     requestBooking(requestedSpeakerId: ID!, eventId: ID!): BookingIds!
