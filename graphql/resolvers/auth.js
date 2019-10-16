@@ -32,17 +32,17 @@ module.exports = {
         throw new UserInputError("Invalid credentials - password", { errors });
       }
       const token = jwt.sign(
-        { userId: user.id, firstName: user.firstName },
+        { userId: user.id, firstName: user.firstName, userType: user.userType },
         PRIVATE_KEY,
         { expiresIn: "2h" }
       );
 
-      const { firstName, lastName } = user;
+      const { firstName, userType } = user;
 
       return {
         userId: user.id,
         firstName,
-        lastName,
+        userType,
         token
       };
     },
@@ -89,11 +89,11 @@ module.exports = {
       const savedUser = await user.save();
 
       const token = jwt.sign(
-        { userId: user.id, firstName: user.firstName },
+        { userId: user.id, firstName: user.firstName, userType: user.userType },
         PRIVATE_KEY,
         { expiresIn: "2h" }
       );
-      return { userId: savedUser.id, firstName, lastName, token };
+      return { userId: savedUser.id, firstName, userType, token };
     }
   }
 };

@@ -12,7 +12,7 @@ module.exports = {
           };
         });
       } catch (err) {
-        throw err;
+        throw new Error(err);
       }
     }
   }

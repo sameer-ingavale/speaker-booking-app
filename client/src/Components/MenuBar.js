@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import eagle from "./eagle.png";
-import { Menu } from "semantic-ui-react";
+import { Menu, Dropdown, Divider } from "semantic-ui-react";
 import { AuthContext } from "../context/auth";
 
 import "./menuBar.css";
@@ -28,15 +28,6 @@ function MenuBar() {
         <Menu.Menu position="right">
           <Menu.Item
             className="navLinks"
-            icon="user"
-            name={user.firstName}
-            active={activeItem === `${user.firstName}`}
-            onClick={handleItemClick}
-            as={Link}
-            to={`/profile/${user.userId}`}
-          />
-          <Menu.Item
-            className="navLinks"
             name="home"
             active={activeItem === "home"}
             onClick={handleItemClick}
@@ -51,7 +42,43 @@ function MenuBar() {
             as={Link}
             to="/events"
           />
-          <Menu.Item className="navLinks" name="logout" onClick={logout} />
+          <Menu.Item
+            className="navLinks"
+            icon
+            text={user.firstName}
+            active={activeItem === `${user.firstName}`}
+            onClick={handleItemClick}
+            as={Dropdown}
+          >
+            <Dropdown.Menu className="test">
+              <Dropdown.Item as={Link} to={`/profile/${user.userId}`}>
+                <i className="user icon"></i>View Profile
+              </Dropdown.Item>
+              <Divider />
+              <Dropdown.Item as={Link} to={`/profile/${user.userId}`}>
+                Manage Account
+              </Dropdown.Item>
+              {user.userType === "EVENT_PLANNER" && (
+                <Dropdown.Item as={Link} to={`/account/events`}>
+                  Events
+                </Dropdown.Item>
+              )}
+              {user.userType === "EVENT_PLANNER" && (
+                <Dropdown.Item as={Link} to={`/account/company`}>
+                  Companies
+                </Dropdown.Item>
+              )}
+              {user.userType === "SPEAKER" && (
+                <Dropdown.Item as={Link} to={`/profile/${user.userId}`}>
+                  Bookings
+                </Dropdown.Item>
+              )}
+              <Dropdown.Item as={Link} to={`/profile/${user.userId}`}>
+                Accout Settings
+              </Dropdown.Item>
+              <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
+            </Dropdown.Menu>
+          </Menu.Item>
         </Menu.Menu>
       </Menu>
     </header>

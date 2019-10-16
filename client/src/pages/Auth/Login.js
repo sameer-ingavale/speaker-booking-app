@@ -47,45 +47,47 @@ function Login(props) {
   };
 
   return (
-    <Grid centered columns={2} doubling padded={"horizontally"}>
-      <Grid.Column>
-        {/* <pre>{JSON.stringify(context.authData, null, 2)}</pre> */}
-        <Responsive as={Segment}>
-          <Form
-            noValidate
-            onSubmit={onSubmit}
-            className={loading ? "loading" : ""}
-          >
-            <Form.Input
-              label="Email"
-              placeholder="Email"
-              name="email"
-              type="text"
-              value={values.email}
-              onChange={onChange}
-              error={errors.email ? true : false}
-            />
-            <Form.Input
-              label="Password"
-              placeholder="Password"
-              name="password"
-              type="password"
-              value={values.password}
-              onChange={onChange}
-              error={errors.password ? true : false}
-            />
-            <Button type="submit" primary>
-              Register
-            </Button>
-          </Form>
-        </Responsive>
-        <Transition.Group animation="fade up" duration={500}>
-          {Object.keys(errors).length > 0 && (
-            <Message error list={Object.values(errors)}></Message>
-          )}
-        </Transition.Group>
-      </Grid.Column>
-    </Grid>
+    <div className="mainWrapper">
+      <Grid centered columns={2} doubling padded={"horizontally"}>
+        <Grid.Column>
+          {/* <pre>{JSON.stringify(context.authData, null, 2)}</pre> */}
+          <Responsive as={Segment}>
+            <Form
+              noValidate
+              onSubmit={onSubmit}
+              className={loading ? "loading" : ""}
+            >
+              <Form.Input
+                label="Email"
+                placeholder="Email"
+                name="email"
+                type="text"
+                value={values.email}
+                onChange={onChange}
+                error={errors.email ? true : false}
+              />
+              <Form.Input
+                label="Password"
+                placeholder="Password"
+                name="password"
+                type="password"
+                value={values.password}
+                onChange={onChange}
+                error={errors.password ? true : false}
+              />
+              <Button type="submit" primary>
+                Register
+              </Button>
+            </Form>
+          </Responsive>
+          <Transition.Group animation="fade up" duration={500}>
+            {Object.keys(errors).length > 0 && (
+              <Message error list={Object.values(errors)}></Message>
+            )}
+          </Transition.Group>
+        </Grid.Column>
+      </Grid>
+    </div>
   );
 }
 
@@ -95,7 +97,7 @@ const LOGIN_USER = gql`
       userId
       token
       firstName
-      lastName
+      userType
     }
   }
 `;

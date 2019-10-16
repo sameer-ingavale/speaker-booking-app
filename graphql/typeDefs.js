@@ -51,7 +51,7 @@ module.exports = gql`
 
   type AuthData {
     firstName: String!
-    lastName: String!
+    userType: UserTypeEnum!
     userId: ID!
     token: String!
   }
@@ -128,6 +128,7 @@ module.exports = gql`
   type Query {
     getSpeakers: [User]!
     getEvents: [Event]!
+    getCompany: Company!
   }
 
   input RegisterUserInput {
@@ -164,7 +165,7 @@ module.exports = gql`
 
   input CreateCompanyInput {
     name: String!
-    address: [address!]!
+    address: address!
     phone: String!
     einNumber: String!
     companyType: CompanyTypeEnum!

@@ -13,6 +13,8 @@ import Login from "./pages/Auth/Login";
 import Speakers from "./pages/PublicPages/Speakers";
 import Events from "./pages/PublicPages/Events";
 import Profile from "./pages/PrivatePages/Profile";
+import CreateCompany from "./pages/PrivatePages/CreateCompany";
+import Company from "./pages/PrivatePages/Company";
 
 function App() {
   return (
@@ -25,6 +27,12 @@ function App() {
         <AuthRoute exact path="/login" component={Login}></AuthRoute>
         <Route exact path="/events" component={Events}></Route>
         <Route exact path="/speakers" component={Speakers}></Route>
+        <PrivateRoute
+          exact
+          path="/account/create-company"
+          component={CreateCompany}
+        />
+        <PrivateRoute exact path="/account/company" component={Company} />
         <PrivateRoute exact path="/profile" component={Profile} />
       </Router>
     </AuthProvider>
