@@ -15,6 +15,7 @@ import Events from "./pages/PublicPages/Events";
 import Profile from "./pages/PrivatePages/Profile";
 import CreateCompany from "./pages/PrivatePages/CreateCompany";
 import Company from "./pages/PrivatePages/Company";
+import CreateEvent from "./pages/PrivatePages/CreateEvent";
 
 function App() {
   return (
@@ -33,6 +34,11 @@ function App() {
           component={CreateCompany}
         />
         <PrivateRoute exact path="/account/company" component={Company} />
+        <PrivateRoute
+          exact
+          path="/account/create-event"
+          component={CreateEvent}
+        />
         <PrivateRoute exact path="/profile" component={Profile} />
       </Router>
     </AuthProvider>
