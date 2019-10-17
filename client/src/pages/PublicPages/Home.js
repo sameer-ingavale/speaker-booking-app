@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import { Grid, Placeholder, Segment } from "semantic-ui-react";
 
-import SpeakerCard from "../../Components/SpeakerCard";
+import SpeakerCard from "../../Components/SpeakerCard/SpeakerCard";
 
 function Home() {
   const { loading, error, data } = useQuery(GET_SPEAKERS_QUERY);
@@ -22,7 +22,7 @@ function Home() {
         {loading ? (
           PlaceholderArray.map(() => (
             <Grid.Column>
-              <Segment raised fluid style={{ "margin-bottom": "25px" }}>
+              <Segment raised style={{ marginBottom: "25px" }}>
                 <Placeholder>
                   <Placeholder.Header image>
                     <Placeholder.Line />
@@ -39,6 +39,7 @@ function Home() {
         ) : error ? (
           <h1>fuck</h1>
         ) : (
+          speakers &&
           speakers.map((speaker) => (
             <Grid.Column key={speaker._id}>
               <SpeakerCard speaker={speaker} />

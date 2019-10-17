@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import {
   Button,
   Form,
@@ -10,10 +10,11 @@ import {
 } from "semantic-ui-react";
 import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
-import { AuthContext } from "../../context/auth";
+// import { AuthContext } from "../../context/auth";
+import { stateOptions } from "../../helpers/stateOptions";
 
 function CreateCompany(props) {
-  const context = useContext(AuthContext);
+  // const context = useContext(AuthContext);
   const companyTypeOptions = [
     { key: "1", text: "Non Profit", value: "NON_PROFIT" },
     { key: "2", text: "Self Employed", value: "SELF_EMPLOYED" },
@@ -23,6 +24,7 @@ function CreateCompany(props) {
     { key: "6", text: "Government Agency", value: "GOVERNMENT_AGENCY" },
     { key: "7", text: "Public Company", value: "PUBLIC_COMPANY" }
   ];
+  const countryOptions = [{ key: "1", text: "United States", value: "US" }];
   const [errors, setErrors] = useState({});
   const [values, setValues] = useState({
     name: "",
@@ -32,17 +34,17 @@ function CreateCompany(props) {
       zip: "",
       city: "",
       state: "",
-      country: ""
+      country: "US"
     },
     phone: "",
     einNumber: "",
     companyType: "NON_PROFIT"
   });
 
-  const onAddressChange = (event) => {
+  const onAddressChange = (event, result) => {
     const { address } = { ...values };
     const currentAddress = address;
-    const { name, value } = event.target;
+    const { name, value } = result || event.target;
     currentAddress[name] = value;
     setValues({ ...values, address: currentAddress });
   };
@@ -64,7 +66,7 @@ function CreateCompany(props) {
     },
     onError(err) {
       console.log(err);
-      //setErrors(err.graphQLErrors[0].extensions.exception.errors);
+      setErrors(err.graphQLErrors[0].extensions.exception.errors);
     },
     variables: values
   });
@@ -77,7 +79,7 @@ function CreateCompany(props) {
   return (
     <Grid centered columns={2} doubling padded={"horizontally"}>
       <Grid.Column>
-        <pre>{JSON.stringify(values, null, 2)}</pre>
+        {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
         <Responsive as={Segment}>
           <Form
             noValidate
@@ -92,7 +94,7 @@ function CreateCompany(props) {
                 type="text"
                 value={values.name}
                 onChange={onChange}
-                // error={errors.name ? true : false}
+                error={errors.name ? true : false}
               />
               <Form.Dropdown
                 placeholder="Company Type"
@@ -103,6 +105,9 @@ function CreateCompany(props) {
                 options={companyTypeOptions}
                 value={values.companyType}
               />
+            </Form.Group>
+
+            <Form.Group widths="equal">
               <Form.Input
                 label="EIN Number"
                 placeholder="EIN Number"
@@ -110,38 +115,36 @@ function CreateCompany(props) {
                 type="password"
                 value={values.einNumber}
                 onChange={onChange}
-                // error={errors.einNumber ? true : false}
+                error={errors.einNumber ? true : false}
               />
-            </Form.Group>
-            <Form.Group widths="equal">
               <Form.Input
                 label="Phone"
                 placeholder="Phone"
                 name="phone"
-                type="text"
+                type="tel"
                 value={values.phone}
                 onChange={onChange}
-                // error={errors.phone ? true : false}
-              />
-              <Form.Input
-                label="Address Line 1"
-                placeholder="Address Line 1"
-                name="streetAddress1"
-                type="text"
-                value={values.streetAddress1}
-                onChange={onAddressChange}
-                // error={errors.streetAddress1 ? true : false}
-              />
-              <Form.Input
-                label="Address Line 2"
-                placeholder="Address Line 2"
-                name="streetAddress2"
-                type="text"
-                value={values.streetAddress2}
-                onChange={onAddressChange}
-                // error={errors.streetAddress2 ? true : false}
+                error={errors.phone ? true : false}
               />
             </Form.Group>
+            <Form.Input
+              label="Address Line 1"
+              placeholder="Address Line 1"
+              name="streetAddress1"
+              type="text"
+              value={values.streetAddress1}
+              onChange={onAddressChange}
+              error={errors.streetAddress1 ? true : false}
+            />
+            <Form.Input
+              label="Address Line 2"
+              placeholder="Address Line 2"
+              name="streetAddress2"
+              type="text"
+              value={values.streetAddress2}
+              onChange={onAddressChange}
+              error={errors.streetAddress2 ? true : false}
+            />
 
             <Form.Group widths="equal">
               <Form.Input
@@ -151,7 +154,7 @@ function CreateCompany(props) {
                 type="text"
                 value={values.zip}
                 onChange={onAddressChange}
-                // error={errors.zip ? true : false}
+                error={errors.zip ? true : false}
               />
               <Form.Input
                 label="City"
@@ -160,27 +163,31 @@ function CreateCompany(props) {
                 type="text"
                 value={values.city}
                 onChange={onAddressChange}
-                // error={errors.city ? true : false}
-              />
-              <Form.Input
-                label="State"
-                placeholder="State"
-                name="state"
-                type="text"
-                value={values.state}
-                onChange={onAddressChange}
-                // error={errors.state ? true : false}
+                error={errors.city ? true : false}
               />
             </Form.Group>
-            <Form.Input
-              label="Country"
-              placeholder="Country"
-              name="country"
-              type="text"
-              value={values.country}
-              onChange={onAddressChange}
-              // error={errors.country ? true : false}
-            />
+            <Form.Group widths="equal">
+              <Form.Dropdown
+                placeholder="State"
+                name="state"
+                label="State"
+                selection
+                search
+                onChange={onAddressChange}
+                options={stateOptions}
+                value={values.stateOptions}
+              />
+              <Form.Dropdown
+                placeholder="Country"
+                name="country"
+                label="Country"
+                selection
+                defaultValue="US"
+                onChange={onAddressChange}
+                options={countryOptions}
+                value={values.countryOptions}
+              />
+            </Form.Group>
 
             <Button type="submit" primary>
               Create Company

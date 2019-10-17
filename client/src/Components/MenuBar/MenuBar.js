@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import eagle from "./eagle.png";
 import { Menu, Dropdown, Divider } from "semantic-ui-react";
-import { AuthContext } from "../context/auth";
+import { AuthContext } from "../../context/auth";
 
 import "./menuBar.css";
 

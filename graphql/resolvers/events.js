@@ -1,6 +1,8 @@
 const Event = require("../../models/Event");
 const Company = require("../../models/Company");
 const authMiddleware = require("../../helpers/authMiddleware");
+const { validateCreateEventInput } = require("../../helpers/validators");
+const { UserInputError } = require("apollo-server-express");
 
 module.exports = {
   Query: {
@@ -20,51 +22,59 @@ module.exports = {
     createEvent: async (parent, args, context) => {
       const token = authMiddleware(context);
 
-      try {
-        const {
-          title,
-          eventDate,
-          startTime,
-          endTime,
-          payType,
-          eventType,
-          eventTopic,
-          payAmount,
-          expectedTurnout,
-          address,
-          public
-        } = args.input;
+      const {
+        title,
+        eventDate,
+        startTime,
+        endTime,
+        payType,
+        eventType,
+        eventTopic,
+        payAmount,
+        expectedTurnout,
+        address,
+        eventVisibility
+      } = args.input;
 
-        const creatorCompany = await Company.findOne({ creator: token.userId });
+      const { errors, valid } = validateCreateEventInput(
+        title,
+        payType,
+        payAmount,
+        expectedTurnout,
+        address
+      );
 
-        if (!creatorCompany) {
-          throw new Error("Please create a company first");
-        }
-
-        const event = new Event({
-          title,
-          eventDate,
-          startTime,
-          endTime,
-          payType,
-          eventType,
-          eventTopic,
-          payAmount,
-          expectedTurnout,
-          address,
-          public,
-          creatorCompany,
-          creatorPerson: token.userId
-        });
-
-        creatorCompany.createdEvents.push(event);
-
-        const savedEvent = await event.save();
-        await creatorCompany.save();
-        return savedEvent;
-      } catch (error) {
-        throw new Error(error);
+      if (!valid) {
+        throw new UserInputError("User input errors", { errors });
       }
+
+      const creatorCompany = await Company.findOne({ creator: token.userId });
+
+      if (!creatorCompany) {
+        throw new Error("Please create a company first");
+      }
+
+      const event = new Event({
+        title,
+        eventDate,
+        startTime,
+        endTime,
+        payType,
+        eventType,
+        eventTopic,
+        payAmount,
+        expectedTurnout,
+        address,
+        eventVisibility,
+        creatorCompany,
+        creatorPerson: token.userId
+      });
+
+      creatorCompany.createdEvents.push(event);
+
+      const savedEvent = await event.save();
+      await creatorCompany.save();
+      return savedEvent;
     }
   }
 };

@@ -10,10 +10,10 @@ const eventSchema = new Schema(
     endTime: String,
     payType: String,
     payAmount: {
-      type: Number,
-      default: 0
+      type: String,
+      default: "0"
     },
-    expectedTurnout: Number,
+    expectedTurnout: String,
     address: [
       {
         _id: false,
@@ -24,7 +24,7 @@ const eventSchema = new Schema(
         state: String,
         country: {
           type: String,
-          default: "us"
+          default: "US"
         }
       }
     ],
@@ -34,7 +34,7 @@ const eventSchema = new Schema(
       type: Boolean,
       default: false
     },
-    public: Boolean,
+    eventVisibility: Boolean,
     creatorPerson: {
       type: Schema.Types.ObjectId,
       ref: "User"

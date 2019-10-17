@@ -14,7 +14,7 @@ const companySchema = new Schema({
       state: String,
       country: {
         type: String,
-        default: "us"
+        default: "US"
       }
     }
   ],

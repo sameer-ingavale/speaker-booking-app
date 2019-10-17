@@ -91,7 +91,7 @@ const GET_COMPANY = gql`
           country
         }
         expired
-        public
+        eventVisibility
         createdAt
         updatedAt
       }

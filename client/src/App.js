@@ -6,16 +6,16 @@ import { AuthProvider } from "./context/auth";
 import AuthRoute from "./util/AuthRoute";
 import PrivateRoute from "./util/PrivateRoute";
 
-import MenuBar from "./Components/MenuBar";
-import Register from "./pages/Auth/Register";
+import MenuBar from "./Components/MenuBar/MenuBar";
+import Register from "./pages/Auth/register/Register";
 import Home from "./pages/PublicPages/Home";
-import Login from "./pages/Auth/Login";
+import Login from "./pages/Auth/login/Login";
 import Speakers from "./pages/PublicPages/Speakers";
-import Events from "./pages/PublicPages/Events";
+import Events from "./pages/PublicPages/events/Events";
 import Profile from "./pages/PrivatePages/Profile";
 import CreateCompany from "./pages/PrivatePages/CreateCompany";
 import Company from "./pages/PrivatePages/Company";
-import CreateEvent from "./pages/PrivatePages/CreateEvent";
+import CreateEvent from "./pages/PrivatePages/createEvent/CreateEvent";
 
 function App() {
   return (

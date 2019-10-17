@@ -10,7 +10,7 @@ import {
 } from "semantic-ui-react";
 import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
-import { AuthContext } from "../../context/auth";
+import { AuthContext } from "../../../context/auth";
 
 function Login(props) {
   const context = useContext(AuthContext);
@@ -76,7 +76,7 @@ function Login(props) {
                 error={errors.password ? true : false}
               />
               <Button type="submit" primary>
-                Register
+                Login
               </Button>
             </Form>
           </Responsive>

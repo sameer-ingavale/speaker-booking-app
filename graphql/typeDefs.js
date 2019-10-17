@@ -96,11 +96,11 @@ module.exports = gql`
     payType: PayTypeEnum!
     eventType: EventTypeEnum!
     eventTopic: EventTopicEnum!
-    payAmount: Float!
-    expectedTurnout: Int!
+    payAmount: String!
+    expectedTurnout: String!
     address: [Address!]!
     expired: Boolean!
-    public: Boolean!
+    eventVisibility: Boolean!
     creatorPerson: User!
     creatorCompany: Company!
     createdAt: String!
@@ -157,10 +157,10 @@ module.exports = gql`
     payType: PayTypeEnum!
     eventType: EventTypeEnum!
     eventTopic: EventTopicEnum!
-    payAmount: Float
-    expectedTurnout: Int!
-    address: [address!]!
-    public: Boolean!
+    payAmount: String
+    expectedTurnout: String!
+    address: address!
+    eventVisibility: Boolean!
   }
 
   input CreateCompanyInput {

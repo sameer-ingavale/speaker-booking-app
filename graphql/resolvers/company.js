@@ -3,7 +3,7 @@ const { UserInputError } = require("apollo-server-express");
 const Company = require("../../models/Company");
 const authMiddleware = require("../../helpers/authMiddleware");
 const User = require("../../models/User");
-// const { validateCreateCompanyInput } = require("../../helpers/validators");
+const { validateCreateCompanyInput } = require("../../helpers/validators");
 
 module.exports = {
   Query: {
@@ -27,18 +27,30 @@ module.exports = {
       const token = authMiddleware(context);
       const { name, address, phone, einNumber, companyType } = args.input;
 
-      /* const { errors, valid } = validateCreateCompanyInput(
-          name,
-          phone,
-          einNumber
-        );
+      const { errors, valid } = validateCreateCompanyInput(
+        name,
+        phone,
+        einNumber,
+        address
+      );
 
-        if (!valid) {
-          throw new UserInputError("User input errors", { errors });
-        } */
+      if (!valid) {
+        throw new UserInputError("User input errors", { errors });
+      }
+
+      const user = await User.findById(token.userId);
+
+      if (!user) {
+        throw new Error("Can not find user");
+      }
+
+      if (user.createdCompany.length === 1) {
+        errors.oneCompanyPolicy =
+          "You can not create more than one company at this time";
+        throw new UserInputError("One company per user policy", { errors });
+      }
 
       const existingCompany = await Company.findOne({ einNumber });
-      const errors = {};
       if (existingCompany) {
         errors.companyExists = "Company already exists";
         throw new UserInputError("Company already exists", { errors });
@@ -53,12 +65,6 @@ module.exports = {
         dateCreated: new Date().toISOString(),
         creator: token.userId
       });
-
-      const user = await User.findById(token.userId);
-
-      if (!user) {
-        throw new Error("Can not find user");
-      }
 
       user.createdCompany = company;
 
