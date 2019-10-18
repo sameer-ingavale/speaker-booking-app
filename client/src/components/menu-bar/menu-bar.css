@@ -1,0 +1,21 @@
+.main-nav-wrapper {
+  background-color: #d1410c;
+  color: white !important;
+  padding: 5px 20px 5px 20px;
+  box-shadow: 0px 0px 8px 0px #cccccc !important;
+}
+
+.main-nav-links {
+  color: white !important;
+}
+
+.nav-logo {
+  font-size: 13px;
+}
+
+.dropdown-menu-wrapper {
+  margin-top: 20px !important;
+  box-shadow: 0px 0px 8px 0px #eeeeee !important;
+  padding: 7px 0px 7px 0px !important;
+  background-color: #fdfdfe !important;
+}

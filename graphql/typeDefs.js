@@ -128,6 +128,7 @@ module.exports = gql`
   type Query {
     getSpeakers: [User]!
     getEvents: [Event]!
+    getSingleEvent(eventId: ID!): Event!
     getCompany: Company!
   }
 

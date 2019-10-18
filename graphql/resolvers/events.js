@@ -16,6 +16,19 @@ module.exports = {
       } catch (err) {
         throw new Error(error);
       }
+    },
+    getSingleEvent: async (parent, { eventId }) => {
+      try {
+        const singleEvent = await Event.findById(eventId)
+          .populate("creatorPerson")
+          .populate("creatorCompany");
+        if (!singleEvent) {
+          throw new Error("No matching event found in database");
+        }
+        return singleEvent;
+      } catch (error) {
+        throw new Error(error);
+      }
     }
   },
   Mutation: {
