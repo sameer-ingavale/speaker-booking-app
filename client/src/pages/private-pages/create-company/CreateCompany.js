@@ -175,7 +175,7 @@ function CreateCompany(props) {
                 search
                 onChange={onAddressChange}
                 options={stateOptions}
-                value={values.stateOptions}
+                value={values.address.state}
               />
               <Form.Dropdown
                 placeholder="Country"
@@ -185,7 +185,7 @@ function CreateCompany(props) {
                 defaultValue="US"
                 onChange={onAddressChange}
                 options={countryOptions}
-                value={values.countryOptions}
+                value={values.address.country}
               />
             </Form.Group>
 

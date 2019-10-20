@@ -3,6 +3,9 @@
   src: url(../../assets/fonts/Lato-Regular.ttf);
 }
 
+.ui.form textarea {
+  resize: none;
+}
 .main-wrapper {
   padding: 30px !important;
 }
@@ -22,8 +25,17 @@
   color: #777777 !important;
 }
 
-.ui.card > .content > .header {
+.header {
   font-size: 1.5em !important;
   line-height: 1.7em !important;
-  font-weight: 600 !important;
+  font-weight: 500 !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 500 !important;
 }

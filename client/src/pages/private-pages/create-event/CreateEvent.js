@@ -142,203 +142,210 @@ function CreateEvent(props) {
   };
 
   return (
-    <Grid centered columns={1} padded={"horizontally"}>
-      <Grid.Column
-        width={10}
-        widescreen={9}
-        computer={10}
-        tablet={12}
-        mobile={16}
-      >
-        {/*  <pre>{JSON.stringify(values, null, 2)}</pre> */}
-        <Responsive as={Segment}>
-          <Form
-            noValidate
-            onSubmit={onSubmit}
-            className={loading ? "loading" : ""}
-          >
-            <Form.Group widths="equal">
-              <Form.Input
-                label="Event Title"
-                placeholder="Event Title"
-                name="title"
-                type="text"
-                value={values.title}
-                onChange={onChange}
-                error={errors.title ? true : false}
-              />
-              <Form.Dropdown
-                placeholder="Event Type"
-                name="eventType"
-                label="Event Type"
-                selection
-                onChange={onChange}
-                options={eventTypeOptions}
-                value={values.eventType}
-              />
-            </Form.Group>
-            <Form.Group widths="equal">
-              <Form.Dropdown
-                placeholder="Event Topic"
-                name="eventTopic"
-                label="Event Topic"
-                selection
-                onChange={onChange}
-                options={eventTopicOptions}
-                value={values.eventTopic}
-              />
-              <Form.Input
-                label="Expected Turnout"
-                placeholder="Expected Turnout"
-                name="expectedTurnout"
-                type="text"
-                value={values.expectedTurnout}
-                onChange={onChange}
-                error={errors.expectedTurnout ? true : false}
-              />
-            </Form.Group>
-            <Form.Group widths="equal">
-              <Form.Dropdown
-                placeholder="Pay Type"
-                name="payType"
-                label="Pay Type"
-                selection
-                onChange={onChange}
-                options={payTypeOptions}
-                value={values.payType}
-              />
-              <Form.Input
-                disabled={values.payType === "FREE" ? true : false}
-                label="Pay Amount"
-                placeholder="Pay Amount"
-                name="payAmount"
-                type="text"
-                value={values.payAmount}
-                onChange={onChange}
-                error={errors.payAmount ? true : false}
-              />
-            </Form.Group>
+    <Grid centered columns={1} padded={"horizontally"} doubling>
+      <Grid.Row centered>
+        <Grid.Column
+          width={10}
+          widescreen={9}
+          computer={10}
+          tablet={12}
+          mobile={16}
+        >
+          <pre>{JSON.stringify(values, null, 2)}</pre>
+          <Responsive as={Segment}>
+            <Form
+              noValidate
+              onSubmit={onSubmit}
+              className={loading ? "loading" : ""}
+            >
+              <Form.Group widths="equal">
+                <Form.Input
+                  label="Event Title"
+                  placeholder="Event Title"
+                  name="title"
+                  type="text"
+                  value={values.title}
+                  onChange={onChange}
+                  error={errors.title ? true : false}
+                  maxLength="40"
+                />
+                <Form.Dropdown
+                  placeholder="Event Type"
+                  name="eventType"
+                  label="Event Type"
+                  selection
+                  onChange={onChange}
+                  options={eventTypeOptions}
+                  value={values.eventType}
+                />
+              </Form.Group>
+              <Form.Group widths="equal">
+                <Form.Dropdown
+                  placeholder="Event Topic"
+                  name="eventTopic"
+                  label="Event Topic"
+                  selection
+                  onChange={onChange}
+                  options={eventTopicOptions}
+                  value={values.eventTopic}
+                />
+                <Form.Input
+                  label="Expected Turnout"
+                  placeholder="Expected Turnout"
+                  name="expectedTurnout"
+                  type="text"
+                  value={values.expectedTurnout}
+                  onChange={onChange}
+                  error={errors.expectedTurnout ? true : false}
+                />
+              </Form.Group>
+              <Form.Group widths="equal">
+                <Form.Dropdown
+                  placeholder="Pay Type"
+                  name="payType"
+                  label="Pay Type"
+                  selection
+                  onChange={onChange}
+                  options={payTypeOptions}
+                  value={values.payType}
+                />
+                <Form.Input
+                  disabled={values.payType === "FREE" ? true : false}
+                  label="Pay Amount"
+                  placeholder="Pay Amount"
+                  name="payAmount"
+                  type="text"
+                  value={values.payAmount}
+                  onChange={onChange}
+                  error={errors.payAmount ? true : false}
+                />
+              </Form.Group>
 
-            <Form.Group widths="equal">
-              <Form.Field>
-                <label>Event Date</label>
-                <DatePicker
-                  selected={values.eventDate}
-                  onChange={(date) => setValues({ ...values, eventDate: date })}
-                  customInput={<EventDateButton />}
-                />
-              </Form.Field>
-              <Form.Field>
-                <label>Event Start Time</label>
-                <DatePicker
-                  selected={values.startTime}
-                  onChange={(date) => setValues({ ...values, startTime: date })}
-                  showTimeSelect
-                  showTimeSelectOnly
-                  timeIntervals={15}
-                  timeCaption="Time"
-                  dateFormat="h:mm aa"
-                  customInput={<EventStartButton />}
-                />
-              </Form.Field>
-              <Form.Field>
-                <label>Event End Time</label>
-                <DatePicker
-                  selected={values.endTime}
-                  onChange={(date) => setValues({ ...values, endTime: date })}
-                  showTimeSelect
-                  showTimeSelectOnly
-                  timeIntervals={15}
-                  timeCaption="Time"
-                  dateFormat="h:mm aa"
-                  customInput={<EventEndButton />}
-                />
-              </Form.Field>
-            </Form.Group>
-            <Form.Input
-              label="Address Line 1"
-              placeholder="Address Line 1"
-              name="streetAddress1"
-              type="text"
-              value={values.streetAddress1}
-              onChange={onAddressChange}
-              error={errors.streetAddress1 ? true : false}
-            />
-            <Form.Input
-              label="Address Line 2"
-              placeholder="Address Line 2"
-              name="streetAddress2"
-              type="text"
-              value={values.streetAddress2}
-              onChange={onAddressChange}
-              error={errors.streetAddress2 ? true : false}
-            />
+              <Form.Group widths="equal">
+                <Form.Field>
+                  <label>Event Date</label>
+                  <DatePicker
+                    selected={values.eventDate}
+                    onChange={(date) =>
+                      setValues({ ...values, eventDate: date })
+                    }
+                    customInput={<EventDateButton />}
+                  />
+                </Form.Field>
+                <Form.Field>
+                  <label>Event Start Time</label>
+                  <DatePicker
+                    selected={values.startTime}
+                    onChange={(date) =>
+                      setValues({ ...values, startTime: date })
+                    }
+                    showTimeSelect
+                    showTimeSelectOnly
+                    timeIntervals={15}
+                    timeCaption="Time"
+                    dateFormat="h:mm aa"
+                    customInput={<EventStartButton />}
+                  />
+                </Form.Field>
+                <Form.Field>
+                  <label>Event End Time</label>
+                  <DatePicker
+                    selected={values.endTime}
+                    onChange={(date) => setValues({ ...values, endTime: date })}
+                    showTimeSelect
+                    showTimeSelectOnly
+                    timeIntervals={15}
+                    timeCaption="Time"
+                    dateFormat="h:mm aa"
+                    customInput={<EventEndButton />}
+                  />
+                </Form.Field>
+              </Form.Group>
+              <Form.Input
+                label="Address Line 1"
+                placeholder="Address Line 1"
+                name="streetAddress1"
+                type="text"
+                value={values.streetAddress1}
+                onChange={onAddressChange}
+                error={errors.streetAddress1 ? true : false}
+              />
+              <Form.Input
+                label="Address Line 2"
+                placeholder="Address Line 2"
+                name="streetAddress2"
+                type="text"
+                value={values.streetAddress2}
+                onChange={onAddressChange}
+                error={errors.streetAddress2 ? true : false}
+              />
 
-            <Form.Group widths="equal">
-              <Form.Input
-                label="Zip Code"
-                placeholder="Zip Code"
-                name="zip"
-                type="text"
-                value={values.zip}
-                onChange={onAddressChange}
-                error={errors.zip ? true : false}
-              />
-              <Form.Input
-                label="City"
-                placeholder="City"
-                name="city"
-                type="text"
-                value={values.city}
-                onChange={onAddressChange}
-                error={errors.city ? true : false}
-              />
-            </Form.Group>
-            <Form.Group widths="equal">
-              <Form.Dropdown
-                placeholder="State"
-                name="state"
-                label="State"
-                selection
-                search
-                onChange={onAddressChange}
-                options={stateOptions}
-                value={values.stateOptions}
-                error={errors.state ? true : false}
-              />
-              <Form.Dropdown
-                placeholder="Country"
-                name="country"
-                label="Country"
-                selection
-                defaultValue="US"
-                onChange={onAddressChange}
-                options={countryOptions}
-                value={values.countryOptions}
-              />
-            </Form.Group>
-            <Form.Group>
-              <Checkbox
-                className="makeeventVisibilityToggle"
-                toggle
-                label="Make Event eventVisibility"
-                name="eventVisibility"
-                checked={values.eventVisibility}
-                onChange={onToggle}
-              />
-            </Form.Group>
-            <Divider />
-            <Button type="submit" primary>
-              Create Event
-            </Button>
-          </Form>
-        </Responsive>
-        <Transition.Group animation="fade up" duration={500}>
-          {Object.keys(errors).length > 0 && (
-            <Message error list={Object.values(errors)}></Message>
-          )}
-        </Transition.Group>
-      </Grid.Column>
+              <Form.Group widths="equal">
+                <Form.Input
+                  label="Zip Code"
+                  placeholder="Zip Code"
+                  name="zip"
+                  type="text"
+                  value={values.zip}
+                  onChange={onAddressChange}
+                  error={errors.zip ? true : false}
+                />
+                <Form.Input
+                  label="City"
+                  placeholder="City"
+                  name="city"
+                  type="text"
+                  value={values.city}
+                  onChange={onAddressChange}
+                  error={errors.city ? true : false}
+                />
+              </Form.Group>
+              <Form.Group widths="equal">
+                <Form.Dropdown
+                  placeholder="State"
+                  name="state"
+                  label="State"
+                  selection
+                  search
+                  onChange={onAddressChange}
+                  options={stateOptions}
+                  value={values.address.state}
+                  error={errors.state ? true : false}
+                />
+                <Form.Dropdown
+                  placeholder="Country"
+                  name="country"
+                  label="Country"
+                  selection
+                  defaultValue="US"
+                  onChange={onAddressChange}
+                  options={countryOptions}
+                  value={values.address.country}
+                />
+              </Form.Group>
+              <Form.Group>
+                <Checkbox
+                  className="makeeventVisibilityToggle"
+                  toggle
+                  label="Make Event eventVisibility"
+                  name="eventVisibility"
+                  checked={values.eventVisibility}
+                  onChange={onToggle}
+                />
+              </Form.Group>
+              <Divider />
+              <Button type="submit" primary>
+                Create Event
+              </Button>
+            </Form>
+          </Responsive>
+          <Transition.Group animation="fade up" duration={500}>
+            {Object.keys(errors).length > 0 && (
+              <Message error list={Object.values(errors)}></Message>
+            )}
+          </Transition.Group>
+        </Grid.Column>
+      </Grid.Row>
     </Grid>
   );
 }

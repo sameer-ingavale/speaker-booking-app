@@ -45,7 +45,7 @@ module.exports = gql`
     password: String
     dateCreated: String!
     userType: UserTypeEnum!
-    createdCompany: [Company!]
+    createdCompany: [Company]!
     bookingRequests: [Booking]!
   }
 
@@ -130,6 +130,7 @@ module.exports = gql`
     getEvents: [Event]!
     getSingleEvent(eventId: ID!): Event!
     getCompany: Company!
+    getSingleUser(userId: ID!): User!
   }
 
   input RegisterUserInput {

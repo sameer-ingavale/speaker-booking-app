@@ -13,7 +13,7 @@ import Home from "../../pages/home/Home";
 import Login from "../../pages/login/Login";
 import Speakers from "../../pages/speakers/Speakers";
 import Events from "../../pages/events/Events";
-import Profile from "../../pages/private-pages/user-profile/UserProfile";
+import UserProfile from "../../pages/private-pages/user-profile/UserProfile";
 import CreateCompany from "../../pages/private-pages/create-company/CreateCompany";
 import UserCompany from "../../pages/private-pages/user-company/UserCompany";
 import CreateEvent from "../../pages/private-pages/create-event/CreateEvent";
@@ -42,7 +42,7 @@ function App() {
           path="/account/create-event"
           component={CreateEvent}
         />
-        <PrivateRoute exact path="/profile" component={Profile} />
+        <PrivateRoute exact path="/profile/:userId" component={UserProfile} />
       </Router>
     </AuthProvider>
   );

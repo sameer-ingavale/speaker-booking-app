@@ -10,11 +10,11 @@ function SpeakerCard({ speaker: { _id, firstName, lastName, dateCreated } }) {
         <Image
           floated="left"
           size="tiny"
-          src="https://react.semantic-ui.com/images/avatar/large/steve.jpg"
+          src="https://react.semantic-ui.com/images/avatar/large/jenny.jpg"
         />
         <Card.Header
           as={Link}
-          to={`/speakers/${_id}`}
+          to={`/profile/${_id}`}
         >{`${firstName} ${lastName}`}</Card.Header>
         <Card.Meta>{`Joined ${moment(dateCreated).fromNow(
           true

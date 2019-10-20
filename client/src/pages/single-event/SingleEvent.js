@@ -23,6 +23,8 @@ function SingleEvent(props) {
     <Grid>
       {loading ? (
         <h1>loading</h1>
+      ) : error ? (
+        <h1>Damn error</h1>
       ) : (
         <Grid.Column>
           <SingleEventCard event={singleEvent} />

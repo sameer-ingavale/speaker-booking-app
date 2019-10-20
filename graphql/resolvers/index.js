@@ -1,14 +1,14 @@
 const authResolver = require("./auth");
 const eventResolver = require("./events");
-const speakersResolver = require("./speakers");
 const companyResolver = require("./company");
 const bookingResolver = require("./booking");
+const userResolver = require("./user");
 
 module.exports = {
   Query: {
     ...eventResolver.Query,
-    ...speakersResolver.Query,
-    ...companyResolver.Query
+    ...companyResolver.Query,
+    ...userResolver.Query
   },
   Mutation: {
     ...authResolver.Mutation,

@@ -25,14 +25,7 @@ function EventCard({
     creatorCompany
   }
 }) {
-  const {
-    streetAddress1,
-    streetAddress2,
-    city,
-    state,
-    zip,
-    country
-  } = address[0];
+  const { streetAddress1, streetAddress2, city, state, zip } = address[0];
   return (
     <Card fluid className="event-card-wrapper">
       {/*  <pre>{JSON.stringify(new Date(parseInt(createdAt)), null, 2)}</pre> */}
