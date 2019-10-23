@@ -142,16 +142,16 @@ function CreateEvent(props) {
   };
 
   return (
-    <Grid centered columns={1} padded={"horizontally"} doubling>
+    <Grid columns={1} padded={"horizontally"} doubling>
       <Grid.Row centered>
         <Grid.Column
           width={10}
           widescreen={9}
-          computer={10}
+          computer={13}
           tablet={12}
           mobile={16}
         >
-          <pre>{JSON.stringify(values, null, 2)}</pre>
+          {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
           <Responsive as={Segment}>
             <Form
               noValidate
@@ -325,9 +325,9 @@ function CreateEvent(props) {
               </Form.Group>
               <Form.Group>
                 <Checkbox
-                  className="makeeventVisibilityToggle"
+                  className="makePublicToggle"
                   toggle
-                  label="Make Event eventVisibility"
+                  label="Make Event Publicly Visible"
                   name="eventVisibility"
                   checked={values.eventVisibility}
                   onChange={onToggle}

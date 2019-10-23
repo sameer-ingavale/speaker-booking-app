@@ -5,7 +5,6 @@ import { Grid } from "semantic-ui-react";
 import EventCard from "../../components/event-card/EventCard";
 import EventsPlaceholder from "../../helpers/Placeholders/EventsPlaceholder";
 import ErrorImage from "../../assets/images/404-Image.png";
-// import moment from "moment";
 
 function Events() {
   const { loading, error, data } = useQuery(GET_EVENTS_QUERY);

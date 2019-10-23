@@ -3,14 +3,18 @@ import { Card, Image } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import moment from "moment";
 
-function SpeakerCard({ speaker: { _id, firstName, lastName, dateCreated } }) {
+function SpeakerCard({
+  speaker: { _id, firstName, lastName, dateCreated, profilePictureLink }
+}) {
   return (
     <Card fluid>
       <Card.Content>
         <Image
+          bordered
+          rounded
           floated="left"
           size="tiny"
-          src="https://react.semantic-ui.com/images/avatar/large/jenny.jpg"
+          src={profilePictureLink}
         />
         <Card.Header
           as={Link}

@@ -14,6 +14,7 @@ module.exports = {
     ...authResolver.Mutation,
     ...eventResolver.Mutation,
     ...companyResolver.Mutation,
-    ...bookingResolver.Mutation
+    ...bookingResolver.Mutation,
+    ...userResolver.Mutation
   }
 };

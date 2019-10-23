@@ -2,11 +2,11 @@ import React from "react";
 import App from "../components/main-app/App";
 import ApolloClient from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
-import { createHttpLink } from "apollo-link-http";
+import { createUploadLink } from "apollo-upload-client";
 import { ApolloProvider } from "@apollo/react-hooks";
 import { setContext } from "apollo-link-context";
 
-const httpLink = createHttpLink({
+const httpLink = createUploadLink({
   uri: "https://book-a-speaker.herokuapp.com/"
 });
 

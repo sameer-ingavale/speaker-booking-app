@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "semantic-ui-css/semantic.min.css";
 import "./App.css";
 
@@ -18,6 +18,7 @@ import CreateCompany from "../../pages/private-pages/create-company/CreateCompan
 import UserCompany from "../../pages/private-pages/user-company/UserCompany";
 import CreateEvent from "../../pages/private-pages/create-event/CreateEvent";
 import SingleEvent from "../../pages/single-event/SingleEvent";
+import UserBookings from "../../pages/private-pages/user-bookings/UserBookings";
 
 function App() {
   return (
@@ -25,24 +26,31 @@ function App() {
       <Router>
         <MenuBar />
         {/*  <pre>{JSON.stringify(this.state, null, 2)}</pre> */}
-        <Route exact path="/" component={Home}></Route>
-        <AuthRoute exact path="/register" component={Register}></AuthRoute>
-        <AuthRoute exact path="/login" component={Login}></AuthRoute>
-        <Route exact path="/events/:eventId" component={SingleEvent}></Route>
-        <Route exact path="/events" component={Events}></Route>
-        <Route exact path="/speakers" component={Speakers}></Route>
-        <PrivateRoute
-          exact
-          path="/account/create-company"
-          component={CreateCompany}
-        />
-        <PrivateRoute exact path="/account/company" component={UserCompany} />
-        <PrivateRoute
-          exact
-          path="/account/create-event"
-          component={CreateEvent}
-        />
-        <PrivateRoute exact path="/profile/:userId" component={UserProfile} />
+        <Switch>
+          <Route exact path="/" component={Home}></Route>
+          <AuthRoute exact path="/register" component={Register}></AuthRoute>
+          <AuthRoute exact path="/login" component={Login}></AuthRoute>
+          <Route exact path="/events/:eventId" component={SingleEvent}></Route>
+          <Route exact path="/events" component={Events}></Route>
+          <Route exact path="/speakers" component={Speakers}></Route>
+          <PrivateRoute
+            exact
+            path="/account/create-company"
+            component={CreateCompany}
+          />
+          <PrivateRoute exact path="/account/company" component={UserCompany} />
+          <PrivateRoute
+            exact
+            path="/account/create-event"
+            component={CreateEvent}
+          />
+          <PrivateRoute
+            exact
+            path="/profile/bookings"
+            component={UserBookings}
+          />
+          <PrivateRoute exact path="/profile/:userId" component={UserProfile} />
+        </Switch>
       </Router>
     </AuthProvider>
   );

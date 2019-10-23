@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Grid, Modal, Transition, Button, Form } from "semantic-ui-react";
 
-import { stateOptions } from "../../../helpers/stateOptions";
+import { stateOptions } from "../../../../helpers/stateOptions";
 
 function TopCardEditModal({ openEditModal, modalOpen }) {
   const [values, setValues] = useState({
@@ -17,7 +17,7 @@ function TopCardEditModal({ openEditModal, modalOpen }) {
   return (
     <Grid.Column width={10}>
       <Transition visible={modalOpen.open} animation="fade" duration={1}>
-        <Modal dimmer="true" open={modalOpen.open} onClose={openEditModal}>
+        <Modal dimmer={true} open={modalOpen.open} onClose={openEditModal}>
           <Modal.Header>Edit Profile</Modal.Header>
           <Modal.Content scrolling>
             <Form>

@@ -63,9 +63,6 @@ function MenuBar() {
                 <i className="user icon"></i>View Profile
               </Dropdown.Item>
               <Divider />
-              <Dropdown.Item as={Link} to={`/profile/${user.userId}`}>
-                Manage Account
-              </Dropdown.Item>
               {user.userType === "EVENT_PLANNER" && (
                 <Dropdown.Item as={Link} to={`/account/events`}>
                   Events
@@ -77,7 +74,7 @@ function MenuBar() {
                 </Dropdown.Item>
               )}
               {user.userType === "SPEAKER" && (
-                <Dropdown.Item as={Link} to={`/profile/${user.userId}`}>
+                <Dropdown.Item as={Link} to={`/profile/bookings`}>
                   Bookings
                 </Dropdown.Item>
               )}

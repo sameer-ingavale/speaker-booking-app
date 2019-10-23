@@ -45,8 +45,10 @@ module.exports = gql`
     password: String
     dateCreated: String!
     userType: UserTypeEnum!
+    profilePictureLink: String!
     createdCompany: [Company]!
     bookingRequests: [Booking]!
+    confirmedBookings: [Booking]!
   }
 
   type AuthData {
@@ -110,36 +112,23 @@ module.exports = gql`
   type Booking {
     _id: ID!
     event: Event!
-    creatorCompany: Company!
     creatorPerson: User!
     requestedSpeakers: [User]!
     confirmedSpeaker: User
+    createdAt: String!
+    updatedAt: String!
   }
 
   type BookingIds {
     _id: ID!
     event: ID!
-    creatorCompany: ID!
     creatorPerson: ID!
     requestedSpeakers: [ID!]
     confirmedSpeaker: ID
   }
 
-  type Query {
-    getSpeakers: [User]!
-    getEvents: [Event]!
-    getSingleEvent(eventId: ID!): Event!
-    getCompany: Company!
-    getSingleUser(userId: ID!): User!
-  }
-
-  input RegisterUserInput {
-    firstName: String!
-    lastName: String!
-    userType: UserTypeEnum!
-    email: String!
-    password: String!
-    confirmPassword: String!
+  type PicData {
+    picUrl: String
   }
 
   input address {
@@ -149,6 +138,15 @@ module.exports = gql`
     city: String!
     state: String!
     country: String!
+  }
+
+  input RegisterUserInput {
+    firstName: String!
+    lastName: String!
+    userType: UserTypeEnum!
+    email: String!
+    password: String!
+    confirmPassword: String!
   }
 
   input CreateEventInput {
@@ -173,11 +171,21 @@ module.exports = gql`
     companyType: CompanyTypeEnum!
   }
 
+  type Query {
+    getSpeakers: [User]!
+    getEvents: [Event]!
+    getSingleEvent(eventId: ID!): Event!
+    getCompany: Company!
+    getSingleUser(userId: ID!): User!
+  }
+
   type Mutation {
     register(input: RegisterUserInput): AuthData!
     login(email: String!, password: String!): AuthData!
     createEvent(input: CreateEventInput): Event!
     createCompany(input: CreateCompanyInput): Company!
     requestBooking(requestedSpeakerId: ID!, eventId: ID!): BookingIds!
+    confirmBooking(bookingId: ID!): BookingIds!
+    uploadProfilePicture(picture: Upload!): PicData
   }
 `;

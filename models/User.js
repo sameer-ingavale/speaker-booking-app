@@ -9,6 +9,10 @@ const userSchema = new Schema({
   password: String,
   dateCreated: String,
   userType: String,
+  profilePictureLink: {
+    type: String,
+    default: "https://semantic-ui.com/images/avatar2/large/kristy.png"
+  },
   createdCompany: [
     {
       type: Schema.Types.ObjectId,
@@ -16,6 +20,12 @@ const userSchema = new Schema({
     }
   ],
   bookingRequests: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Booking"
+    }
+  ],
+  confirmedBookings: [
     {
       type: Schema.Types.ObjectId,
       ref: "Booking"

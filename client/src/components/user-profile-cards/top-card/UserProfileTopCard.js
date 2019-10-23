@@ -1,12 +1,22 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useContext } from "react";
 import { Grid, Card, Button, Image, Icon } from "semantic-ui-react";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 
-import TopCardEditModal from "../top-card-edit-modal/TopCardEditModal";
+import { AuthContext } from "../../../context/auth";
+import TopCardEditModal from "./top-card-edit-modal/TopCardEditModal";
 import BookingTopCard from "../booking-top-card/BookingTopCard";
+import ProfilePictureEditButton from "./profile-picture-edit-button/ProfilePictureEditButton";
+import BookingsCard from "../../bookings-card/BookingsCard";
+import ConfirmedBookingsCard from "../../confirmed-bookings-card/ConfirmedBookingsCard";
 
-function UserProfileTopCard({ user, authUserId, UrlId }) {
+function UserProfileTopCard({ pageUser, UrlId }) {
+  const {
+    authData: { user: authUser }
+  } = useContext(AuthContext);
+
+  let authUserId = authUser.userId;
+
   const { loading, error, data } = useQuery(GET_COMPANY);
   let authUserEventsArray;
 
@@ -45,13 +55,16 @@ function UserProfileTopCard({ user, authUserId, UrlId }) {
     <Fragment>
       <Grid.Row centered>
         <TopCardEditModal modalOpen={modalOpen} openEditModal={openModal} />
-        {authUserId !== UrlId && (
-          <BookingTopCard
-            values={values}
-            onChange={onChange}
-            authUserEventsOptions={authUserEventsOptions}
-          />
-        )}
+        {authUser.userType === "EVENT_PLANNER" &&
+          authUserId !== UrlId &&
+          pageUser.userType === "SPEAKER" && (
+            <BookingTopCard
+              UrlId={UrlId}
+              values={values}
+              onChange={onChange}
+              authUserEventsOptions={authUserEventsOptions}
+            />
+          )}
       </Grid.Row>
       <Grid.Row centered>
         <Grid.Column width={15}>
@@ -71,10 +84,13 @@ function UserProfileTopCard({ user, authUserId, UrlId }) {
               )}
               <Image
                 floated="left"
-                size="tiny"
-                src="https://react.semantic-ui.com/images/avatar/large/jenny.jpg"
+                size="small"
+                src={pageUser.profilePictureLink}
+                bordered
+                rounded
               />
-              <Card.Header>{`${user.firstName} ${user.lastName}`}</Card.Header>
+              {authUserId === UrlId && <ProfilePictureEditButton />}
+              <Card.Header>{`${pageUser.firstName} ${pageUser.lastName}`}</Card.Header>
             </Card.Content>
           </Card>
         </Grid.Column>

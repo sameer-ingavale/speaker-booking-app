@@ -2,7 +2,7 @@ import React from "react";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import { Grid } from "semantic-ui-react";
-import SpeakersPlaceholder from '../../helpers/Placeholders/SpeakersPlaceholder'
+import SpeakersPlaceholder from "../../helpers/Placeholders/SpeakersPlaceholder";
 
 import SpeakerCard from "../../components/speaker-card/SpeakerCard";
 
@@ -42,6 +42,7 @@ const GET_SPEAKERS_QUERY = gql`
       firstName
       lastName
       dateCreated
+      profilePictureLink
     }
   }
 `;

@@ -5,23 +5,26 @@ const { UserInputError } = require("apollo-server-express");
 
 module.exports = {
   Mutation: {
-    requestBooking: async (parent, args, context) => {
+    requestBooking: async (
+      parent,
+      { requestedSpeakerId, eventId },
+      context
+    ) => {
       try {
         const token = authMiddleware(context);
 
         const creatorPersonId = token.userId;
-        const { requestedSpeakerId, eventId } = args;
 
         const requestedSpeaker = await User.findById(requestedSpeakerId);
 
         const existingBooking = await Booking.findOne({ event: eventId });
 
         if (existingBooking) {
-          const existingrequest = existingBooking.requestedSpeakers;
+          const existingRequest = existingBooking.requestedSpeakers;
 
-          if (existingrequest.indexOf(requestedSpeakerId) !== -1) {
+          if (existingRequest.indexOf(requestedSpeakerId) !== -1) {
             throw new UserInputError("Duplicate request", {
-              error: "Speaker already resquested"
+              error: "Speaker already requested"
             });
           }
 
@@ -34,14 +37,9 @@ module.exports = {
           return existingBooking;
         }
 
-        const creatorPerson = await User.findById(creatorPersonId);
-
-        const creatorCompany = creatorPerson.createdCompany[0];
-
         const booking = new Booking({
           event: eventId,
-          creatorPerson: creatorPersonId,
-          creatorCompany
+          creatorPerson: creatorPersonId
         });
 
         booking.requestedSpeakers.push(requestedSpeakerId);
@@ -53,6 +51,22 @@ module.exports = {
         return booking;
       } catch (error) {
         throw new Error(error);
+      }
+    },
+    confirmBooking: async (parent, { bookingId }, context) => {
+      const token = authMiddleware(context);
+
+      const booking = await Booking.findById(bookingId);
+
+      const user = await User.findById(token.userId);
+
+      if (booking) {
+        booking.confirmedSpeaker = token.userId;
+        user.confirmedBookings = bookingId;
+        await booking.save();
+        await user.save();
+
+        return booking;
       }
     }
   }
