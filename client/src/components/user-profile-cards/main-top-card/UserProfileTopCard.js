@@ -54,30 +54,36 @@ function UserProfileTopCard({ pageUser, UrlId }) {
   return (
     <Fragment>
       <Grid.Row centered>
-        <TopCardEditModal modalOpen={modalOpen} openEditModal={openModal} />
-        {authUser.userType === "EVENT_PLANNER" &&
-          authUserId !== UrlId &&
-          pageUser.userType === "SPEAKER" && (
-            <BookingTopCard
-              UrlId={UrlId}
-              values={values}
-              onChange={onChange}
-              authUserEventsOptions={authUserEventsOptions}
-            />
-          )}
+        <Grid.Column width={15}>
+          <TopCardEditModal
+            pageUser={pageUser}
+            modalOpen={modalOpen}
+            openModal={openModal}
+          />
+          {authUser.userType === "EVENT_PLANNER" &&
+            authUserId !== UrlId &&
+            pageUser.userType === "SPEAKER" && (
+              <BookingTopCard
+                UrlId={UrlId}
+                values={values}
+                onChange={onChange}
+                authUserEventsOptions={authUserEventsOptions}
+              />
+            )}
+        </Grid.Column>
       </Grid.Row>
       <Grid.Row centered>
         <Grid.Column width={15}>
           <Card fluid>
             <Card.Content className="profileIntroCoverPhotoContainer">
-              <Image
+              {/* <Image
                 className="coverPhotoImage"
                 centered
                 wrapped={true}
                 verticalAlign="middle"
                 fluid
                 src="https://media.licdn.com/dms/image/C4D1BAQHEBhgTiA44vQ/company-background_10000/0?e=1571997600&v=beta&t=WGvgrsTfKJbVPjyhZGvrc6zqWkXn1mQ7V-vnwQ0Fnuw"
-              />
+              /> */}
             </Card.Content>
             <Card.Content className="profileIntroImageContainer">
               <Image
@@ -108,12 +114,11 @@ function UserProfileTopCard({ pageUser, UrlId }) {
               <Card.Meta>{`Joined ${moment(pageUser.dateCreated).fromNow(
                 true
               )} ago`}</Card.Meta>
-              <Card.Description className="profileIntroDescription">
-                Full Stack React Node Developer | Author | Entrepreneur |
-                Speaker | Father | Son
+              <Card.Description className="profileIntroTagline">
+                {pageUser.tagline}
               </Card.Description>
-              <Card.Description className="profileIntroDescription">
-                Dallas, TX
+              <Card.Description className="profileIntroLocation">
+                {`${pageUser.city}, ${pageUser.state}`}
               </Card.Description>
             </Card.Content>
           </Card>

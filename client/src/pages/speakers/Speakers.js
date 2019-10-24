@@ -16,7 +16,7 @@ function Speakers() {
   }
 
   return (
-    <Grid columns={2} className="main-wrapper">
+    <Grid columns={5} doubling className="main-wrapper">
       <Grid.Row>
         {loading ? (
           <SpeakersPlaceholder />
@@ -41,6 +41,9 @@ const GET_SPEAKERS_QUERY = gql`
       _id
       firstName
       lastName
+      city
+      state
+      tagline
       dateCreated
       profilePictureLink
     }

@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import { Grid, Modal, Transition, Button, Form } from "semantic-ui-react";
+import gql from "graphql-tag";
+import { useMutation } from "@apollo/react-hooks";
 
 import { stateOptions } from "../../../../../helpers/stateOptions";
 
-function TopCardEditModal({ openEditModal, modalOpen }) {
+function TopCardEditModal({ pageUser, openModal, modalOpen }) {
   const [values, setValues] = useState({
-    firstName: "",
-    lastName: ""
+    firstName: `${pageUser.firstName}`,
+    lastName: `${pageUser.lastName}`,
+    tagline: `${pageUser.tagline}`,
+    city: `${pageUser.city}`,
+    state: `${pageUser.state}`
   });
 
   const onChange = (event, result) => {
@@ -14,10 +19,23 @@ function TopCardEditModal({ openEditModal, modalOpen }) {
     setValues({ ...values, [name]: value });
   };
 
+  const [editProfileIntro, { loading }] = useMutation(EDIT_PROFILE_INTRO, {
+    update(proxy, data) {
+      console.log(data);
+    },
+    variables: values
+  });
+
+  const onSubmit = async () => {
+    openModal();
+    await editProfileIntro();
+    window.location.reload();
+  };
+
   return (
     <Grid.Column width={10}>
       <Transition visible={modalOpen.open} animation="fade" duration={1}>
-        <Modal dimmer={true} open={modalOpen.open} onClose={openEditModal}>
+        <Modal dimmer={true} open={modalOpen.open} onClose={openModal}>
           <Modal.Header>Edit Intro</Modal.Header>
           <Modal.Content scrolling>
             <Form>
@@ -27,7 +45,7 @@ function TopCardEditModal({ openEditModal, modalOpen }) {
                   placeholder="First Name"
                   name="firstName"
                   type="text"
-                  value={values.title}
+                  value={values.firstName}
                   onChange={onChange}
                   // error={errors.title ? true : false}
                 />
@@ -37,14 +55,17 @@ function TopCardEditModal({ openEditModal, modalOpen }) {
                   label="Last Name"
                   type="text"
                   onChange={onChange}
-                  value={values.eventType}
+                  value={values.lastName}
                 />
               </Form.Group>
               <Form.TextArea
                 className="textarea"
                 rows="2"
-                label="About"
-                placeholder="Tell us more about you (80 characters limit)"
+                label="Tagline"
+                placeholder="Your tagline goes here"
+                name="tagline"
+                value={values.tagline}
+                onChange={onChange}
               />
               <Form.Group widths="equal">
                 <Form.Dropdown
@@ -53,9 +74,9 @@ function TopCardEditModal({ openEditModal, modalOpen }) {
                   label="State"
                   selection
                   search
-                  //onChange={onAddressChange}
+                  onChange={onChange}
                   options={stateOptions}
-                  //value={values.stateOptions}
+                  value={values.state}
                   //error={errors.state ? true : false}
                 />
                 <Form.Input
@@ -63,20 +84,44 @@ function TopCardEditModal({ openEditModal, modalOpen }) {
                   placeholder="City"
                   name="city"
                   type="text"
-                  //value={values.city}
-                  //onChange={onAddressChange}
+                  value={values.city}
+                  onChange={onChange}
                   //error={errors.city ? true : false}
                 />
               </Form.Group>
             </Form>
           </Modal.Content>
           <Modal.Actions>
-            <Button>Save</Button>
+            <Button onClick={onSubmit} type="submit">
+              Save
+            </Button>
           </Modal.Actions>
         </Modal>
       </Transition>
     </Grid.Column>
   );
 }
+
+const EDIT_PROFILE_INTRO = gql`
+  mutation editProfileIntro(
+    $firstName: String!
+    $lastName: String!
+    $tagline: String
+    $city: String
+    $state: String
+  ) {
+    editProfileIntro(
+      input: {
+        firstName: $firstName
+        lastName: $lastName
+        tagline: $tagline
+        city: $city
+        state: $state
+      }
+    ) {
+      firstName
+    }
+  }
+`;
 
 export default TopCardEditModal;

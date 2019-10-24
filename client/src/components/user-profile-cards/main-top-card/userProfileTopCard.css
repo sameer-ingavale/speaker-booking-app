@@ -1,14 +1,17 @@
 .profileIntroCoverPhotoContainer {
-  height: 200px !important;
-  overflow: hidden;
-  padding: 0 !important;
+  background: url(https://newevolutiondesigns.com/images/freebies/space-facebook-cover-5.jpg)
+    no-repeat center !important;
+  height: 15rem !important;
+  background-size: cover !important;
+  background-origin: border-box !important;
 }
 
-.coverPhotoImage {
+/* .coverPhotoImage {
   width: 1500px !important;
   height: 200px !important;
   max-width: none !important;
-}
+  min-width: 100% !important;
+} */
 
 .profileIntroImageContainer {
   border: none !important;
@@ -24,15 +27,20 @@
   border: none !important;
   padding-left: 25px !important;
   padding-top: 0px !important;
-  padding-bottom: 20px !important;
+  padding-bottom: 25px !important;
 }
 
 .profileIntroHeader {
   font-size: 1.4rem !important;
 }
 
-.profileIntroDescription {
-  font-size: 1.1rem !important;
+.profileIntroTagline {
+  font-size: 1.2rem !important;
+  line-height: 1.9rem !important;
+}
+
+.profileIntroLocation {
+  font-size: 1rem !important;
   font-weight: 300 !important;
   line-height: 1.9rem !important;
 }

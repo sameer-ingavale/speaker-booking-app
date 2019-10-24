@@ -43,6 +43,10 @@ module.exports = gql`
     lastName: String!
     email: String!
     password: String
+    tagline: String
+    city: String
+    state: String
+    about: String
     dateCreated: String!
     userType: UserTypeEnum!
     profilePictureLink: String!
@@ -174,6 +178,14 @@ module.exports = gql`
     companyType: CompanyTypeEnum!
   }
 
+  input EditProfileIntro {
+    firstName: String!
+    lastName: String!
+    tagline: String
+    city: String
+    state: String
+  }
+
   type Query {
     getSpeakers: [User]!
     getEvents: [Event]!
@@ -191,5 +203,7 @@ module.exports = gql`
     requestBooking(requestedSpeakerId: ID!, eventId: ID!): BookingIds!
     confirmBooking(bookingId: ID!): BookingIds!
     uploadProfilePicture(picture: Upload!): PicData
+    editProfileIntro(input: EditProfileIntro): User!
+    editProfileAbout(about: String!): User!
   }
 `;

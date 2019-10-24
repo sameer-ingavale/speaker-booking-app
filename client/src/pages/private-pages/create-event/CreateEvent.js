@@ -128,7 +128,6 @@ function CreateEvent(props) {
         data: { createEvent: eventData }
       }
     ) {
-      console.log(eventData);
       props.history.push("/account/events");
     },
     onError(err) {
@@ -146,13 +145,7 @@ function CreateEvent(props) {
   return (
     <Grid columns={1} padded={"horizontally"} doubling>
       <Grid.Row centered>
-        <Grid.Column
-          width={10}
-          widescreen={9}
-          computer={13}
-          tablet={12}
-          mobile={16}
-        >
+        <Grid.Column widescreen={9} computer={13} tablet={12} mobile={16}>
           {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
           <Responsive as={Segment}>
             <Form

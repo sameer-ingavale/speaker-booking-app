@@ -59,6 +59,37 @@ module.exports = {
         }
         return { picUrl };
       }
+    },
+    editProfileIntro: async (parent, args, context) => {
+      const { firstName, lastName, tagline, city, state } = args.input;
+
+      const token = authMiddleware(context);
+
+      const user = await User.findById(token.userId);
+
+      if (user) {
+        user.firstName = firstName;
+        user.lastName = lastName;
+        user.tagline = tagline;
+        user.city = city;
+        user.state = state;
+
+        await user.save();
+        return user;
+      }
+    },
+    editProfileAbout: async (parent, args, context) => {
+      const { about } = args;
+
+      const token = authMiddleware(context);
+
+      const user = await User.findById(token.userId);
+
+      if (user) {
+        user.about = about;
+        await user.save();
+        return user;
+      }
     }
   }
 };

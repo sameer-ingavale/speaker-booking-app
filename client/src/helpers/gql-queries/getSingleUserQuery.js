@@ -6,6 +6,10 @@ export const GET_SINGLE_USER = gql`
       lastName
       _id
       email
+      tagline
+      city
+      state
+      about
       dateCreated
       userType
       profilePictureLink
