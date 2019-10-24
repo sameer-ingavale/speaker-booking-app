@@ -2,16 +2,16 @@ import React from "react";
 import { Card, Grid, Header } from "semantic-ui-react";
 import moment from "moment";
 
-export default function BookingsCard({ pageUser }) {
+export default function BookingsCard({ authUser }) {
   return (
     <Grid.Column width={13}>
       <Header as="h4" dividing>
         Confirmed Bookings
       </Header>
       <Card fluid>
-        {pageUser &&
-          pageUser.confirmedBookings &&
-          pageUser.confirmedBookings.map((confirm) => {
+        {authUser &&
+          authUser.confirmedBookings &&
+          authUser.confirmedBookings.map((confirm) => {
             return (
               <Card.Content>
                 <Card.Header>{confirm.event.title}</Card.Header>

@@ -70,11 +70,11 @@ function MenuBar() {
               )}
               {user.userType === "EVENT_PLANNER" && (
                 <Dropdown.Item as={Link} to={`/account/company`}>
-                  Companies
+                  Company
                 </Dropdown.Item>
               )}
               {user.userType === "SPEAKER" && (
-                <Dropdown.Item as={Link} to={`/profile/bookings`}>
+                <Dropdown.Item as={Link} to={`/account/bookings`}>
                   Bookings
                 </Dropdown.Item>
               )}

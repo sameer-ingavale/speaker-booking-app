@@ -21,6 +21,10 @@ const bookingSchema = new Schema(
     confirmedSpeaker: {
       type: Schema.Types.ObjectId,
       ref: "User"
+    },
+    confirmed: {
+      type: Boolean,
+      default: false
     }
   },
   {

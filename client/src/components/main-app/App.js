@@ -19,6 +19,7 @@ import UserCompany from "../../pages/private-pages/user-company/UserCompany";
 import CreateEvent from "../../pages/private-pages/create-event/CreateEvent";
 import SingleEvent from "../../pages/single-event/SingleEvent";
 import UserBookings from "../../pages/private-pages/user-bookings/UserBookings";
+import UserEvents from "../../pages/private-pages/user-events/UserEvents";
 
 function App() {
   return (
@@ -33,23 +34,27 @@ function App() {
           <Route exact path="/events/:eventId" component={SingleEvent}></Route>
           <Route exact path="/events" component={Events}></Route>
           <Route exact path="/speakers" component={Speakers}></Route>
+
+          <PrivateRoute exact path="/profile/:userId" component={UserProfile} />
+          {/*  Event Planner Links */}
           <PrivateRoute
             exact
             path="/account/create-company"
             component={CreateCompany}
           />
-          <PrivateRoute exact path="/account/company" component={UserCompany} />
           <PrivateRoute
             exact
             path="/account/create-event"
             component={CreateEvent}
           />
+          <PrivateRoute exact path="/account/company" component={UserCompany} />
+          <PrivateRoute exact path="/account/events" component={UserEvents} />
+          {/*  Speaker Links */}
           <PrivateRoute
             exact
-            path="/profile/bookings"
+            path="/account/bookings"
             component={UserBookings}
           />
-          <PrivateRoute exact path="/profile/:userId" component={UserProfile} />
         </Switch>
       </Router>
     </AuthProvider>

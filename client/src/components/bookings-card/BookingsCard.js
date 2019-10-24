@@ -4,8 +4,8 @@ import moment from "moment";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
 
-function BookingsCard({ pageUser }) {
-  console.log(pageUser);
+function BookingsCard({ authUser }) {
+  console.log(authUser);
   const [bookingId, setBookingId] = useState({ bookingId: null });
   const [open, setOpen] = useState(false);
 
@@ -43,21 +43,28 @@ function BookingsCard({ pageUser }) {
           onCancel={onConfirmClose}
           onConfirm={onFinalConfirm}
         />
-        {pageUser &&
-          pageUser.bookingRequests &&
-          pageUser.bookingRequests.map((request) => {
+        {authUser &&
+          authUser.bookingRequests &&
+          authUser.bookingRequests.map((request) => {
             return (
-              <Card.Content key={request._id}>
-                <Button floated="right" value={request._id} onClick={onConfirm}>
-                  Confirm Booking
-                </Button>
-                <Card.Header>{request.event.title}</Card.Header>
-                <Card.Meta>
-                  {moment(request.event.eventDate).format("ddd, MMM DD")}
-                  {", "}
-                  {moment(request.event.startTime).format("h:mm A")}
-                </Card.Meta>
-              </Card.Content>
+              request.confirmed === false && (
+                <Card.Content key={request._id}>
+                  <Button
+                    floated="right"
+                    disabled={request.confirmed === true ? true : false}
+                    value={request._id}
+                    onClick={onConfirm}
+                  >
+                    Confirm Booking
+                  </Button>
+                  <Card.Header>{request.event.title}</Card.Header>
+                  <Card.Meta>
+                    {moment(request.event.eventDate).format("ddd, MMM DD")}
+                    {", "}
+                    {moment(request.event.startTime).format("h:mm A")}
+                  </Card.Meta>
+                </Card.Content>
+              )
             );
           })}
       </Card>

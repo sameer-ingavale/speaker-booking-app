@@ -2,8 +2,8 @@ import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { Grid } from "semantic-ui-react";
 
-import UserProfileTopCard from "../../../components/user-profile-cards/top-card/UserProfileTopCard";
-import { GET_SINGLE_USER } from "../../../helpers/getSingleUserQuery";
+import UserProfileTopCard from "../../../components/user-profile-cards/main-top-card/UserProfileTopCard";
+import { GET_SINGLE_USER } from "../../../helpers/gql-queries/getSingleUserQuery";
 
 function UserProfile(props) {
   const UrlId = props.match.params.userId;

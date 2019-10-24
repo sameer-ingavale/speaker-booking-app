@@ -13,7 +13,9 @@ import {
   Message,
   Icon,
   Checkbox,
-  Divider
+  Divider,
+  Popup,
+  Label
 } from "semantic-ui-react";
 import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
@@ -84,19 +86,19 @@ function CreateEvent(props) {
   });
 
   const EventStartButton = ({ value, onClick }) => (
-    <Button type="button" basic onClick={onClick}>
-      <Icon name="hourglass start" /> {value}
+    <Button className="dateButton" type="button" basic onClick={onClick}>
+      <Icon name="time" /> {value}
     </Button>
   );
 
   const EventEndButton = ({ value, onClick }) => (
-    <Button type="button" basic onClick={onClick}>
-      <Icon name="hourglass end" /> {value}
+    <Button className="dateButton" type="button" basic onClick={onClick}>
+      <Icon name="time" /> {value}
     </Button>
   );
 
   const EventDateButton = ({ value, onClick }) => (
-    <Button type="button" basic onClick={onClick}>
+    <Button className="dateButton" type="button" basic onClick={onClick}>
       <Icon name="calendar alternate" /> {value}
     </Button>
   );
@@ -209,18 +211,32 @@ function CreateEvent(props) {
                   options={payTypeOptions}
                   value={values.payType}
                 />
-                <Form.Input
-                  disabled={values.payType === "FREE" ? true : false}
-                  label="Pay Amount"
-                  placeholder="Pay Amount"
-                  name="payAmount"
-                  type="text"
-                  value={values.payAmount}
-                  onChange={onChange}
-                  error={errors.payAmount ? true : false}
-                />
-              </Form.Group>
 
+                <Form.Field>
+                  <Label className="toolTipLabel">Pay Amount</Label>
+                  <Popup
+                    content="This is how much you will pay a speaker"
+                    trigger={
+                      <Button
+                        className="toolTipIcon"
+                        style={{ background: "none" }}
+                        compact
+                        size="tiny"
+                        icon="question circle"
+                      />
+                    }
+                  />
+                  <Form.Input
+                    disabled={values.payType === "FREE" ? true : false}
+                    placeholder="Pay Amount"
+                    name="payAmount"
+                    type="text"
+                    value={values.payAmount}
+                    onChange={onChange}
+                    error={errors.payAmount ? true : false}
+                  />
+                </Form.Field>
+              </Form.Group>
               <Form.Group widths="equal">
                 <Form.Field>
                   <label>Event Date</label>

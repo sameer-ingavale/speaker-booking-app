@@ -29,6 +29,25 @@ module.exports = {
       } catch (error) {
         throw new Error(error);
       }
+    },
+    getSingleUserEvents: async (parent, args, context) => {
+      try {
+        const token = authMiddleware(context);
+
+        const events = await Event.find({
+          creatorPerson: token.userId
+        }).populate({
+          path: "booking",
+          populate: [
+            { path: "confirmedSpeaker" },
+            { path: "requestedSpeakers" }
+          ]
+        });
+
+        return events;
+      } catch (error) {
+        throw new Error(error);
+      }
     }
   },
   Mutation: {

@@ -4,6 +4,8 @@ import moment from "moment";
 import { Card, Label, Icon } from "semantic-ui-react";
 import "./eventCard.css";
 
+import { enumToWord } from "../../helpers/helper-functions/enumToWord";
+
 function EventCard({
   event: {
     _id,
@@ -31,13 +33,17 @@ function EventCard({
       {/*  <pre>{JSON.stringify(new Date(parseInt(createdAt)), null, 2)}</pre> */}
       <Card.Content>
         <Card.Header as={Link} to={`/events/${_id}`}>
-          {`${title}`}{" "}
+          {title}
         </Card.Header>
 
         <Card.Meta>
           {moment(eventDate).format("ddd, MMM DD")}
           {", "}
           {moment(startTime).format("h:mm A")}
+          <br />
+          <span className="eventDateFromNow">{`Event ${moment(
+            eventDate
+          ).fromNow()}`}</span>
         </Card.Meta>
         <Card.Meta>
           {streetAddress2
@@ -54,7 +60,7 @@ function EventCard({
         </Card.Description>
       </Card.Content>
       <Card.Content extra>
-        {`#${eventTopic.slice(0, 1) + eventTopic.slice(1).toLowerCase()}`}
+        {enumToWord(eventTopic)}
         {payType === "PAID" ? (
           <Label attached="top right" size="tiny" className="event-paid-label">
             <Icon name="dollar sign" />

@@ -14,7 +14,9 @@ module.exports = {
 
         const company = await Company.findOne({ creator: creatorId })
           .populate("creator")
-          .populate("createdEvents");
+          .populate({
+            path: "createdEvents"
+          });
 
         return company;
       } catch (error) {

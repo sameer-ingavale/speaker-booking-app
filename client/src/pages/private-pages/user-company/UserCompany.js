@@ -1,9 +1,11 @@
-import React, { Fragment } from "react";
-import gql from "graphql-tag";
+import React from "react";
 import { useQuery } from "@apollo/react-hooks";
-import { Card, Image, Button, Grid } from "semantic-ui-react";
+import { Card, Image, Button, Grid, Header } from "semantic-ui-react";
 import moment from "moment";
 import { Link } from "react-router-dom";
+
+import { GET_COMPANY } from "../../../helpers/gql-queries/getCompanyQuery";
+import { enumToWord } from "../../../helpers/helper-functions/enumToWord";
 
 function Home() {
   const { loading, error, data } = useQuery(GET_COMPANY);
@@ -12,15 +14,19 @@ function Home() {
 
   if (data) {
     company = data.getCompany;
+    console.log(company);
   }
 
   return (
     <Grid>
       {loading ? (
-        <h1>Loading posts..</h1>
+        <h1>Loading company..</h1>
       ) : data ? (
         <Grid.Row centered>
           <Grid.Column width={13}>
+            <Header as="h4" dividing>
+              My Company
+            </Header>
             <Card fluid>
               <Card.Content>
                 <Button
@@ -43,6 +49,9 @@ function Home() {
                 <Card.Meta>{`Member since ${moment(company.dateCreated).fromNow(
                   true
                 )} ago`}</Card.Meta>
+                <Card.Meta>{`${enumToWord(company.companyType)} based in ${
+                  company.address[0].city
+                }, ${company.address[0].state}`}</Card.Meta>
               </Card.Content>
             </Card>
           </Grid.Column>
@@ -54,61 +63,11 @@ function Home() {
             Create One
           </Button>
         </h1>
-      ) : error ? (
-        <h1>fuck</h1>
       ) : (
-        <h1>Damn..how did you get here?</h1>
+        error && <h1>Insert error image here</h1>
       )}
     </Grid>
   );
 }
-
-const GET_COMPANY = gql`
-  {
-    getCompany {
-      _id
-      name
-      address {
-        streetAddress1
-        streetAddress2
-        zip
-        city
-        state
-        country
-      }
-      phone
-      einNumber
-      companyType
-      dateCreated
-      creator {
-        firstName
-        lastName
-      }
-      createdEvents {
-        title
-        eventDate
-        startTime
-        endTime
-        payType
-        eventType
-        eventTopic
-        payAmount
-        expectedTurnout
-        address {
-          streetAddress1
-          streetAddress2
-          zip
-          city
-          state
-          country
-        }
-        expired
-        eventVisibility
-        createdAt
-        updatedAt
-      }
-    }
-  }
-`;
 
 export default Home;

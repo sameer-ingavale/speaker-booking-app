@@ -14,6 +14,7 @@ export const GET_SINGLE_USER = gql`
       }
       bookingRequests {
         _id
+        confirmed
         event {
           title
           eventDate
@@ -29,6 +30,7 @@ export const GET_SINGLE_USER = gql`
       }
       confirmedBookings {
         _id
+        confirmed
         event {
           title
           eventDate

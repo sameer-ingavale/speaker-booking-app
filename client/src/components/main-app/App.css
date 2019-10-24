@@ -3,9 +3,21 @@
   src: url(../../assets/fonts/Lato-Regular.ttf);
 }
 
+.ui.form .field > label {
+  margin: 0 0 0.4rem 0;
+}
+
+/* label {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 0.92857143em;
+  font-weight: 700;
+  text-transform: none;
+} */
+
 .ui.form textarea {
   resize: none;
 }
+
 .main-wrapper {
   padding: 30px !important;
 }

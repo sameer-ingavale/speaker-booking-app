@@ -1,27 +1,35 @@
-import React, { useContext } from "react";
-import { Grid } from "semantic-ui-react";
+import React, { useContext, useState } from "react";
+import { Grid, Menu } from "semantic-ui-react";
 import { useQuery } from "@apollo/react-hooks";
+import { Link } from "react-router-dom";
 
 import BookingsCard from "../../../components/bookings-card/BookingsCard";
 import ConfirmedBookingsCard from "../../../components/confirmed-bookings-card/ConfirmedBookingsCard";
 import { AuthContext } from "../../../context/auth";
-import { GET_SINGLE_USER } from "../../../helpers/getSingleUserQuery";
+import { GET_SINGLE_USER } from "../../../helpers/gql-queries/getSingleUserQuery";
 
 function UserBookings() {
   const {
-    authData: { user: authUser }
+    authData: { user }
   } = useContext(AuthContext);
 
   const { loading, error, data } = useQuery(GET_SINGLE_USER, {
     variables: {
-      userId: authUser.userId
+      userId: user.userId
     }
   });
 
-  let pageUser;
+  let authUser;
   if (data) {
-    pageUser = data.getSingleUser;
+    authUser = data.getSingleUser;
   }
+
+  const [activeItem, setActiveItem] = useState("home");
+
+  const handleItemClick = (event, { name }) => {
+    setActiveItem(name);
+  };
+
   return (
     <Grid doubling>
       {loading ? (
@@ -29,10 +37,10 @@ function UserBookings() {
       ) : (
         <>
           <Grid.Row centered>
-            <BookingsCard pageUser={pageUser} />
+            <BookingsCard authUser={authUser} />
           </Grid.Row>
           <Grid.Row centered>
-            <ConfirmedBookingsCard pageUser={pageUser} />
+            <ConfirmedBookingsCard authUser={authUser} />
           </Grid.Row>
         </>
       )}

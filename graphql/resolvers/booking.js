@@ -1,5 +1,6 @@
 const Booking = require("../../models/Booking");
 const User = require("../../models/User");
+const Event = require("../../models/Event");
 const authMiddleware = require("../../helpers/authMiddleware");
 const { UserInputError } = require("apollo-server-express");
 
@@ -37,16 +38,23 @@ module.exports = {
           return existingBooking;
         }
 
-        const booking = new Booking({
+        const newBooking = new Booking({
           event: eventId,
           creatorPerson: creatorPersonId
         });
 
-        booking.requestedSpeakers.push(requestedSpeakerId);
-        requestedSpeaker.bookingRequests.push(booking);
+        const event = await Event.findById(eventId);
+
+        if (event) {
+          event.booking = newBooking;
+        }
+
+        newBooking.requestedSpeakers.push(requestedSpeakerId);
+        requestedSpeaker.bookingRequests.push(newBooking);
 
         await requestedSpeaker.save();
-        await booking.save();
+        await newBooking.save();
+        await event.save();
 
         return booking;
       } catch (error) {
@@ -62,9 +70,14 @@ module.exports = {
 
       if (booking) {
         booking.confirmedSpeaker = token.userId;
-        user.confirmedBookings = bookingId;
+        booking.confirmed = true;
+
+        if (user.confirmedBookings.indexOf(bookingId) === -1) {
+          user.confirmedBookings.push(bookingId);
+          await user.save();
+        }
+
         await booking.save();
-        await user.save();
 
         return booking;
       }

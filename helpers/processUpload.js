@@ -42,7 +42,6 @@ module.exports = async (upload) => {
           result
         ) {
           if (result) {
-            console.log(result);
             resultUrl = result.secure_url;
             resolve(resultUrl);
           } else {

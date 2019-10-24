@@ -107,6 +107,7 @@ module.exports = gql`
     creatorCompany: Company!
     createdAt: String!
     updatedAt: String!
+    booking: Booking
   }
 
   type Booking {
@@ -115,6 +116,7 @@ module.exports = gql`
     creatorPerson: User!
     requestedSpeakers: [User]!
     confirmedSpeaker: User
+    confirmed: Boolean!
     createdAt: String!
     updatedAt: String!
   }
@@ -125,6 +127,7 @@ module.exports = gql`
     creatorPerson: ID!
     requestedSpeakers: [ID!]
     confirmedSpeaker: ID
+    confirmed: Boolean!
   }
 
   type PicData {
@@ -177,6 +180,7 @@ module.exports = gql`
     getSingleEvent(eventId: ID!): Event!
     getCompany: Company!
     getSingleUser(userId: ID!): User!
+    getSingleUserEvents: [Event]!
   }
 
   type Mutation {

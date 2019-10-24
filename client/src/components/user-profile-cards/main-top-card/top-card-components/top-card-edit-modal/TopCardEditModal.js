@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Grid, Modal, Transition, Button, Form } from "semantic-ui-react";
 
-import { stateOptions } from "../../../../helpers/stateOptions";
+import { stateOptions } from "../../../../../helpers/stateOptions";
 
 function TopCardEditModal({ openEditModal, modalOpen }) {
   const [values, setValues] = useState({
@@ -18,7 +18,7 @@ function TopCardEditModal({ openEditModal, modalOpen }) {
     <Grid.Column width={10}>
       <Transition visible={modalOpen.open} animation="fade" duration={1}>
         <Modal dimmer={true} open={modalOpen.open} onClose={openEditModal}>
-          <Modal.Header>Edit Profile</Modal.Header>
+          <Modal.Header>Edit Intro</Modal.Header>
           <Modal.Content scrolling>
             <Form>
               <Form.Group widths="equal">
@@ -44,7 +44,7 @@ function TopCardEditModal({ openEditModal, modalOpen }) {
                 className="textarea"
                 rows="2"
                 label="About"
-                placeholder="Tell us more about you..."
+                placeholder="Tell us more about you (80 characters limit)"
               />
               <Form.Group widths="equal">
                 <Form.Dropdown
