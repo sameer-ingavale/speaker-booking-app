@@ -1,11 +1,11 @@
-.aboutCardContent {
+.educationHeaderContent {
   border: none !important;
   padding-left: 25px !important;
   padding-bottom: 25px !important;
   padding-top: 20px !important;
 }
 
-.aboutText {
-  padding-right: 10% !important;
-  padding-top: 30px !important;
+.educationMainContent {
+  border: none !important;
+  padding-left: 25px !important;
 }

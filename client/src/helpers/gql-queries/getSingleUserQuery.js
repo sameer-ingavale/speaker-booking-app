@@ -9,7 +9,20 @@ export const GET_SINGLE_USER = gql`
       tagline
       city
       state
+      gender
+      age
       about
+      education {
+        _id
+        school
+        degree
+        field
+        startYear
+        endYear
+        grade
+        activities
+        description
+      }
       dateCreated
       userType
       profilePictureLink

@@ -1,3 +1,5 @@
+const { UserInputError } = require("apollo-server-express");
+
 const User = require("../../models/User");
 const authMiddleware = require("../../helpers/authMiddleware");
 const processUpload = require("../../helpers/processUpload");
@@ -61,7 +63,15 @@ module.exports = {
       }
     },
     editProfileIntro: async (parent, args, context) => {
-      const { firstName, lastName, tagline, city, state } = args.input;
+      const {
+        firstName,
+        lastName,
+        tagline,
+        city,
+        state,
+        gender,
+        age
+      } = args.input;
 
       const token = authMiddleware(context);
 
@@ -73,6 +83,8 @@ module.exports = {
         user.tagline = tagline;
         user.city = city;
         user.state = state;
+        user.gender = gender;
+        user.age = age;
 
         await user.save();
         return user;
@@ -89,6 +101,111 @@ module.exports = {
         user.about = about;
         await user.save();
         return user;
+      }
+    },
+    addProfileEducation: async (parent, args, context) => {
+      const {
+        school,
+        degree,
+        field,
+        startYear,
+        endYear,
+        grade,
+        activities,
+        description
+      } = args.input;
+
+      const token = authMiddleware(context);
+
+      const user = await User.findById(token.userId);
+
+      const educationObject = {
+        school,
+        degree,
+        field,
+        startYear,
+        endYear,
+        grade,
+        activities,
+        description
+      };
+
+      if (user) {
+        let educationArray = user.education;
+        for (let i = 0; i < educationArray.length; i++) {
+          if (
+            educationArray[i].degree === degree &&
+            educationArray[i].field === field
+          ) {
+            throw new UserInputError(
+              "Education record matching the same degree found"
+            );
+          }
+        }
+        user.education.push(educationObject);
+        await user.save();
+        return user;
+      }
+    },
+    editEducation: async (parent, args, context) => {
+      try {
+        const {
+          educationId,
+          school,
+          degree,
+          field,
+          startYear,
+          endYear,
+          grade,
+          activities,
+          description
+        } = args.input;
+
+        const token = authMiddleware(context);
+
+        await User.updateOne(
+          { _id: token.userId, "education._id": educationId },
+          {
+            $set: {
+              "education.$.school": school,
+              "education.$.degree": degree,
+              "education.$.field": field,
+              "education.$.startYear": startYear,
+              "education.$.endYear": endYear,
+              "education.$.grade": grade,
+              "education.$.activities": activities,
+              "education.$.description": description
+            }
+          }
+        );
+
+        return { success: true };
+      } catch (error) {
+        throw new Error(erro);
+      }
+    },
+    deleteEducation: async (parent, { educationId }, context) => {
+      const token = authMiddleware(context);
+
+      const user = await User.findById(token.userId);
+
+      user.education.remove({ _id: educationId });
+
+      await user.save();
+
+      return { success: true };
+    },
+    setSpeakerAvailability: async (parent, { fromDate, toDate }, context) => {
+      const token = authMiddleware(context);
+
+      const user = await User.findById(token.userId);
+
+      if (user) {
+        user.availability.fromDate = fromDate;
+        user.availability.toDate = toDate;
+        await user.save();
+
+        return { success: true };
       }
     }
   }

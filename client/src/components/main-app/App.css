@@ -18,8 +18,13 @@
   text-transform: none;
 } */
 
+.ui.selection.dropdown .menu {
+  max-height: 188px !important;
+}
+
 .ui.form textarea {
   resize: none;
+  line-height: 1.65em;
 }
 
 .main-wrapper {
@@ -45,8 +50,43 @@
 .ui.button {
   font-weight: 500 !important;
 }
+.header1 {
+  font-size: 1.8em !important;
+  line-height: 1.7em !important;
+  font-weight: 600 !important;
+}
 
-.header {
+.header2 {
+  font-size: 1.5em !important;
+  line-height: 1.7em !important;
+  font-weight: 500 !important;
+}
+
+.header3 {
+  font-size: 1.3em !important;
+  line-height: 1.7em !important;
+  font-weight: 600 !important;
+}
+
+.header4 {
+  font-size: 1.3em !important;
+  line-height: 1.7em !important;
+  font-weight: 500 !important;
+}
+
+.header5 {
+  font-size: 1.2em !important;
+  line-height: 1.7em !important;
+  font-weight: 500 !important;
+}
+
+.normalText {
+  font-size: 1.1em !important;
+  line-height: 1.7em !important;
+  font-weight: 500 !important;
+}
+
+/* .header {
   font-size: 1.5em !important;
   line-height: 1.7em !important;
   font-weight: 500 !important;
@@ -59,4 +99,4 @@ h4,
 h5,
 h6 {
   font-weight: 500 !important;
-}
+} */

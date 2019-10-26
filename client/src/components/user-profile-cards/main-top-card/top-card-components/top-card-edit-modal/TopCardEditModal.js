@@ -9,10 +9,18 @@ function TopCardEditModal({ pageUser, openModal, modalOpen }) {
   const [values, setValues] = useState({
     firstName: `${pageUser.firstName}`,
     lastName: `${pageUser.lastName}`,
-    tagline: `${pageUser.tagline}`,
-    city: `${pageUser.city}`,
-    state: `${pageUser.state}`
+    tagline: pageUser.tagline === null ? "" : `${pageUser.tagline}`,
+    city: pageUser.city === null ? "" : `${pageUser.city}`,
+    state: pageUser.state === null ? "" : `${pageUser.state}`,
+    gender: pageUser.gender === null ? "" : `${pageUser.gender}`,
+    age: pageUser.age === null ? "" : `${pageUser.age}`
   });
+
+  const genderOptions = [
+    { key: "1", text: "Male", value: "Male" },
+    { key: "2", text: "Female", value: "Female" },
+    { key: "3", text: "Other", value: "Other" }
+  ];
 
   const onChange = (event, result) => {
     const { name, value } = result || event.target;
@@ -58,22 +66,13 @@ function TopCardEditModal({ pageUser, openModal, modalOpen }) {
                   value={values.lastName}
                 />
               </Form.Group>
-              <Form.TextArea
-                className="textarea"
-                rows="2"
-                label="Tagline"
-                placeholder="Your tagline goes here"
-                name="tagline"
-                value={values.tagline}
-                onChange={onChange}
-              />
+
               <Form.Group widths="equal">
                 <Form.Dropdown
                   placeholder="State"
                   name="state"
                   label="State"
                   selection
-                  search
                   onChange={onChange}
                   options={stateOptions}
                   value={values.state}
@@ -89,6 +88,36 @@ function TopCardEditModal({ pageUser, openModal, modalOpen }) {
                   //error={errors.city ? true : false}
                 />
               </Form.Group>
+              <Form.Group widths="equal">
+                <Form.Dropdown
+                  placeholder="Gender"
+                  name="gender"
+                  label="Gender"
+                  selection
+                  onChange={onChange}
+                  options={genderOptions}
+                  value={values.gender}
+                  //error={errors.state ? true : false}
+                />
+                <Form.Input
+                  label="Age"
+                  placeholder="Age"
+                  name="age"
+                  type="text"
+                  value={values.age}
+                  onChange={onChange}
+                  //error={errors.city ? true : false}
+                />
+              </Form.Group>
+              <Form.TextArea
+                className="textarea"
+                rows="2"
+                label="Tagline"
+                placeholder="Your tagline goes here"
+                name="tagline"
+                value={values.tagline}
+                onChange={onChange}
+              />
             </Form>
           </Modal.Content>
           <Modal.Actions>
@@ -109,6 +138,8 @@ const EDIT_PROFILE_INTRO = gql`
     $tagline: String
     $city: String
     $state: String
+    $age: String
+    $gender: String
   ) {
     editProfileIntro(
       input: {
@@ -117,6 +148,8 @@ const EDIT_PROFILE_INTRO = gql`
         tagline: $tagline
         city: $city
         state: $state
+        age: $age
+        gender: $gender
       }
     ) {
       firstName

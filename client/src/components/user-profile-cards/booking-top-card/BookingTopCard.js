@@ -20,8 +20,6 @@ function BookingTopCard({ UrlId, values, onChange, authUserEventsOptions }) {
     bookRequest();
   };
 
-  console.log(authUserEventsOptions);
-
   return (
     <Grid.Column width={15}>
       <Sticky>

@@ -1,8 +1,8 @@
 import React from "react";
 import { Card, Image, Icon, Label } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import moment from "moment";
 import "./speakerCard.css";
+import moment from "moment";
 
 function SpeakerCard({
   speaker: {
@@ -11,18 +11,25 @@ function SpeakerCard({
     lastName,
     city,
     state,
-    tagline,
-    dateCreated,
+    availability,
     profilePictureLink
   }
 }) {
   return (
     <Card fluid>
       <Image wrapped fluid src={profilePictureLink} />
-      <Label color="olive" attached="top left">
-        Available
-      </Label>
+      {availability.toDate && new Date() < new Date(availability.toDate) ? (
+        <Label color="olive" attached="top left">
+          Available
+        </Label>
+      ) : (
+        <Label color="red" attached="top left">
+          Unavailable
+        </Label>
+      )}
       <Card.Content className="speakerCardContent">
+        {/*  <pre>{JSON.stringify(availability.toDate, null, 2)}</pre>
+        <pre>{JSON.stringify(new Date(), null, 2)}</pre> */}
         <Card.Header
           as={Link}
           to={`/profile/${_id}`}
@@ -36,12 +43,11 @@ function SpeakerCard({
         </Card.Description>
       </Card.Content>
       <Card.Content extra>
-        <p>
-          <span>
-            <Icon name="checked calendar"></Icon> Dates Available
-          </span>
-        </p>
-        <p>Jan 5 2019 - Jan 29 2019</p>
+        {availability.toDate && new Date() < new Date(availability.toDate)
+          ? `Available: ${moment(availability.fromDate).format(
+              "DD MMM 'YY"
+            )} - ${moment(availability.toDate).format("DD MMM 'YY")}`
+          : "No Available Dates"}
       </Card.Content>
     </Card>
   );

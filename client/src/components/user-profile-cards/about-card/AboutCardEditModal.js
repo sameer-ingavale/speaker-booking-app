@@ -3,9 +3,7 @@ import { Grid, Modal, Transition, Button, Form } from "semantic-ui-react";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
 
-import { stateOptions } from "../../../helpers/stateOptions";
-
-function TopCardEditModal({ pageUser, openModal, modalOpen }) {
+function AboutCardEditModal({ pageUser, openModal, modalOpen }) {
   const [values, setValues] = useState({
     about: `${pageUser.about}`
   });
@@ -65,4 +63,4 @@ const EDIT_PROFILE_ABOUT = gql`
   }
 `;
 
-export default TopCardEditModal;
+export default AboutCardEditModal;

@@ -37,6 +37,23 @@ module.exports = gql`
     createdEvents: [Event]!
   }
 
+  type Education {
+    _id: ID!
+    school: String!
+    degree: String!
+    field: String!
+    startYear: String!
+    endYear: String!
+    grade: String
+    activities: String
+    description: String
+  }
+
+  type Availability {
+    fromDate: String
+    toDate: String
+  }
+
   type User {
     _id: ID!
     firstName: String!
@@ -46,7 +63,11 @@ module.exports = gql`
     tagline: String
     city: String
     state: String
+    gender: String
+    age: String
     about: String
+    education: [Education]!
+    availability: Availability
     dateCreated: String!
     userType: UserTypeEnum!
     profilePictureLink: String!
@@ -184,6 +205,35 @@ module.exports = gql`
     tagline: String
     city: String
     state: String
+    gender: String
+    age: String
+  }
+
+  input AddEducationInput {
+    school: String!
+    degree: String!
+    field: String!
+    startYear: String!
+    endYear: String!
+    grade: String
+    activities: String
+    description: String
+  }
+
+  type Bool {
+    success: Boolean!
+  }
+
+  input EditEducationInput {
+    educationId: ID!
+    school: String!
+    degree: String!
+    field: String!
+    startYear: String!
+    endYear: String!
+    grade: String
+    activities: String
+    description: String
   }
 
   type Query {
@@ -205,5 +255,9 @@ module.exports = gql`
     uploadProfilePicture(picture: Upload!): PicData
     editProfileIntro(input: EditProfileIntro): User!
     editProfileAbout(about: String!): User!
+    addProfileEducation(input: AddEducationInput): User!
+    editEducation(input: EditEducationInput): Bool!
+    deleteEducation(educationId: ID!): Bool!
+    setSpeakerAvailability(fromDate: String!, toDate: String!): Bool!
   }
 `;

@@ -7,10 +7,6 @@
   box-shadow: 0px 0px 8px 0px #dddddd !important;
 }
 
-.react-datepicker-wrapper {
-  width: 100% !important;
-}
-
 .react-datepicker__header {
   background-color: #fdfdfe !important;
   border-bottom: 1px solid #dfe3e8 !important;

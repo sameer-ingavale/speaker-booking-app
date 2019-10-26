@@ -1,0 +1,19 @@
+.availabilityDateButton {
+  width: 150px !important;
+  margin: 20px 15px 10px 15px !important;
+}
+
+.setAvailabilityButton {
+  margin-left: 10px !important;
+}
+
+/* @media only screen and (max-width: 600px) {
+  .availabilityDateButton {
+    width: 150px !important;
+    margin: 20px 0px 10px 0px !important;
+  }
+
+  .setAvailabilityButton {
+    margin-left: 10px !important;
+  }
+} */

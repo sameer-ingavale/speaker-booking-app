@@ -11,6 +11,24 @@ const userSchema = new Schema({
   city: String,
   state: String,
   about: String,
+  gender: String,
+  age: String,
+  education: [
+    {
+      school: String,
+      degree: String,
+      field: String,
+      startYear: String,
+      endYear: String,
+      grade: String,
+      activities: String,
+      description: String
+    }
+  ],
+  availability: {
+    fromDate: String,
+    toDate: String
+  },
   dateCreated: String,
   userType: String,
   profilePictureLink: {

@@ -18,36 +18,38 @@ function AboutCard({ pageUser, UrlId }) {
   };
 
   return (
-    <Grid.Row centered>
-      <Grid.Column width={15}>
-        <AboutCardEditModal
-          pageUser={pageUser}
-          modalOpen={modalOpen}
-          openModal={openModal}
-        />
-        <Card fluid>
-          <Card.Content className="aboutCardContent">
-            {authUserId === UrlId && (
-              <Button
-                style={{ margin: "5px 5px 0px 0px" }}
-                basic
-                color="blue"
-                compact
-                floated="right"
-                onClick={openModal}
-              >
-                <Icon name="edit outline" />
-                Edit
-              </Button>
-            )}
-            <Card.Header>About</Card.Header>
-            <Card.Description className="aboutText">
-              {pageUser.about}
-            </Card.Description>
-          </Card.Content>
-        </Card>
-      </Grid.Column>
-    </Grid.Row>
+    <Grid>
+      <Grid.Row centered>
+        <Grid.Column width={15}>
+          <AboutCardEditModal
+            pageUser={pageUser}
+            modalOpen={modalOpen}
+            openModal={openModal}
+          />
+          <Card fluid>
+            <Card.Content className="aboutCardContent">
+              {authUserId === UrlId && (
+                <Button
+                  style={{ margin: "5px 5px 0px 0px" }}
+                  basic
+                  color="blue"
+                  compact
+                  floated="right"
+                  onClick={openModal}
+                >
+                  <Icon name="edit outline" />
+                  Edit
+                </Button>
+              )}
+              <Card.Header className="header2">About</Card.Header>
+              <Card.Description className="normalText aboutText">
+                {pageUser.about}
+              </Card.Description>
+            </Card.Content>
+          </Card>
+        </Grid.Column>
+      </Grid.Row>
+    </Grid>
   );
 }
 

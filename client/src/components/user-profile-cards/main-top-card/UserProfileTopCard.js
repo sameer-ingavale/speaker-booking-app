@@ -3,7 +3,6 @@ import { Grid, Card, Button, Image, Icon, Header } from "semantic-ui-react";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import "./userProfileTopCard.css";
-import moment from "moment";
 
 import { AuthContext } from "../../../context/auth";
 import TopCardEditModal from "./top-card-components/top-card-edit-modal/TopCardEditModal";
@@ -52,7 +51,7 @@ function UserProfileTopCard({ pageUser, UrlId }) {
   };
 
   return (
-    <Fragment>
+    <Grid>
       <Grid.Row centered>
         <Grid.Column width={15}>
           <TopCardEditModal
@@ -110,21 +109,19 @@ function UserProfileTopCard({ pageUser, UrlId }) {
               )}
             </Card.Content>
             <Card.Content className="profileIntroTextContainer">
-              <Card.Header className="profileIntroHeader">{`${pageUser.firstName} ${pageUser.lastName}`}</Card.Header>
-              <Card.Meta>{`Joined ${moment(pageUser.dateCreated).fromNow(
-                true
-              )} ago`}</Card.Meta>
-              <Card.Description className="profileIntroTagline">
+              <Card.Header className="header1">{`${pageUser.firstName} ${pageUser.lastName}`}</Card.Header>
+              <Card.Meta>{` ${pageUser.gender}, ${pageUser.age}`}</Card.Meta>
+              <Card.Description className="header4">
                 {pageUser.tagline}
               </Card.Description>
-              <Card.Description className="profileIntroLocation">
+              <Card.Description className="header5">
                 {`${pageUser.city}, ${pageUser.state}`}
               </Card.Description>
             </Card.Content>
           </Card>
         </Grid.Column>
       </Grid.Row>
-    </Fragment>
+    </Grid>
   );
 }
 
