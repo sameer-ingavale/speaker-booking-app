@@ -1,7 +1,7 @@
-import React, { useState, Fragment, useContext } from "react";
-import { Grid, Card, Button, Image, Icon, Header } from "semantic-ui-react";
-import gql from "graphql-tag";
-import { useQuery } from "@apollo/react-hooks";
+import React, { useState, useContext } from "react";
+import { Grid, Card, Button, Image, Icon } from "semantic-ui-react";
+/* import gql from "graphql-tag"; */
+/* import { useQuery } from "@apollo/react-hooks"; */
 import "./userProfileTopCard.css";
 
 import { AuthContext } from "../../../context/auth";
@@ -16,7 +16,7 @@ function UserProfileTopCard({ pageUser, UrlId }) {
 
   let authUserId = authUser.userId;
 
-  const { loading, error, data } = useQuery(GET_AUTH_USER_EVENTS);
+  /*  const { data } = useQuery(GET_AUTH_USER_EVENTS);
   let authUserEventsArray;
 
   if (data) {
@@ -42,7 +42,7 @@ function UserProfileTopCard({ pageUser, UrlId }) {
   const onChange = (event, result) => {
     const { name, value } = result || event.target;
     setValues({ ...values, [name]: value });
-  };
+  }; */
 
   const [modalOpen, setModalOpen] = useState({ open: false });
 
@@ -61,14 +61,7 @@ function UserProfileTopCard({ pageUser, UrlId }) {
           />
           {authUser.userType === "EVENT_PLANNER" &&
             authUserId !== UrlId &&
-            pageUser.userType === "SPEAKER" && (
-              <BookingTopCard
-                UrlId={UrlId}
-                values={values}
-                onChange={onChange}
-                authUserEventsOptions={authUserEventsOptions}
-              />
-            )}
+            pageUser.userType === "SPEAKER" && <BookingTopCard UrlId={UrlId} />}
         </Grid.Column>
       </Grid.Row>
       <Grid.Row centered>
@@ -110,13 +103,17 @@ function UserProfileTopCard({ pageUser, UrlId }) {
             </Card.Content>
             <Card.Content className="profileIntroTextContainer">
               <Card.Header className="header1">{`${pageUser.firstName} ${pageUser.lastName}`}</Card.Header>
-              <Card.Meta>{` ${pageUser.gender}, ${pageUser.age}`}</Card.Meta>
+              {pageUser.gender && pageUser.age && (
+                <Card.Meta>{` ${pageUser.gender}, ${pageUser.age}`}</Card.Meta>
+              )}
               <Card.Description className="header4">
-                {pageUser.tagline}
+                {pageUser.headline}
               </Card.Description>
-              <Card.Description className="header5">
-                {`${pageUser.city}, ${pageUser.state}`}
-              </Card.Description>
+              {pageUser.city && pageUser.state && (
+                <Card.Description className="header5">
+                  {`${pageUser.city}, ${pageUser.state}`}
+                </Card.Description>
+              )}
             </Card.Content>
           </Card>
         </Grid.Column>
@@ -125,7 +122,7 @@ function UserProfileTopCard({ pageUser, UrlId }) {
   );
 }
 
-const GET_AUTH_USER_EVENTS = gql`
+/* const GET_AUTH_USER_EVENTS = gql`
   {
     getSingleUserEvents {
       _id
@@ -152,6 +149,6 @@ const GET_AUTH_USER_EVENTS = gql`
       updatedAt
     }
   }
-`;
+`; */
 
 export default UserProfileTopCard;

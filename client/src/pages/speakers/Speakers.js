@@ -13,6 +13,7 @@ function Speakers() {
 
   if (data) {
     speakers = data.getSpeakers;
+    console.log(speakers);
   }
 
   return (
@@ -66,6 +67,9 @@ const GET_SPEAKERS_QUERY = gql`
       lastName
       city
       state
+      userVisibility
+      tagline
+      tags
       availability {
         fromDate
         toDate

@@ -14,7 +14,7 @@ function BookingsCard({ authUser }) {
     setOpen(true);
   };
 
-  const [confirmBooking, { loading }] = useMutation(CONFIRM_BOOKING, {
+  const [confirmBooking] = useMutation(CONFIRM_BOOKING, {
     update(proxy, data) {
       console.log(data);
     },

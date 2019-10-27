@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { useQuery } from "@apollo/react-hooks";
-import { Grid } from "semantic-ui-react";
 import { AuthContext } from "../../../context/auth";
 
 import UserProfileTopCard from "../../../components/user-profile-cards/main-top-card/UserProfileTopCard";
@@ -18,7 +17,7 @@ function UserProfile(props) {
 
   let authUserId = authUser.userId;
 
-  const { loading, error, data } = useQuery(GET_SINGLE_USER, {
+  const { loading, data } = useQuery(GET_SINGLE_USER, {
     variables: {
       userId: UrlId
     }

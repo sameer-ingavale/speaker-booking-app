@@ -6,12 +6,19 @@ export const GET_SINGLE_USER = gql`
       lastName
       _id
       email
+      headline
       tagline
+      tags
+      userVisibility
       city
       state
       gender
       age
       about
+      availability {
+        fromDate
+        toDate
+      }
       education {
         _id
         school

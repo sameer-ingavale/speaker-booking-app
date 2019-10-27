@@ -60,6 +60,9 @@ module.exports = gql`
     lastName: String!
     email: String!
     password: String
+    headline: String
+    tags: [String]!
+    userVisibility: Boolean
     tagline: String
     city: String
     state: String
@@ -202,7 +205,7 @@ module.exports = gql`
   input EditProfileIntro {
     firstName: String!
     lastName: String!
-    tagline: String
+    headline: String
     city: String
     state: String
     gender: String
@@ -236,6 +239,12 @@ module.exports = gql`
     description: String
   }
 
+  input settingsInput {
+    userVisibility: Boolean!
+    tags: [String]!
+    tagline: String
+  }
+
   type Query {
     getSpeakers: [User]!
     getEvents: [Event]!
@@ -259,5 +268,6 @@ module.exports = gql`
     editEducation(input: EditEducationInput): Bool!
     deleteEducation(educationId: ID!): Bool!
     setSpeakerAvailability(fromDate: String!, toDate: String!): Bool!
+    changeUserSettings(input: settingsInput): Bool!
   }
 `;

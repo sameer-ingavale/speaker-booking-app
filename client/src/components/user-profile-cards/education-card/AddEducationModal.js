@@ -25,7 +25,7 @@ function AddEducationModal({ pageUser }) {
     setValues({ ...values, [name]: value });
   };
 
-  const [addEducation, { loading }] = useMutation(ADD_EDUCATION, {
+  const [addEducation] = useMutation(ADD_EDUCATION, {
     update(proxy, data) {
       console.log(data);
     },

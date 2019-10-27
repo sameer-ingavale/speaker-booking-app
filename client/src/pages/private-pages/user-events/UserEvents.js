@@ -7,7 +7,8 @@ import moment from "moment";
 import "./userEvents.css";
 
 function UserEvents() {
-  const { loading, error, data } = useQuery(GET_USER_EVENTS);
+  /* const { loading, error, data } = useQuery(GET_USER_EVENTS); */
+  const { data } = useQuery(GET_USER_EVENTS);
 
   let events;
 
@@ -59,6 +60,7 @@ function UserEvents() {
                 <Card.Content>
                   <Card.Header>Requested Speakers</Card.Header>
                   {event.booking &&
+                    event.booking.requestedSpeakers.length > 0 &&
                     event.booking.requestedSpeakers.map((speaker) => (
                       <Card.Content>
                         <Button basic floated="right">
@@ -76,7 +78,9 @@ function UserEvents() {
                       <Button basic floated="right">
                         Get Private Info
                       </Button>
-                      <Card.Description>{`${event.booking.confirmedSpeaker.firstName} ${event.booking.confirmedSpeaker.lastName}`}</Card.Description>
+                      {event.booking.confirmedSpeaker && (
+                        <Card.Description>{`${event.booking.confirmedSpeaker.firstName} ${event.booking.confirmedSpeaker.lastName}`}</Card.Description>
+                      )}
                       {/*  <Card.Meta>{`${speaker.firstName} ${speaker.lastName}`}</Card.Meta> */}
                     </Card.Content>
                   )}

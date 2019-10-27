@@ -11,6 +11,9 @@ function SpeakerCard({
     lastName,
     city,
     state,
+    userVisibility,
+    tagline,
+    tags,
     availability,
     profilePictureLink
   }
@@ -34,12 +37,17 @@ function SpeakerCard({
           as={Link}
           to={`/profile/${_id}`}
         >{`${firstName} ${lastName}`}</Card.Header>
-        <Card.Meta>
-          <Icon color="grey" name="map pin"></Icon>
-          {` ${city}, ${state}`}
-        </Card.Meta>
+        {city && state && (
+          <Card.Meta>
+            <Icon color="grey" name="map pin"></Icon>
+            {` ${city}, ${state}`}
+          </Card.Meta>
+        )}
+        <Card.Description>{tagline}</Card.Description>
         <Card.Description>
-          Sepcialities: I specilaise in Muslim speaking.
+          {tags.map((tag) => (
+            <Label style={{ margin: "8px 7px 0 0" }}>{tag}</Label>
+          ))}
         </Card.Description>
       </Card.Content>
       <Card.Content extra>

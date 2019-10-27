@@ -4,7 +4,7 @@ import moment from "moment";
 import { Card, Label, Icon } from "semantic-ui-react";
 import "./eventCard.css";
 
-import { enumToWord } from "../../helpers/helper-functions/enumToWord";
+import { enumToHashtagWord } from "../../helpers/helper-functions/enumToHashtagWord";
 
 function EventCard({
   event: {
@@ -32,37 +32,37 @@ function EventCard({
     <Card fluid className="event-card-wrapper">
       {/*  <pre>{JSON.stringify(new Date(parseInt(createdAt)), null, 2)}</pre> */}
       <Card.Content>
-        <Card.Header as={Link} to={`/events/${_id}`}>
+        <Card.Header className="header3" as={Link} to={`/events/${_id}`}>
           {title}
         </Card.Header>
 
         <Card.Meta>
-          {moment(eventDate).format("ddd, MMM DD")}
-          {", "}
-          {moment(startTime).format("h:mm A")}
-          <br />
-          <span className="eventDateFromNow">{`Event ${moment(
+          <span className="eventDateFromNow">{`Starts ${moment(
             eventDate
           ).fromNow()}`}</span>
+          <br />
+          {moment(eventDate).format("ddd, MMM DD YYYY")}
+          {", "}
+          {moment(startTime).format("h:mm A")}
         </Card.Meta>
         <Card.Meta>
+          Duration:{" "}
+          {moment.duration(new moment(endTime).diff(startTime)).humanize()}
+        </Card.Meta>
+        <Card.Description style={{ padding: "10px 0px 15px 0px" }}>
+          <Icon name="map marker alternate" />{" "}
           {streetAddress2
             ? `${streetAddress1}, ${streetAddress2}, ${city}, ${state}, ${zip}`
             : `${streetAddress1}, ${streetAddress2} ${city}, ${state}, ${zip}`}
-        </Card.Meta>
-        <Card.Meta
-          as={Link}
-          to={`/company/${creatorCompany._id}`}
-        >{`Event by ${creatorCompany.name}`}</Card.Meta>
+        </Card.Description>
         <Card.Description>
-          <Icon name="users" />
-          {` Expected Turnout: ${expectedTurnout}`}
+          <Icon name="search"></Icon> Looking for speaker
         </Card.Description>
       </Card.Content>
       <Card.Content extra>
-        {enumToWord(eventTopic)}
-        {payType === "PAID" ? (
-          <Label attached="top right" size="tiny" className="event-paid-label">
+        {enumToHashtagWord(eventTopic)}
+        {payType !== "PAID" ? (
+          <Label attached="top right" size="small" className="event-paid-label">
             <Icon name="dollar sign" />
             PAID
           </Label>

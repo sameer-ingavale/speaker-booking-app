@@ -8,6 +8,8 @@ const userSchema = new Schema({
   email: String,
   password: String,
   tagline: String,
+  headline: String,
+  tags: [String],
   city: String,
   state: String,
   about: String,
@@ -29,11 +31,15 @@ const userSchema = new Schema({
     fromDate: String,
     toDate: String
   },
+  userVisibility: {
+    type: Boolean,
+    default: false
+  },
   dateCreated: String,
   userType: String,
   profilePictureLink: {
     type: String,
-    default: "https://semantic-ui.com/images/avatar2/large/kristy.png"
+    default: "https://i.ibb.co/Sxfdhqd/guy-placeholder.jpg"
   },
   createdCompany: [
     {

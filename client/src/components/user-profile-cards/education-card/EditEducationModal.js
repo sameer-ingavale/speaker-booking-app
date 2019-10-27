@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid, Modal, Transition, Button, Form, Icon } from "semantic-ui-react";
+import { Grid, Modal, Transition, Button, Form } from "semantic-ui-react";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
 
@@ -43,7 +43,7 @@ function EducationCardEditModal({ education }) {
     window.location.reload();
   };
 
-  const [editEducation, { loading }] = useMutation(EDIT_EDUCATION, {
+  const [editEducation] = useMutation(EDIT_EDUCATION, {
     update(proxy, data) {
       console.log(data);
     },

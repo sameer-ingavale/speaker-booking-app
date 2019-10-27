@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid, Card, Segment, Button, Icon } from "semantic-ui-react";
+import { Grid, Card, Button, Icon } from "semantic-ui-react";
 import moment from "moment";
 import "./availabilityCard.css";
 import gql from "graphql-tag";
@@ -9,11 +9,13 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../../../helpers/css/datePicker.css";
 
-function SetAvailabilityCard() {
+function SetAvailabilityCard({ pageUser, UrlId }) {
   const [values, setValues] = useState({
     fromDate: new Date(),
     toDate: new Date()
   });
+
+  console.log(pageUser.availability.toDate);
 
   const EventDateButton = ({ value, onClick }) => (
     <Button basic onClick={onClick} className="availabilityDateButton">
@@ -38,7 +40,7 @@ function SetAvailabilityCard() {
     <Grid>
       <Grid.Row centered>
         <Grid.Column computer={15} mobile={16}>
-          <Card fluid>
+          <Card rasied fluid>
             <Card.Content className="educationHeaderContent">
               <Card.Header className="header2">
                 Set Your Availability
@@ -61,7 +63,12 @@ function SetAvailabilityCard() {
                   onChange={(date) => setValues({ ...values, toDate: date })}
                   customInput={<EventDateButton />}
                 />
-                <Button onClick={onSubmit} className="setAvailabilityButton">
+                <Button
+                  basic
+                  color="blue"
+                  onClick={onSubmit}
+                  className="setAvailabilityButton"
+                >
                   Set Availability
                 </Button>
               </Card.Content>

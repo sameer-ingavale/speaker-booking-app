@@ -8,7 +8,10 @@ module.exports = {
   Query: {
     getSpeakers: async () => {
       try {
-        const users = await User.find({ userType: "SPEAKER" });
+        const users = await User.find({
+          userType: "SPEAKER",
+          userVisibility: true
+        });
         return users.map((user) => {
           return {
             ...user._doc,
@@ -66,7 +69,7 @@ module.exports = {
       const {
         firstName,
         lastName,
-        tagline,
+        headline,
         city,
         state,
         gender,
@@ -80,7 +83,7 @@ module.exports = {
       if (user) {
         user.firstName = firstName;
         user.lastName = lastName;
-        user.tagline = tagline;
+        user.headline = headline;
         user.city = city;
         user.state = state;
         user.gender = gender;
@@ -203,6 +206,24 @@ module.exports = {
       if (user) {
         user.availability.fromDate = fromDate;
         user.availability.toDate = toDate;
+        await user.save();
+
+        return { success: true };
+      }
+    },
+    changeUserSettings: async (parent, args, context) => {
+      const { tagline, tags, userVisibility } = args.input;
+
+      console.log(tags);
+
+      const token = authMiddleware(context);
+
+      const user = await User.findById(token.userId);
+
+      if (user) {
+        user.userVisibility = userVisibility;
+        user.tags = tags;
+        user.tagline = tagline;
         await user.save();
 
         return { success: true };

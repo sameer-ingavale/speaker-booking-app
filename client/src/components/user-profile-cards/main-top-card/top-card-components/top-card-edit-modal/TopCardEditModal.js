@@ -9,7 +9,7 @@ function TopCardEditModal({ pageUser, openModal, modalOpen }) {
   const [values, setValues] = useState({
     firstName: `${pageUser.firstName}`,
     lastName: `${pageUser.lastName}`,
-    tagline: pageUser.tagline === null ? "" : `${pageUser.tagline}`,
+    headline: pageUser.headline === null ? "" : `${pageUser.headline}`,
     city: pageUser.city === null ? "" : `${pageUser.city}`,
     state: pageUser.state === null ? "" : `${pageUser.state}`,
     gender: pageUser.gender === null ? "" : `${pageUser.gender}`,
@@ -27,7 +27,7 @@ function TopCardEditModal({ pageUser, openModal, modalOpen }) {
     setValues({ ...values, [name]: value });
   };
 
-  const [editProfileIntro, { loading }] = useMutation(EDIT_PROFILE_INTRO, {
+  const [editProfileIntro] = useMutation(EDIT_PROFILE_INTRO, {
     update(proxy, data) {
       console.log(data);
     },
@@ -112,10 +112,10 @@ function TopCardEditModal({ pageUser, openModal, modalOpen }) {
               <Form.TextArea
                 className="textarea"
                 rows="2"
-                label="Tagline"
-                placeholder="Your tagline goes here"
-                name="tagline"
-                value={values.tagline}
+                label="headline"
+                placeholder="Your headline goes here"
+                name="headline"
+                value={values.headline}
                 onChange={onChange}
               />
             </Form>
@@ -135,7 +135,7 @@ const EDIT_PROFILE_INTRO = gql`
   mutation editProfileIntro(
     $firstName: String!
     $lastName: String!
-    $tagline: String
+    $headline: String
     $city: String
     $state: String
     $age: String
@@ -145,7 +145,7 @@ const EDIT_PROFILE_INTRO = gql`
       input: {
         firstName: $firstName
         lastName: $lastName
-        tagline: $tagline
+        headline: $headline
         city: $city
         state: $state
         age: $age

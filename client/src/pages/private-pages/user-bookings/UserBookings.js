@@ -1,7 +1,6 @@
-import React, { useContext, useState } from "react";
-import { Grid, Menu } from "semantic-ui-react";
+import React, { useContext } from "react";
+import { Grid } from "semantic-ui-react";
 import { useQuery } from "@apollo/react-hooks";
-import { Link } from "react-router-dom";
 
 import BookingsCard from "../../../components/bookings-card/BookingsCard";
 import ConfirmedBookingsCard from "../../../components/confirmed-bookings-card/ConfirmedBookingsCard";
@@ -13,7 +12,7 @@ function UserBookings() {
     authData: { user }
   } = useContext(AuthContext);
 
-  const { loading, error, data } = useQuery(GET_SINGLE_USER, {
+  const { loading, data } = useQuery(GET_SINGLE_USER, {
     variables: {
       userId: user.userId
     }
@@ -23,12 +22,6 @@ function UserBookings() {
   if (data) {
     authUser = data.getSingleUser;
   }
-
-  const [activeItem, setActiveItem] = useState("home");
-
-  const handleItemClick = (event, { name }) => {
-    setActiveItem(name);
-  };
 
   return (
     <Grid doubling>

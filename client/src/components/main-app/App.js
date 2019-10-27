@@ -20,6 +20,7 @@ import CreateEvent from "../../pages/private-pages/create-event/CreateEvent";
 import SingleEvent from "../../pages/single-event/SingleEvent";
 import UserBookings from "../../pages/private-pages/user-bookings/UserBookings";
 import UserEvents from "../../pages/private-pages/user-events/UserEvents";
+import SettingsPrivacy from "../../pages/private-pages/settings-privacy/SettingsPrivacy";
 
 function App() {
   return (
@@ -54,6 +55,11 @@ function App() {
             exact
             path="/account/bookings"
             component={UserBookings}
+          />
+          <PrivateRoute
+            exact
+            path="/account/settings-privacy"
+            component={SettingsPrivacy}
           />
         </Switch>
       </Router>

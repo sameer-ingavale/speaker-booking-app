@@ -13,7 +13,7 @@ function AboutCardEditModal({ pageUser, openModal, modalOpen }) {
     setValues({ ...values, [name]: value });
   };
 
-  const [editProfileAbout, { loading }] = useMutation(EDIT_PROFILE_ABOUT, {
+  const [editProfileAbout] = useMutation(EDIT_PROFILE_ABOUT, {
     update(proxy, data) {
       console.log(data);
     },

@@ -78,8 +78,8 @@ function MenuBar() {
                   Bookings
                 </Dropdown.Item>
               )}
-              <Dropdown.Item as={Link} to={`/profile/${user.userId}`}>
-                Accout Settings
+              <Dropdown.Item as={Link} to={`/account/settings-privacy`}>
+                Settings & Privacy
               </Dropdown.Item>
               <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
             </Dropdown.Menu>
