@@ -7,7 +7,7 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import { setContext } from "apollo-link-context";
 
 const httpLink = createUploadLink({
-  uri: "http://localhost:8000/"
+  uri: "https://book-a-speaker.herokuapp.com"
 });
 
 const authLink = setContext(() => {
