@@ -104,8 +104,16 @@ function MenuBar() {
           />
           <Menu.Item
             className="main-nav-links"
-            name="events"
-            active={activeItem === "events"}
+            name="Browse Speakers"
+            active={activeItem === "Browse Speakers"}
+            onClick={handleItemClick}
+            as={Link}
+            to="/speakers"
+          />
+          <Menu.Item
+            className="main-nav-links"
+            name="Explore Events"
+            active={activeItem === "Explore Events"}
             onClick={handleItemClick}
             as={Link}
             to="/events"

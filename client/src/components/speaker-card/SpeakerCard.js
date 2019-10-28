@@ -37,16 +37,18 @@ function SpeakerCard({
           as={Link}
           to={`/profile/${_id}`}
         >{`${firstName} ${lastName}`}</Card.Header>
-        {city && state && (
-          <Card.Meta>
-            <Icon color="grey" name="map pin"></Icon>
-            {` ${city}, ${state}`}
-          </Card.Meta>
-        )}
+
+        <Card.Meta>
+          <Icon color="grey" name="map pin"></Icon>
+          {city && state ? ` ${city}, ${state}` : "Location Unknown"}
+        </Card.Meta>
+
         <Card.Description>{tagline}</Card.Description>
         <Card.Description>
           {tags.map((tag) => (
-            <Label style={{ margin: "8px 7px 0 0" }}>{tag}</Label>
+            <Label key={tag} style={{ margin: "8px 7px 0 0" }}>
+              {tag}
+            </Label>
           ))}
         </Card.Description>
       </Card.Content>

@@ -61,4 +61,8 @@ const userSchema = new Schema({
   ]
 });
 
+userSchema.index(
+  { firstName: "text", lastName: "text" },
+  { weights: { firstName: 5, lastName: 3 } }
+);
 module.exports = mongoose.model("User", userSchema);

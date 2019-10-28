@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Grid, Card, Dropdown, Button, Sticky } from "semantic-ui-react";
+import { Grid, Card, Dropdown, Button } from "semantic-ui-react";
 import "./bookingTopCard.css";
 import gql from "graphql-tag";
 import { useMutation, useQuery } from "@apollo/react-hooks";
@@ -58,30 +58,28 @@ function BookingTopCard({ UrlId }) {
 
   return (
     <Grid.Column width={15}>
-      <Sticky>
-        <Card fluid>
-          <Card.Content textAlign="left">
-            <h4>Book This Speaker</h4>
-            <Dropdown
-              selection
-              options={authUserEventsOptions}
-              name="eventId"
-              placeholder="Select Event"
-              value={values.eventId}
-              onChange={onChange}
-            />
-            <Button
-              className="bookSpeakerButton"
-              basic
-              color="blue"
-              disabled={values.eventId !== "" ? false : true}
-              onClick={onSubmit}
-            >
-              Send Booking Request
-            </Button>
-          </Card.Content>
-        </Card>
-      </Sticky>
+      <Card fluid>
+        <Card.Content textAlign="left">
+          <h4>Book This Speaker</h4>
+          <Dropdown
+            selection
+            options={authUserEventsOptions}
+            name="eventId"
+            placeholder="Select Event"
+            value={values.eventId}
+            onChange={onChange}
+          />
+          <Button
+            className="bookSpeakerButton"
+            basic
+            color="blue"
+            disabled={values.eventId !== "" ? false : true}
+            onClick={onSubmit}
+          >
+            Send Booking Request
+          </Button>
+        </Card.Content>
+      </Card>
     </Grid.Column>
   );
 }

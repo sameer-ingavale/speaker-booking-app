@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import gql from "graphql-tag";
+import { Link } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
-import { Grid, Responsive } from "semantic-ui-react";
+import { Grid, Responsive, Search, Breadcrumb } from "semantic-ui-react";
 import SpeakersPlaceholder from "../../helpers/Placeholders/SpeakersPlaceholder";
 
 import SpeakerCard from "../../components/speaker-card/SpeakerCard";
@@ -16,10 +17,29 @@ function Speakers() {
     console.log(speakers);
   }
 
+  const [values, setValues] = useState({ searchValue: "" });
+
+  const onSearchChange = (event) => {
+    let searchValue = event.target.value;
+    setValues({ ...values, searchValue });
+  };
+
+  const sections = [
+    { key: "Home", content: "Home", as: Link, to: "/home" },
+    { key: "Speakers", content: "Speakers", as: Link, to: "/speakers" }
+  ];
+
   return (
     <>
       <Responsive minWidth={600}>
+        <Breadcrumb icon="right angle" sections={sections} />
+        <pre>{JSON.stringify(values, null, 2)}</pre>
         <Grid columns={4} doubling className="main-wrapper">
+          <Grid.Row centered>
+            <Grid.Column>
+              <Search onSearchChange={onSearchChange} size="small" />
+            </Grid.Column>
+          </Grid.Row>
           <Grid.Row>
             {loading ? (
               <SpeakersPlaceholder />

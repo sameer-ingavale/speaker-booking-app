@@ -252,6 +252,7 @@ module.exports = gql`
     getCompany: Company!
     getSingleUser(userId: ID!): User!
     getSingleUserEvents: [Event]!
+    speakerSearch(searchValue: String!): [User]!
   }
 
   type Mutation {
