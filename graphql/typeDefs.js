@@ -252,7 +252,6 @@ module.exports = gql`
     getCompany: Company!
     getSingleUser(userId: ID!): User!
     getSingleUserEvents: [Event]!
-    speakerSearch(searchValue: String!): [User]!
   }
 
   type Mutation {
@@ -270,5 +269,6 @@ module.exports = gql`
     deleteEducation(educationId: ID!): Bool!
     setSpeakerAvailability(fromDate: String!, toDate: String!): Bool!
     changeUserSettings(input: settingsInput): Bool!
+    speakerSearch(searchValue: String!): [User]!
   }
 `;

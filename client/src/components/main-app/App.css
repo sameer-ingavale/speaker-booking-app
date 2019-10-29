@@ -35,6 +35,22 @@
   padding: 30px !important;
 }
 
+.ui.search > .results .result .image {
+  height: 35px !important;
+  width: 35px !important;
+  float: left !important;
+  border-radius: 50px !important;
+}
+
+.ui.search > .results .result {
+  padding: 5px 10px 5px 10px !important;
+  border-bottom: none !important;
+}
+
+.ui.search .prompt {
+  border-radius: 0px !important;
+}
+
 .ui.card {
   line-height: 1.65em;
   font-size: 0.9em;
@@ -78,6 +94,12 @@
   font-size: 1.2em !important;
   line-height: 1.7em !important;
   font-weight: 500 !important;
+}
+
+.header6 {
+  font-size: 1.1em !important;
+  line-height: 1.7em !important;
+  font-weight: 600 !important;
 }
 
 .normalText {

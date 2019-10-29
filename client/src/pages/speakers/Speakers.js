@@ -1,28 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import gql from "graphql-tag";
 import { Link } from "react-router-dom";
+import SpeakerSearchBar from "../../components/search-bar/SpeakerSearchBar";
 import { useQuery } from "@apollo/react-hooks";
-import { Grid, Responsive, Search, Breadcrumb } from "semantic-ui-react";
-import SpeakersPlaceholder from "../../helpers/Placeholders/SpeakersPlaceholder";
 
+import { Grid, Responsive, Breadcrumb } from "semantic-ui-react";
+import SpeakersPlaceholder from "../../helpers/Placeholders/SpeakersPlaceholder";
 import SpeakerCard from "../../components/speaker-card/SpeakerCard";
 
-function Speakers() {
+function Speakers(props) {
   const { loading, error, data } = useQuery(GET_SPEAKERS_QUERY);
 
   let speakers;
 
   if (data) {
     speakers = data.getSpeakers;
-    console.log(speakers);
+    // console.log(speakers);
+    /* FIX THE ISSUE OF QUERY EXECUTION EVERYTIME SEARCH ONCHANGE IS TRIGGERED*/
   }
-
-  const [values, setValues] = useState({ searchValue: "" });
-
-  const onSearchChange = (event) => {
-    let searchValue = event.target.value;
-    setValues({ ...values, searchValue });
-  };
 
   const sections = [
     { key: "Home", content: "Home", as: Link, to: "/home" },
@@ -33,13 +28,9 @@ function Speakers() {
     <>
       <Responsive minWidth={600}>
         <Breadcrumb icon="right angle" sections={sections} />
-        <pre>{JSON.stringify(values, null, 2)}</pre>
+        {/*  <pre>{JSON.stringify(values, null, 2)}</pre> */}
         <Grid columns={4} doubling className="main-wrapper">
-          <Grid.Row centered>
-            <Grid.Column>
-              <Search onSearchChange={onSearchChange} size="small" />
-            </Grid.Column>
-          </Grid.Row>
+          <SpeakerSearchBar props={props} />
           <Grid.Row>
             {loading ? (
               <SpeakersPlaceholder />
@@ -59,6 +50,7 @@ function Speakers() {
 
       <Responsive maxWidth={600}>
         <Grid columns={2} doubling className="main-wrapper">
+          <SpeakerSearchBar props={props} />
           <Grid.Row>
             {loading ? (
               <SpeakersPlaceholder />

@@ -6,24 +6,6 @@ const processUpload = require("../../helpers/processUpload");
 
 module.exports = {
   Query: {
-    speakerSearch: async (parent, { searchValue }) => {
-      const searchResult = await User.find(
-        {
-          $text: { $search: searchValue }
-        },
-        { score: { $meta: "textScore" } }
-      ).sort({ score: { $meta: "textScore" } });
-
-      if (searchResult.length === 0) {
-        const partialSearchResult = await User.find({
-          firstName: { $regex: searchValue, $options: "i" }
-        });
-
-        return partialSearchResult;
-      }
-
-      return searchResult;
-    },
     getSpeakers: async () => {
       try {
         const users = await User.find({
@@ -244,6 +226,24 @@ module.exports = {
 
         return { success: true };
       }
+    },
+    speakerSearch: async (parent, { searchValue }) => {
+      const searchResult = await User.find(
+        {
+          $text: { $search: searchValue }
+        },
+        { score: { $meta: "textScore" } }
+      ).sort({ score: { $meta: "textScore" } });
+
+      if (searchResult.length === 0) {
+        const partialSearchResult = await User.find({
+          firstName: { $regex: searchValue, $options: "i" }
+        });
+
+        return partialSearchResult;
+      }
+
+      return searchResult;
     }
   }
 };

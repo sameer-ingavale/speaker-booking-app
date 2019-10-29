@@ -40,7 +40,7 @@ function SetAvailabilityCard({ pageUser, UrlId }) {
     <Grid>
       <Grid.Row centered>
         <Grid.Column computer={15} mobile={16}>
-          <Card rasied fluid>
+          <Card fluid>
             <Card.Content className="educationHeaderContent">
               <Card.Header className="header2">
                 Set Your Availability

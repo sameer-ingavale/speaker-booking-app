@@ -1,0 +1,9 @@
+.searchResultWrapper {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+}
+
+.searchResultHeader {
+  margin: 0px 0px 0px 7px !important;
+}
