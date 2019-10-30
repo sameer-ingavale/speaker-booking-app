@@ -1,11 +1,33 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
+import { AuthContext } from "../../context/auth";
+import gql from "graphql-tag";
+import { useMutation } from "@apollo/react-hooks";
 import { usePosition } from "../../helpers/custom-hooks/usePosition";
 import { Card } from "semantic-ui-react";
 
-export default function Home() {
+function Home() {
+  const {
+    authData: { user: authUserData }
+  } = useContext(AuthContext);
+
   const { position, error } = usePosition();
 
-  console.log(position);
+  const coordinates = position.slice(0, 2);
+
+  const [addUserLocation] = useMutation(ADD_USER_LOCATION, {
+    update(proxy, data) {
+      console.log(data);
+    },
+    variables: {
+      coordinates: coordinates
+    }
+  });
+
+  useEffect(() => {
+    if (authUserData && coordinates.length > 1) {
+      addUserLocation();
+    }
+  }, [position]);
 
   return (
     <Card>
@@ -20,3 +42,13 @@ export default function Home() {
     </Card>
   );
 }
+
+const ADD_USER_LOCATION = gql`
+  mutation addUserLocation($coordinates: [Float]) {
+    addUserLocation(coordinates: $coordinates) {
+      success
+    }
+  }
+`;
+
+export default Home;

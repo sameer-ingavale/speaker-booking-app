@@ -15,7 +15,7 @@ export const usePosition = (watch = false, settings = defaultSettings) => {
     const longitude = coords.longitude;
     const accuracy = coords.accuracy;
 
-    setPosition([latitude, longitude, accuracy, timestamp]);
+    setPosition([longitude, latitude, accuracy, timestamp]);
   };
 
   const onError = (error) => {

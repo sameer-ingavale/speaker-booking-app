@@ -12,6 +12,13 @@ const userSchema = new Schema({
   tags: [String],
   city: String,
   state: String,
+  location: {
+    type: {
+      type: String,
+      enum: ["Point"]
+    },
+    coordinates: [Number]
+  },
   about: String,
   gender: String,
   age: String,
@@ -62,7 +69,7 @@ const userSchema = new Schema({
 });
 
 userSchema.index(
-  { firstName: "text", lastName: "text" },
+  { firstName: "text", lastName: "text", location: "2dsphere" },
   { weights: { firstName: 5, lastName: 3 } }
 );
 module.exports = mongoose.model("User", userSchema);

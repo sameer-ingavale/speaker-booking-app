@@ -31,6 +31,9 @@ function Speakers(props) {
         {/*  <pre>{JSON.stringify(values, null, 2)}</pre> */}
         <Grid columns={4} doubling className="main-wrapper">
           <SpeakerSearchBar props={props} />
+          <Grid.Column>
+            <div>test</div>
+          </Grid.Column>
           <Grid.Row>
             {loading ? (
               <SpeakersPlaceholder />

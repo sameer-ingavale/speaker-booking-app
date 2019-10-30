@@ -54,6 +54,10 @@ module.exports = gql`
     toDate: String
   }
 
+  type Location {
+    coordinates: [Float]
+  }
+
   type User {
     _id: ID!
     firstName: String!
@@ -66,6 +70,7 @@ module.exports = gql`
     tagline: String
     city: String
     state: String
+    location: Location
     gender: String
     age: String
     about: String
@@ -270,5 +275,6 @@ module.exports = gql`
     setSpeakerAvailability(fromDate: String!, toDate: String!): Bool!
     changeUserSettings(input: settingsInput): Bool!
     speakerSearch(searchValue: String!): [User]!
+    addUserLocation(coordinates: [Float]): Bool
   }
 `;

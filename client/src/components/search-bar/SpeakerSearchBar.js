@@ -54,7 +54,7 @@ function SpeakerSearchBar({ props }) {
     </div>
   );
 
-  const searchFunction = useCallback(debounce(makeSearch, 50000), []);
+  const searchFunction = useCallback(debounce(makeSearch, 500), []);
 
   const onSearchChange = (event) => {
     let searchValue = event.target.value;

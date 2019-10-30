@@ -244,6 +244,21 @@ module.exports = {
       }
 
       return searchResult;
+    },
+    addUserLocation: async (parent, { coordinates }, context) => {
+      const token = authMiddleware(context);
+
+      const user = await User.findById(token.userId);
+
+      console.log(coordinates);
+
+      if (user) {
+        user.location.type = "Point";
+        user.location.coordinates = coordinates;
+        await user.save();
+
+        return { success: true };
+      }
     }
   }
 };
