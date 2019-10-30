@@ -54,7 +54,7 @@ function SpeakerSearchBar({ props }) {
     </div>
   );
 
-  const searchFunction = useCallback(debounce(makeSearch, 500), []);
+  const searchFunction = useCallback(debounce(makeSearch, 50000), []);
 
   const onSearchChange = (event) => {
     let searchValue = event.target.value;
@@ -87,8 +87,11 @@ function SpeakerSearchBar({ props }) {
           onSearchChange={onSearchChange}
           size="small"
           results={values.searchResult}
+          noResultsMessage={values.isLoading ? "loading" : "test"}
         />
-        <Button onClick={onSubmit}>Search</Button>
+        <Button className="speakerSearchButton" onClick={onSubmit}>
+          Search
+        </Button>
       </Grid.Column>
     </Grid.Row>
   );

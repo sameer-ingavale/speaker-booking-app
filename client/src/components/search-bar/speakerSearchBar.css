@@ -7,3 +7,7 @@
 .searchResultHeader {
   margin: 0px 0px 0px 7px !important;
 }
+
+.speakerSearchButton {
+  border-radius: 0px !important;
+}
