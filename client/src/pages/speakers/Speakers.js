@@ -1,41 +1,56 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import gql from "graphql-tag";
-import { Link } from "react-router-dom";
+
 import SpeakerSearchBar from "../../components/search-bar/SpeakerSearchBar";
 import { useQuery } from "@apollo/react-hooks";
 
-import { Grid, Responsive, Breadcrumb } from "semantic-ui-react";
+import { Grid, Responsive } from "semantic-ui-react";
 import SpeakersPlaceholder from "../../helpers/Placeholders/SpeakersPlaceholder";
 import SpeakerCard from "../../components/speaker-card/SpeakerCard";
 
 function Speakers(props) {
   const { loading, error, data } = useQuery(GET_SPEAKERS_QUERY);
 
-  let speakers;
+  const [searchResult, setSearchResult] = useState({
+    data: [],
+    value: ""
+  });
 
-  if (data) {
-    speakers = data.getSpeakers;
-    // console.log(speakers);
-    /* FIX THE ISSUE OF QUERY EXECUTION EVERYTIME SEARCH ONCHANGE IS TRIGGERED*/
-  }
+  const onClick = (values) => {
+    setSearchResult({ data: values.searchData, value: values.searchValue });
+  };
 
-  const sections = [
-    { key: "Home", content: "Home", as: Link, to: "/home" },
-    { key: "Speakers", content: "Speakers", as: Link, to: "/speakers" }
-  ];
+  const [speakers, setSpeakers] = useState([]);
+
+  useEffect(() => {
+    if (searchResult.data.length > 0) {
+      setSpeakers(searchResult.data);
+    } else if (
+      searchResult.data.length === 0 &&
+      searchResult.value.length > 0
+    ) {
+      setSpeakers([]);
+    } else if (data) {
+      setSpeakers(data.getSpeakers);
+    }
+  }, [searchResult.data, data, searchResult.value]);
 
   return (
     <>
       <Responsive minWidth={600}>
-        <Breadcrumb icon="right angle" sections={sections} />
-        {/*  <pre>{JSON.stringify(values, null, 2)}</pre> */}
-        <Grid columns={4} doubling className="main-wrapper">
-          <SpeakerSearchBar props={props} />
-          <Grid.Column>
-            <div>test</div>
-          </Grid.Column>
+        {/* <pre>{JSON.stringify(searchResult, null, 2)}</pre> */}
+        <Grid columns={3} doubling className="main-wrapper">
           <Grid.Row>
-            {loading ? (
+            <SpeakerSearchBar props={props} onSearchClick={onClick} />
+          </Grid.Row>
+          {searchResult.data.length >= 0 && searchResult.value.length > 0 && (
+            <div style={{ color: "#7B8489", fontStyle: "italic" }}>
+              showing {searchResult.data.length} results for "
+              {searchResult.value}"
+            </div>
+          )}
+          <Grid.Row>
+            {searchResult.isLoading || loading ? (
               <SpeakersPlaceholder />
             ) : error ? (
               <h1>fuck</h1>
@@ -53,7 +68,15 @@ function Speakers(props) {
 
       <Responsive maxWidth={600}>
         <Grid columns={2} doubling className="main-wrapper">
-          <SpeakerSearchBar props={props} />
+          <Grid.Row>
+            <SpeakerSearchBar props={props} onSearchClick={onClick} />
+            {searchResult.data.length >= 0 && searchResult.value.length > 0 && (
+              <div style={{ color: "#7B8489", fontStyle: "italic" }}>
+                showing {searchResult.data.length} results for "
+                {searchResult.value}"
+              </div>
+            )}
+          </Grid.Row>
           <Grid.Row>
             {loading ? (
               <SpeakersPlaceholder />

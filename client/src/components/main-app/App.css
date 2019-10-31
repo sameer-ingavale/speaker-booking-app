@@ -48,7 +48,13 @@
 }
 
 .ui.search .prompt {
-  border-radius: 0px !important;
+  border-radius: 5px 0px 0px 5px !important;
+  width: 35vw !important;
+}
+
+.ui.doubling.grid > .row > .column,
+.ui.grid > .doubling.row > .column {
+  display: flex !important;
 }
 
 .ui.card {

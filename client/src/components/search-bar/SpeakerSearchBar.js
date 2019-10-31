@@ -5,11 +5,12 @@ import { debounce } from "lodash";
 import { Grid, Search, Button, Header, Image } from "semantic-ui-react";
 import "./speakerSearchBar.css";
 
-function SpeakerSearchBar({ props }) {
+function SpeakerSearchBar({ props, onSearchClick }) {
   const [values, setValues] = useState({
     searchResult: "",
     searchValue: "",
-    isLoading: false
+    isLoading: false,
+    searchData: ""
   });
 
   const SearchResultWrapper = (params) => (
@@ -39,8 +40,12 @@ function SpeakerSearchBar({ props }) {
         };
       });
 
-      console.log(resultArray);
-      setValues({ ...values, isLoading: false, searchResult: resultArray });
+      setValues({
+        ...values,
+        isLoading: false,
+        searchResult: resultArray,
+        searchData: speakerSearch
+      });
     },
     variables: {
       searchValue: values.searchValue
@@ -54,7 +59,7 @@ function SpeakerSearchBar({ props }) {
     </div>
   );
 
-  const searchFunction = useCallback(debounce(makeSearch, 500), []);
+  const searchFunction = useCallback(debounce(makeSearch, 200), []);
 
   const onSearchChange = (event) => {
     let searchValue = event.target.value;
@@ -68,32 +73,34 @@ function SpeakerSearchBar({ props }) {
   };
 
   const onResultSelect = (event, { result }) => {
-    console.log(result.id);
     props.history.push(`/profile/${result.id}`);
   };
 
-  const onSubmit = (event) => {
+  const onClick = (event) => {
     event.preventDefault();
+    onSearchClick(values);
   };
 
   return (
-    <Grid.Row centered>
-      <Grid.Column style={{ display: "flex" }}>
-        <Search
-          onResultSelect={onResultSelect}
-          resultRenderer={resultRenderer}
-          input={{ icon: "search", iconPosition: "left" }}
-          loading={values.isLoading}
-          onSearchChange={onSearchChange}
-          size="small"
-          results={values.searchResult}
-          noResultsMessage={values.isLoading ? "loading" : "test"}
-        />
-        <Button className="speakerSearchButton" onClick={onSubmit}>
-          Search
-        </Button>
-      </Grid.Column>
-    </Grid.Row>
+    <Grid.Column style={{ display: "flex", width: "100vw" }}>
+      <Search
+        onResultSelect={onResultSelect}
+        resultRenderer={resultRenderer}
+        input={{ icon: "search", iconPosition: "left" }}
+        loading={values.isLoading}
+        onSearchChange={onSearchChange}
+        size="small"
+        results={values.searchResult}
+        noResultsMessage={values.isLoading ? "loading" : "test"}
+      />
+      <Button
+        disabled={values.isLoading ? true : false}
+        className="speakerSearchButton"
+        onClick={onClick}
+      >
+        Search
+      </Button>
+    </Grid.Column>
   );
 }
 
@@ -104,6 +111,14 @@ const SPEAKER_SEARCH = gql`
       firstName
       lastName
       city
+      state
+      userVisibility
+      tagline
+      tags
+      availability {
+        fromDate
+        toDate
+      }
       profilePictureLink
     }
   }

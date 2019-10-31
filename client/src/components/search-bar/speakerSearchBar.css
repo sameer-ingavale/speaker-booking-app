@@ -9,5 +9,9 @@
 }
 
 .speakerSearchButton {
-  border-radius: 0px !important;
+  background: #f4ce73 !important;
+  color: white !important;
+  height: 35px !important;
+  margin-left: -1px !important;
+  border-radius: 0px 5px 5px 0px !important;
 }

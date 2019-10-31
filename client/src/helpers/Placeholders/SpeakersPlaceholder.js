@@ -2,12 +2,12 @@ import React, { Fragment } from "react";
 import { Grid, Placeholder, Segment } from "semantic-ui-react";
 
 export default function SpeakersPlaceholder() {
-  const PlaceholderArray = [1, 2, 3, 4, 5, 6, 7, 8];
+  const PlaceholderArray = [1, 2, 3, 4];
 
   return PlaceholderArray.map((number) => (
     <Fragment key={number}>
       <Grid.Column>
-        <Segment style={{ marginBottom: "25px" }}>
+        <Segment raised>
           <Placeholder>
             <Placeholder.Header image>
               <Placeholder.Line />
