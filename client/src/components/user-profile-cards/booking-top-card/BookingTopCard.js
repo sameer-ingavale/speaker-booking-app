@@ -58,7 +58,11 @@ function BookingTopCard({ UrlId }) {
 
   return (
     <Grid.Column width={15}>
-      <Card fluid>
+      <Card
+        fluid
+        className="shadowCard"
+        style={{ marginTop: "25px", padding: "10px 0px 10px 10px" }}
+      >
         <Card.Content textAlign="left">
           <h4>Book This Speaker</h4>
           <Dropdown

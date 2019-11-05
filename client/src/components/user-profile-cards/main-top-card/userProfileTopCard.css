@@ -1,6 +1,6 @@
 .profileIntroCoverPhotoContainer {
-  background: url(http://www.baltana.com/files/wallpapers-17/Material-Design-Wallpaper-42262.jpg)
-    no-repeat center !important;
+  background: url(https://i.ibb.co/ccDh4mk/Linked-In-background.jpg) no-repeat
+    center !important;
   height: 15rem !important;
   background-size: cover !important;
   background-origin: border-box !important;
@@ -21,6 +21,8 @@
   margin-top: -110px !important;
   margin-left: 25px !important;
   margin-bottom: 3px !important;
+  border: 4px solid rgba(255, 255, 255, 0.8) !important;
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.25);
 }
 
 .profileIntroTextContainer {

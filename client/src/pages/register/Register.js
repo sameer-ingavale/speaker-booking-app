@@ -18,10 +18,18 @@ function Register(props) {
     { key: "1", text: "Speaker", value: "SPEAKER" },
     { key: "2", text: "Event Planner", value: "EVENT_PLANNER" }
   ];
+
+  const genderOptions = [
+    { key: "1", text: "Male", value: "Male" },
+    { key: "2", text: "Female", value: "Female" },
+    { key: "3", text: "Other", value: "Other" }
+  ];
+
   const [errors, setErrors] = useState({});
   const [values, setValues] = useState({
     firstName: "",
     lastName: "",
+    gender: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -95,17 +103,25 @@ function Register(props) {
                   options={options}
                   value={values.userType}
                 />
-                <Form.Input
-                  label="Email"
-                  placeholder="Email"
-                  name="email"
-                  type="text"
-                  value={values.email}
+                <Form.Dropdown
+                  label="Gender"
+                  placeholder="Gender"
+                  name="gender"
+                  selection
+                  options={genderOptions}
+                  value={values.gender}
                   onChange={onChange}
-                  error={errors.email ? true : false}
                 />
               </Form.Group>
-
+              <Form.Input
+                label="Email"
+                placeholder="Email"
+                name="email"
+                type="text"
+                value={values.email}
+                onChange={onChange}
+                error={errors.email ? true : false}
+              />
               <Form.Group widths="equal">
                 <Form.Input
                   label="Password"
@@ -147,6 +163,7 @@ const REGISTER_USER = gql`
   mutation register(
     $firstName: String!
     $lastName: String!
+    $gender: String!
     $userType: UserTypeEnum!
     $email: String!
     $password: String!
@@ -156,6 +173,7 @@ const REGISTER_USER = gql`
       input: {
         firstName: $firstName
         lastName: $lastName
+        gender: $gender
         userType: $userType
         email: $email
         password: $password

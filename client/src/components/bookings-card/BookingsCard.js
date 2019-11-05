@@ -6,11 +6,11 @@ import { useMutation } from "@apollo/react-hooks";
 
 function BookingsCard({ authUser }) {
   console.log(authUser);
-  const [bookingId, setBookingId] = useState({ bookingId: null });
+  const [bookingId, setBookingId] = useState(null);
   const [open, setOpen] = useState(false);
 
   const onConfirm = (event) => {
-    setBookingId({ bookingId: event.target.value });
+    setBookingId(event.target.value);
     setOpen(true);
   };
 
@@ -19,7 +19,7 @@ function BookingsCard({ authUser }) {
       console.log(data);
     },
     variables: {
-      bookingId: bookingId.bookingId
+      bookingId: bookingId
     }
   });
 
@@ -70,12 +70,6 @@ function BookingsCard({ authUser }) {
       </Card>
     </Grid.Column>
   );
-  /* 
-  return (
-    <div>
-      <h1>test</h1>
-    </div>
-  ); */
 }
 
 const CONFIRM_BOOKING = gql`

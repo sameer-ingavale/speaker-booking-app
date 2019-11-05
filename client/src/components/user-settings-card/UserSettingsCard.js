@@ -7,7 +7,9 @@ import {
   Transition,
   Message,
   Form,
-  Button
+  Button,
+  Input,
+  Flag
 } from "semantic-ui-react";
 import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
@@ -18,7 +20,8 @@ function UserSettingsCard({ authUserData }) {
   const [values, setValues] = useState({
     userVisibility: authUserData.userVisibility,
     tags: authUserData.tags,
-    tagline: authUserData.tagline
+    tagline: authUserData.tagline,
+    phone: authUserData.phone
   });
 
   const onToggle = () => {
@@ -54,7 +57,7 @@ function UserSettingsCard({ authUserData }) {
     <Grid>
       <Grid.Row centered>
         <Grid.Column width={15}>
-          {/*           <pre>{JSON.stringify(values, null, 2)}</pre> */}
+          {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
           <Card fluid>
             <Card.Content>
               <Card.Header>Settings</Card.Header>
@@ -89,6 +92,16 @@ function UserSettingsCard({ authUserData }) {
                   value={values.tagline}
                   onChange={onChange}
                 />
+                <Form.Field>
+                  <label>Phone Number</label>
+                  <Input
+                    label={{ basic: true, content: "+1" }}
+                    placeholder="Phone Number"
+                    name="phone"
+                    value={values.phone}
+                    onChange={onChange}
+                  />
+                </Form.Field>
               </Form>
               <Button onClick={onSubmit}>Save Changes</Button>
             </Card.Content>
@@ -109,9 +122,15 @@ const CHANGE_USER_SETTINGS = gql`
     $tags: [String]!
     $tagline: String
     $userVisibility: Boolean!
+    $phone: String
   ) {
     changeUserSettings(
-      input: { tags: $tags, tagline: $tagline, userVisibility: $userVisibility }
+      input: {
+        tags: $tags
+        tagline: $tagline
+        userVisibility: $userVisibility
+        phone: $phone
+      }
     ) {
       success
     }

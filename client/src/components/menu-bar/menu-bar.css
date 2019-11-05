@@ -2,7 +2,7 @@
   background-color: #36474f;
   color: white !important;
   padding: 5px 20px 5px 20px;
-  box-shadow: 0px 0px 8px 0px #cccccc !important;
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.25) !important;
 }
 
 .main-nav-links {
@@ -15,7 +15,7 @@
 
 .dropdown-menu-wrapper {
   margin-top: 20px !important;
-  box-shadow: 0px 0px 8px 0px #eeeeee !important;
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.1) !important;
   padding: 7px 0px 7px 0px !important;
   background-color: #fdfdfe !important;
 }

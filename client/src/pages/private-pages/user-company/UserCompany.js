@@ -3,6 +3,8 @@ import { useQuery } from "@apollo/react-hooks";
 import { Card, Image, Button, Grid, Header } from "semantic-ui-react";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import "./userCompany.css";
+import Atomic from "../../../helpers/loaders/Atomic";
 
 import { GET_COMPANY } from "../../../helpers/gql-queries/getCompanyQuery";
 import { enumToWord } from "../../../helpers/helper-functions/enumToWord";
@@ -20,7 +22,11 @@ function Home() {
   return (
     <Grid>
       {loading ? (
-        <h1>Loading company..</h1>
+        <Grid.Row className="emptyOrganizationsRow">
+          <Grid.Column className="emptyOrganizationsColumn">
+            <Atomic />
+          </Grid.Column>
+        </Grid.Row>
       ) : data ? (
         <Grid.Row centered>
           <Grid.Column width={13}>
@@ -57,12 +63,16 @@ function Home() {
           </Grid.Column>
         </Grid.Row>
       ) : !data ? (
-        <h1>
-          No Company{" "}
-          <Button as={Link} to="/account/create-company" primary>
-            Create One
-          </Button>
-        </h1>
+        <Grid.Row className="emptyOrganizationsRow">
+          <Grid.Column className="emptyOrganizationsColumn">
+            <p className="header5">
+              You have no organizations. Add one to start creating events
+            </p>
+            <Button as={Link} to="/account/create-company">
+              Add Organization
+            </Button>
+          </Grid.Column>
+        </Grid.Row>
       ) : (
         error && <h1>Insert error image here</h1>
       )}

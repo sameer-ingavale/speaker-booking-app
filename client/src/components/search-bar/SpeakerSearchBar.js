@@ -76,7 +76,7 @@ function SpeakerSearchBar({ props, onSearchClick }) {
     props.history.push(`/profile/${result.id}`);
   };
 
-  const onClick = (event) => {
+  const onFilterClick = (event) => {
     event.preventDefault();
     onSearchClick(values);
   };
@@ -84,6 +84,7 @@ function SpeakerSearchBar({ props, onSearchClick }) {
   return (
     <Grid.Column style={{ display: "flex", width: "100vw" }}>
       <Search
+        fluid
         onResultSelect={onResultSelect}
         resultRenderer={resultRenderer}
         input={{ icon: "search", iconPosition: "left" }}
@@ -96,7 +97,7 @@ function SpeakerSearchBar({ props, onSearchClick }) {
       <Button
         disabled={values.isLoading ? true : false}
         className="speakerSearchButton"
-        onClick={onClick}
+        onClick={onFilterClick}
       >
         Search
       </Button>

@@ -12,6 +12,7 @@ export const GET_SINGLE_USER = gql`
       userVisibility
       city
       state
+      phone
       gender
       age
       about

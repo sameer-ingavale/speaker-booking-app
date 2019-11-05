@@ -70,6 +70,7 @@ module.exports = gql`
     tagline: String
     city: String
     state: String
+    phone: String
     location: Location
     gender: String
     age: String
@@ -180,6 +181,7 @@ module.exports = gql`
     firstName: String!
     lastName: String!
     userType: UserTypeEnum!
+    gender: String!
     email: String!
     password: String!
     confirmPassword: String!
@@ -248,6 +250,7 @@ module.exports = gql`
     userVisibility: Boolean!
     tags: [String]!
     tagline: String
+    phone: String
   }
 
   type Query {
@@ -264,8 +267,11 @@ module.exports = gql`
     login(email: String!, password: String!): AuthData!
     createEvent(input: CreateEventInput): Event!
     createCompany(input: CreateCompanyInput): Company!
+
     requestBooking(requestedSpeakerId: ID!, eventId: ID!): BookingIds!
     confirmBooking(bookingId: ID!): BookingIds!
+    cancelBookingRequest(eventId: ID!, speakerId: ID!): Bool
+
     uploadProfilePicture(picture: Upload!): PicData
     editProfileIntro(input: EditProfileIntro): User!
     editProfileAbout(about: String!): User!
@@ -276,5 +282,6 @@ module.exports = gql`
     changeUserSettings(input: settingsInput): Bool!
     speakerSearch(searchValue: String!): [User]!
     addUserLocation(coordinates: [Float]): Bool
+    searchByTags(tags: [String]): [User]!
   }
 `;

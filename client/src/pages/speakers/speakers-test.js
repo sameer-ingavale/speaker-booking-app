@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+/* import React, { useState, useEffect } from "react";
 import gql from "graphql-tag";
 
 import SpeakerSearchBar from "../../components/search-bar/SpeakerSearchBar";
@@ -26,7 +26,7 @@ function Speakers(props) {
   const onTagsFilter = (tagSpeakers) => {
     if (tagSpeakers) {
       setSpeakers(tagSpeakers);
-      console.log("here");
+      console.log(speakers);
     }
   };
 
@@ -46,14 +46,14 @@ function Speakers(props) {
   return (
     <>
       <Responsive minWidth={600}>
-        {/* <pre>{JSON.stringify(speakers, null, 2)}</pre> */}
-        <Grid columns={4} doubling className="main-wrapper">
+        <pre>{JSON.stringify(searchResult, null, 2)}</pre> 
+        <Grid columns={3} doubling className="main-wrapper">
           <Grid.Row>
             <SpeakerSearchBar props={props} onSearchClick={onClick} />
           </Grid.Row>
-          {/*  <Grid.Row>
+          <Grid.Row>
             <SpeakerTagCheckboxes onTagsFilter={onTagsFilter} />
-          </Grid.Row> */}
+          </Grid.Row>
 
           {searchResult.data.length >= 0 && searchResult.value.length > 0 && (
             <div style={{ color: "#7B8489", fontStyle: "italic" }}>
@@ -82,13 +82,13 @@ function Speakers(props) {
         <Grid columns={2} doubling className="main-wrapper">
           <Grid.Row>
             <SpeakerSearchBar props={props} onSearchClick={onClick} />
+            {searchResult.data.length >= 0 && searchResult.value.length > 0 && (
+              <div style={{ color: "#7B8489", fontStyle: "italic" }}>
+                showing {searchResult.data.length} results for "
+                {searchResult.value}"
+              </div>
+            )}
           </Grid.Row>
-          {searchResult.data.length >= 0 && searchResult.value.length > 0 && (
-            <div style={{ color: "#7B8489", fontStyle: "italic" }}>
-              showing {searchResult.data.length} results for "
-              {searchResult.value}"
-            </div>
-          )}
           <Grid.Row>
             {loading ? (
               <SpeakersPlaceholder />
@@ -129,4 +129,4 @@ const GET_SPEAKERS_QUERY = gql`
   }
 `;
 
-export default Speakers;
+export default Speakers; */

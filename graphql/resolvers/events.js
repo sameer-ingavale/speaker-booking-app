@@ -39,8 +39,8 @@ module.exports = {
         }).populate({
           path: "booking",
           populate: [
-            { path: "confirmedSpeaker" },
-            { path: "requestedSpeakers" }
+            { path: "confirmedSpeaker", select: "_id firstName lastName" },
+            { path: "requestedSpeakers", select: "_id firstName lastName" }
           ]
         });
 

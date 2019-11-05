@@ -212,7 +212,7 @@ module.exports = {
       }
     },
     changeUserSettings: async (parent, args, context) => {
-      const { tagline, tags, userVisibility } = args.input;
+      const { tagline, tags, userVisibility, phone } = args.input;
 
       const token = authMiddleware(context);
 
@@ -222,6 +222,7 @@ module.exports = {
         user.userVisibility = userVisibility;
         user.tags = tags;
         user.tagline = tagline;
+        user.phone = phone;
         await user.save();
 
         return { success: true };
@@ -258,6 +259,15 @@ module.exports = {
         await user.save();
 
         return { success: true };
+      }
+    },
+    searchByTags: async (parent, { tags }) => {
+      console.log(tags);
+      try {
+        const user = await User.find({ tags: { $all: tags } });
+        return user;
+      } catch (error) {
+        throw new Error(error);
       }
     }
   }

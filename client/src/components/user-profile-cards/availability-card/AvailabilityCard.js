@@ -7,7 +7,6 @@ import { useMutation } from "@apollo/react-hooks";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import "../../../helpers/css/datePicker.css";
 
 function SetAvailabilityCard({ pageUser, UrlId }) {
   const [values, setValues] = useState({
@@ -40,7 +39,7 @@ function SetAvailabilityCard({ pageUser, UrlId }) {
     <Grid>
       <Grid.Row centered>
         <Grid.Column computer={15} mobile={16}>
-          <Card fluid>
+          <Card fluid className="shadowCard">
             <Card.Content className="educationHeaderContent">
               <Card.Header className="header2">
                 Set Your Availability

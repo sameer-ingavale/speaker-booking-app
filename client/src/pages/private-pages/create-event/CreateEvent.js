@@ -15,7 +15,8 @@ import {
   Checkbox,
   Divider,
   Popup,
-  Label
+  Label,
+  Input
 } from "semantic-ui-react";
 import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
@@ -33,7 +34,9 @@ function CreateEvent(props) {
     { key: "8", text: "Other", value: "OTHER" }
   ];
 
-  const countryOptions = [{ key: "1", text: "United States", value: "US" }];
+  const countryOptions = [
+    { key: "1", flag: "us", text: "United States", value: "US" }
+  ];
 
   const payTypeOptions = [
     { key: "1", text: "Free", value: "FREE" },
@@ -72,8 +75,8 @@ function CreateEvent(props) {
     payType: "FREE",
     eventType: "RELIGIOUS",
     eventTopic: "RELIGION_SPIRITUALITY",
-    payAmount: "0",
-    expectedTurnout: "0",
+    payAmount: "",
+    expectedTurnout: "",
     address: {
       streetAddress1: "",
       streetAddress2: "",
@@ -156,7 +159,7 @@ function CreateEvent(props) {
               <Form.Group widths="equal">
                 <Form.Input
                   label="Event Title"
-                  placeholder="Event Title"
+                  placeholder="Ex. Friday Prayer"
                   name="title"
                   type="text"
                   value={values.title}
@@ -186,7 +189,7 @@ function CreateEvent(props) {
                 />
                 <Form.Input
                   label="Expected Turnout"
-                  placeholder="Expected Turnout"
+                  placeholder="Ex. 50"
                   name="expectedTurnout"
                   type="text"
                   value={values.expectedTurnout}
@@ -219,9 +222,10 @@ function CreateEvent(props) {
                       />
                     }
                   />
-                  <Form.Input
+                  <Input
+                    label={{ basic: true, content: "$" }}
                     disabled={values.payType === "FREE" ? true : false}
-                    placeholder="Pay Amount"
+                    placeholder="100"
                     name="payAmount"
                     type="text"
                     value={values.payAmount}
@@ -272,7 +276,7 @@ function CreateEvent(props) {
               </Form.Group>
               <Form.Input
                 label="Address Line 1"
-                placeholder="Address Line 1"
+                placeholder="Ex. 1700 S Center St."
                 name="streetAddress1"
                 type="text"
                 value={values.streetAddress1}
@@ -292,7 +296,7 @@ function CreateEvent(props) {
               <Form.Group widths="equal">
                 <Form.Input
                   label="Zip Code"
-                  placeholder="Zip Code"
+                  placeholder="Ex. 76010"
                   name="zip"
                   type="text"
                   value={values.zip}
@@ -301,7 +305,7 @@ function CreateEvent(props) {
                 />
                 <Form.Input
                   label="City"
-                  placeholder="City"
+                  placeholder="Ex. Arlington"
                   name="city"
                   type="text"
                   value={values.city}
@@ -311,18 +315,17 @@ function CreateEvent(props) {
               </Form.Group>
               <Form.Group widths="equal">
                 <Form.Dropdown
-                  placeholder="State"
+                  placeholder="Select State"
                   name="state"
                   label="State"
                   selection
-                  search
                   onChange={onAddressChange}
                   options={stateOptions}
                   value={values.address.state}
                   error={errors.state ? true : false}
                 />
                 <Form.Dropdown
-                  placeholder="Country"
+                  placeholder="Select Country"
                   name="country"
                   label="Country"
                   selection

@@ -66,7 +66,7 @@ function UserProfileTopCard({ pageUser, UrlId }) {
       </Grid.Row>
       <Grid.Row centered>
         <Grid.Column width={15}>
-          <Card fluid>
+          <Card fluid className="shadowCard">
             <Card.Content className="profileIntroCoverPhotoContainer">
               {/* <Image
                 className="coverPhotoImage"

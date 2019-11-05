@@ -50,6 +50,7 @@ module.exports = {
       const {
         firstName,
         lastName,
+        gender,
         email,
         userType,
         password,
@@ -80,6 +81,7 @@ module.exports = {
       const user = new User({
         firstName,
         lastName,
+        gender,
         email,
         password: hashedPassword,
         userType,

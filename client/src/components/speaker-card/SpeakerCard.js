@@ -19,7 +19,7 @@ function SpeakerCard({
   }
 }) {
   return (
-    <Card fluid>
+    <Card fluid className="shadowCardHover">
       <Image wrapped fluid src={profilePictureLink} />
       {availability.toDate && new Date() < new Date(availability.toDate) ? (
         <Label color="olive" attached="top left">

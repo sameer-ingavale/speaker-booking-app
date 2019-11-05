@@ -12,6 +12,7 @@ const userSchema = new Schema({
   tags: [String],
   city: String,
   state: String,
+  phone: String,
   location: {
     type: {
       type: String,
@@ -46,7 +47,13 @@ const userSchema = new Schema({
   userType: String,
   profilePictureLink: {
     type: String,
-    default: "https://i.ibb.co/Sxfdhqd/guy-placeholder.jpg"
+    default: function() {
+      if (this.gender === "Male") {
+        return "https://i.ibb.co/gSbgf9K/male-placeholder.jpg";
+      } else {
+        return "https://i.ibb.co/dKx0vDS/woman-placeholder.jpg";
+      }
+    }
   },
   createdCompany: [
     {
@@ -68,8 +75,5 @@ const userSchema = new Schema({
   ]
 });
 
-userSchema.index(
-  { firstName: "text", lastName: "text", location: "2dsphere" },
-  { weights: { firstName: 5, lastName: 3 } }
-);
+userSchema.index({ firstName: "text", lastName: "text" });
 module.exports = mongoose.model("User", userSchema);

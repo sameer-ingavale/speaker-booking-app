@@ -30,6 +30,7 @@ module.exports = {
           }
 
           existingBooking.requestedSpeakers.push(requestedSpeakerId);
+
           requestedSpeaker.bookingRequests.push(existingBooking);
 
           await requestedSpeaker.save();
@@ -80,6 +81,35 @@ module.exports = {
         await booking.save();
 
         return booking;
+      }
+    },
+    cancelBookingRequest: async (parent, { eventId, speakerId }, context) => {
+      const booking = await Booking.findOne({ event: eventId });
+
+      if (booking) {
+        const requestedSpeakers = booking.requestedSpeakers;
+        const speakerIndex = requestedSpeakers.indexOf(speakerId);
+
+        if (speakerIndex !== -1) {
+          requestedSpeakers.splice(speakerIndex, 1);
+        }
+
+        const speaker = await User.findById(speakerId);
+
+        if (speaker) {
+          const bookingRequests = speaker.bookingRequests;
+
+          const bookingIndex = bookingRequests.indexOf(booking._id);
+
+          if (bookingIndex !== -1) {
+            bookingRequests.splice(bookingIndex, 1);
+          }
+
+          await speaker.save();
+        }
+
+        await booking.save();
+        return { success: true };
       }
     }
   }
