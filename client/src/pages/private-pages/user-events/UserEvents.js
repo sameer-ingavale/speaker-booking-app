@@ -4,10 +4,12 @@ import { useQuery, useMutation } from "@apollo/react-hooks";
 import { Grid, Card, Button, Icon, Header, Confirm } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import moment from "moment";
+import EventImages from "../../../helpers/components/EventImages";
 import "./userEvents.css";
+import { enumToWord } from "../../../helpers/helper-functions/enumToWord";
+import RenewEventModal from "../../../components/renew-event-modal/RenewEventModal";
 
 function UserEvents() {
-  /* const { loading, error, data } = useQuery(GET_USER_EVENTS); */
   const { data } = useQuery(GET_USER_EVENTS);
 
   let events;
@@ -56,47 +58,65 @@ function UserEvents() {
     <Grid>
       <Grid.Row centered>
         <Grid.Column width={13}>
-          <Header as="h4" dividing>
-            My Events
+          <Header as="h2" className="marginHeader">
+            Events
           </Header>
           {events &&
             events.map((event) => (
               <Card fluid key={event._id}>
                 <Confirm
+                  cancelButton="No"
+                  confirmButton="Yes"
+                  content="Are you sure you want to cancel this request?"
                   open={open}
                   onCancel={onCancelClose}
                   onConfirm={onFinalCancel}
                 />
                 <Card.Content>
-                  <Button
-                    basic
-                    color="blue"
-                    compact
-                    floated="right"
-                    onClick={openModal}
+                  <RenewEventModal event={event} />
+                  {moment(event.eventDate) > Date.now() && (
+                    <Button
+                      basic
+                      color="blue"
+                      compact
+                      floated="right"
+                      onClick={openModal}
+                    >
+                      <Icon name="edit" />
+                      Edit
+                    </Button>
+                  )}
+                  <EventImages event={event} />
+                  <Card.Header
+                    className="header4"
+                    as={Link}
+                    to={`/events/${event._id}`}
                   >
-                    <Icon name="edit outline" />
-                    Edit
-                  </Button>
-                  <Card.Header as={Link} to={`/events/${event._id}`}>
                     {event.title}
                   </Card.Header>
-                  <Card.Header>{event._id}</Card.Header>
                   <Card.Meta>
                     {moment(event.eventDate).format("ddd, MMM DD")}
-                    {", "}
-                    {moment(event.startTime).format("h:mm A")}
-                    <br />
-                    <span className="eventDateFromNow">{`Event ${moment(
+                    <span className="eventDateFromNow">{` - ${moment(
                       event.eventDate
                     ).fromNow()}`}</span>
+                    <br />
+                    {`${moment(event.startTime).format("h:mm A")} to ${moment(
+                      event.endTime
+                    ).format("h:mm A")}`}
+                    <br />
                   </Card.Meta>
+                  <Card.Description>
+                    <Icon name="search"></Icon>
+                    {`${enumToWord(event.requirementType)}`}
+                  </Card.Description>
                 </Card.Content>
                 {event.booking &&
                   !event.booking.confirmedSpeaker &&
                   event.booking.requestedSpeakers.length > 0 && (
                     <Card.Content>
-                      <Card.Header>Requested Speakers</Card.Header>
+                      <Card.Header className="header3">
+                        Requested Speakers
+                      </Card.Header>
                       {event.booking.requestedSpeakers.map((speaker) => (
                         <Card.Content
                           className="requestedSpeakersContent"
@@ -110,7 +130,7 @@ function UserEvents() {
                           >
                             Cancel Request
                           </Button>
-                          <Card.Description>{`${speaker.firstName} ${speaker.lastName} ${speaker._id}`}</Card.Description>
+                          <Card.Description className="header5">{`${speaker.firstName} ${speaker.lastName}`}</Card.Description>
                         </Card.Content>
                       ))}
                     </Card.Content>
@@ -145,7 +165,12 @@ const GET_USER_EVENTS = gql`
       _id
       title
       eventDate
+      eventType
       startTime
+      endTime
+      eventType
+      eventTopic
+      requirementType
       booking {
         _id
         confirmed

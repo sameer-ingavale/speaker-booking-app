@@ -44,6 +44,7 @@ const GET_EVENTS_QUERY = gql`
       payType
       eventType
       eventTopic
+      requirementType
       payAmount
       expectedTurnout
       address {

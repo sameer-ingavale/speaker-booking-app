@@ -123,6 +123,10 @@ module.exports = gql`
     POLITICS
   }
 
+  enum RequirementTypeEnum {
+    SPEAKER
+  }
+
   type Event {
     _id: ID!
     title: String!
@@ -132,6 +136,7 @@ module.exports = gql`
     payType: PayTypeEnum!
     eventType: EventTypeEnum!
     eventTopic: EventTopicEnum!
+    requirementType: RequirementTypeEnum!
     payAmount: String!
     expectedTurnout: String!
     address: [Address!]!
@@ -195,6 +200,7 @@ module.exports = gql`
     payType: PayTypeEnum!
     eventType: EventTypeEnum!
     eventTopic: EventTopicEnum!
+    requirementType: RequirementTypeEnum!
     payAmount: String
     expectedTurnout: String!
     address: address!
@@ -265,7 +271,14 @@ module.exports = gql`
   type Mutation {
     register(input: RegisterUserInput): AuthData!
     login(email: String!, password: String!): AuthData!
+
     createEvent(input: CreateEventInput): Event!
+    renewEvent(
+      eventId: ID!
+      eventDate: String!
+      startTime: String!
+      endTime: String!
+    ): Bool!
     createCompany(input: CreateCompanyInput): Company!
 
     requestBooking(requestedSpeakerId: ID!, eventId: ID!): BookingIds!

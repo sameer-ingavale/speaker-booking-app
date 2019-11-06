@@ -30,6 +30,7 @@ const eventSchema = new Schema(
     ],
     eventType: String,
     eventTopic: String,
+    requirementType: String,
     expired: {
       type: Boolean,
       default: false

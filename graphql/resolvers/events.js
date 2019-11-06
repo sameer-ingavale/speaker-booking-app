@@ -62,6 +62,7 @@ module.exports = {
         payType,
         eventType,
         eventTopic,
+        requirementType,
         payAmount,
         expectedTurnout,
         address,
@@ -94,6 +95,7 @@ module.exports = {
         payType,
         eventType,
         eventTopic,
+        requirementType,
         payAmount,
         expectedTurnout,
         address,
@@ -107,6 +109,24 @@ module.exports = {
       const savedEvent = await event.save();
       await creatorCompany.save();
       return savedEvent;
+    },
+    renewEvent: async (
+      parent,
+      { eventId, eventDate, startTime, endTime },
+      context
+    ) => {
+      const token = authMiddleware(context);
+
+      const event = await Event.findById(eventId);
+
+      if (event) {
+        event.eventDate = eventDate;
+        event.startTime = startTime;
+        event.endTime = endTime;
+
+        await event.save();
+        return { success: true };
+      }
     }
   }
 };

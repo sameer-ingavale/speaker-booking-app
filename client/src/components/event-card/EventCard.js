@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 import { Card, Label, Icon } from "semantic-ui-react";
 import "./eventCard.css";
+import EventImages from "../../helpers/components/EventImages";
 
 import { enumToHashtagWord } from "../../helpers/helper-functions/enumToHashtagWord";
+import { enumToWord } from "../../helpers/helper-functions/enumToWord";
 
-function EventCard({
-  event: {
+function EventCard({ event }) {
+  const {
     _id,
     title,
     eventDate,
@@ -16,6 +18,7 @@ function EventCard({
     payType,
     eventType,
     eventTopic,
+    requirementType,
     payAmount,
     expectedTurnout,
     address,
@@ -25,17 +28,16 @@ function EventCard({
     updatedAt,
     creatorPerson,
     creatorCompany
-  }
-}) {
+  } = event;
   const { streetAddress1, streetAddress2, city, state, zip } = address[0];
   return (
     <Card fluid className="event-card-wrapper">
       {/*  <pre>{JSON.stringify(new Date(parseInt(createdAt)), null, 2)}</pre> */}
       <Card.Content>
+        <EventImages event={event} />
         <Card.Header className="header3" as={Link} to={`/events/${_id}`}>
           {title}
         </Card.Header>
-
         <Card.Meta>
           <span className="eventDateFromNow">{`Starts ${moment(
             eventDate
@@ -56,12 +58,13 @@ function EventCard({
             : `${streetAddress1}, ${streetAddress2} ${city}, ${state}, ${zip}`}
         </Card.Description>
         <Card.Description>
-          <Icon name="search"></Icon> Looking for speaker
+          <Icon name="search"></Icon>
+          {`${enumToWord(requirementType)}`}
         </Card.Description>
       </Card.Content>
       <Card.Content extra>
         {enumToHashtagWord(eventTopic)}
-        {payType !== "PAID" ? (
+        {payType === "PAID" ? (
           <Label attached="top right" size="small" className="event-paid-label">
             <Icon name="dollar sign" />
             PAID

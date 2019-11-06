@@ -92,12 +92,25 @@
   border: 1px solid #f4cd73e0 !important;
 }
 
+.ui.message > .icon {
+  font-size: 1em !important;
+  line-height: 1.1em !important;
+}
+
+.ui.message {
+  margin-bottom: 0px !important;
+}
+
 .shadowCard {
   box-shadow: 0 0 7px rgba(0, 0, 0, 0.1) !important;
 }
 
 .shadowCardHover:hover {
   box-shadow: 0 0 7px rgba(0, 0, 0, 0.1) !important;
+}
+
+.marginHeader {
+  margin-top: 25px !important;
 }
 
 .header1 {
@@ -156,3 +169,7 @@ h5,
 h6 {
   font-weight: 500 !important;
 } */
+
+.ui.dimmer {
+  transition: background-color 0s ease !important;
+}

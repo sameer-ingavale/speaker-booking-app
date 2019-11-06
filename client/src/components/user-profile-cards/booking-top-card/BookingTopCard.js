@@ -1,29 +1,16 @@
-import React, { useContext, useState } from "react";
-import { Grid, Card, Dropdown, Button } from "semantic-ui-react";
+import React, { useState } from "react";
+import { Grid, Card, Dropdown, Button, Message } from "semantic-ui-react";
 import "./bookingTopCard.css";
 import gql from "graphql-tag";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 
-import { AuthContext } from "../../../context/auth";
-
 function BookingTopCard({ UrlId }) {
-  const {
-    authData: { user: authUser }
-  } = useContext(AuthContext);
-
-  let authUserId = authUser.userId;
-
   const { data } = useQuery(GET_AUTH_USER_EVENTS);
-  let authUserEventsArray;
-
-  if (data) {
-    authUserEventsArray = data.getSingleUserEvents;
-  }
 
   let authUserEventsOptions;
 
-  if (authUserEventsArray) {
-    authUserEventsOptions = authUserEventsArray.map((event) => {
+  if (data) {
+    authUserEventsOptions = data.getSingleUserEvents.map((event) => {
       let eventTitle = event.title;
       if (eventTitle.length > 20) {
         eventTitle = eventTitle.slice(0, 18) + "...";
@@ -41,9 +28,16 @@ function BookingTopCard({ UrlId }) {
     setValues({ ...values, [name]: value });
   };
 
-  const [bookRequest] = useMutation(REQUEST_BOOKING, {
+  const [bookingSuccess, setBookingSuccess] = useState(false);
+
+  const [
+    bookRequest,
+    { loading: bookingLoading, error: bookingError }
+  ] = useMutation(REQUEST_BOOKING, {
     update(proxy, data) {
-      console.log(data);
+      if (data) {
+        setBookingSuccess(true);
+      }
     },
     variables: {
       requestedSpeakerId: UrlId,
@@ -55,6 +49,8 @@ function BookingTopCard({ UrlId }) {
     event.preventDefault();
     bookRequest();
   };
+
+  console.log(bookingError);
 
   return (
     <Grid.Column width={15}>
@@ -82,6 +78,29 @@ function BookingTopCard({ UrlId }) {
           >
             Send Booking Request
           </Button>
+          {bookingError === undefined && !bookingLoading && (
+            <Message
+              style={{ maxWidth: "80vw", width: "370px" }}
+              icon="paper plane"
+              success
+              hidden={!bookingSuccess ? true : false}
+              content="Booking request sent!"
+            />
+          )}
+          <Message
+            icon="spinner"
+            style={{ width: "370px" }}
+            warning
+            hidden={!bookingLoading ? true : false}
+            content="Loading.."
+          />
+          <Message
+            icon="exclamation"
+            style={{ width: "370px" }}
+            warning
+            hidden={bookingError === undefined ? true : false}
+            content="Request already sent!"
+          />
         </Card.Content>
       </Card>
     </Grid.Column>

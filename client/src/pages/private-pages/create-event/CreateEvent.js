@@ -38,6 +38,10 @@ function CreateEvent(props) {
     { key: "1", flag: "us", text: "United States", value: "US" }
   ];
 
+  const requirementTypeOptions = [
+    { key: "1", text: "Speaker", value: "SPEAKER" }
+  ];
+
   const payTypeOptions = [
     { key: "1", text: "Free", value: "FREE" },
     { key: "2", text: "Paid", value: "PAID" }
@@ -75,6 +79,7 @@ function CreateEvent(props) {
     payType: "FREE",
     eventType: "RELIGIOUS",
     eventTopic: "RELIGION_SPIRITUALITY",
+    requirementType: "SPEAKER",
     payAmount: "",
     expectedTurnout: "",
     address: {
@@ -149,7 +154,7 @@ function CreateEvent(props) {
     <Grid columns={1} padded={"horizontally"} doubling>
       <Grid.Row centered>
         <Grid.Column widescreen={9} computer={13} tablet={12} mobile={16}>
-          {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
+          {/*  <pre>{JSON.stringify(values, null, 2)}</pre> */}
           <Responsive as={Segment}>
             <Form
               noValidate
@@ -187,6 +192,17 @@ function CreateEvent(props) {
                   options={eventTopicOptions}
                   value={values.eventTopic}
                 />
+                <Form.Dropdown
+                  placeholder="Ex. Speaker"
+                  name="requirementType"
+                  label="Requirement Type"
+                  selection
+                  onChange={onChange}
+                  options={requirementTypeOptions}
+                  value={values.requirementType}
+                />
+              </Form.Group>
+              <Form.Group widths="equal">
                 <Form.Input
                   label="Expected Turnout"
                   placeholder="Ex. 50"
@@ -196,8 +212,6 @@ function CreateEvent(props) {
                   onChange={onChange}
                   error={errors.expectedTurnout ? true : false}
                 />
-              </Form.Group>
-              <Form.Group widths="equal">
                 <Form.Dropdown
                   placeholder="Pay Type"
                   name="payType"
@@ -238,6 +252,7 @@ function CreateEvent(props) {
                 <Form.Field>
                   <label>Event Date</label>
                   <DatePicker
+                    minDate={new Date()}
                     selected={values.eventDate}
                     onChange={(date) =>
                       setValues({ ...values, eventDate: date })
@@ -371,6 +386,7 @@ const CREATE_EVENT = gql`
     $payType: PayTypeEnum!
     $eventType: EventTypeEnum!
     $eventTopic: EventTopicEnum!
+    $requirementType: RequirementTypeEnum!
     $payAmount: String
     $expectedTurnout: String!
     $address: address!
@@ -385,6 +401,7 @@ const CREATE_EVENT = gql`
         payType: $payType
         eventType: $eventType
         eventTopic: $eventTopic
+        requirementType: $requirementType
         payAmount: $payAmount
         expectedTurnout: $expectedTurnout
         address: $address
@@ -399,6 +416,7 @@ const CREATE_EVENT = gql`
       payType
       eventType
       eventTopic
+      requirementType
       payAmount
       expectedTurnout
       address {
