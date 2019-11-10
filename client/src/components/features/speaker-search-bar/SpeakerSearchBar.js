@@ -82,7 +82,7 @@ function SpeakerSearchBar({ props, onSearchClick }) {
   };
 
   return (
-    <Grid.Column style={{ display: "flex", width: "100vw" }}>
+    <>
       <Search
         fluid
         onResultSelect={onResultSelect}
@@ -101,7 +101,7 @@ function SpeakerSearchBar({ props, onSearchClick }) {
       >
         Search
       </Button>
-    </Grid.Column>
+    </>
   );
 }
 

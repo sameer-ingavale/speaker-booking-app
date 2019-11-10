@@ -12,6 +12,7 @@ module.exports = {
           userType: "SPEAKER",
           userVisibility: true
         });
+
         return users.map((user) => {
           return {
             ...user._doc,
@@ -262,13 +263,50 @@ module.exports = {
       }
     },
     searchByTags: async (parent, { tags }) => {
-      console.log(tags);
       try {
-        const user = await User.find({ tags: { $all: tags } });
+        if (tags.length === 0) {
+          const users = await User.find({
+            userType: "SPEAKER",
+            userVisibility: true
+          });
+
+          return users;
+        }
+        const user = await User.find({
+          userType: "SPEAKER",
+          tags: { $all: tags },
+          userVisibility: true
+        });
         return user;
       } catch (error) {
         throw new Error(error);
       }
+    },
+    sortSpeakersByDistance: async (parent, { maxDistance }, context) => {
+      const token = authMiddleware(context);
+
+      const authUser = await User.findById(token.userId);
+
+      if (!authUser.location) {
+        throw new UserInputError("Must set location first");
+      }
+
+      const speakers = await User.find({
+        location: {
+          $near: {
+            $maxDistance: maxDistance,
+            $geometry: {
+              type: "Point",
+              coordinates: [
+                authUser.location.coordinates[0],
+                authUser.location.coordinates[1]
+              ]
+            }
+          }
+        }
+      });
+
+      return speakers;
     }
   }
 };

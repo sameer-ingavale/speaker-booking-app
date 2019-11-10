@@ -296,5 +296,6 @@ module.exports = gql`
     speakerSearch(searchValue: String!): [User]!
     addUserLocation(coordinates: [Float]): Bool
     searchByTags(tags: [String]): [User]!
+    sortSpeakersByDistance(maxDistance: Int!): [User]!
   }
 `;

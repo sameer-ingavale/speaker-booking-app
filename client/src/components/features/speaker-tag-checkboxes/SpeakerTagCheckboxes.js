@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
 import { Checkbox, Button } from "semantic-ui-react";
-import { userTagsOptions } from "../../helpers/resusable-data/userTagsOptions";
+import { userTagsOptions } from "../../../helpers/resusable-data/userTagsOptions";
 
 function SpeakerTagCheckboxes({ onTagsFilter }) {
   const [tags, setTags] = useState([]);
@@ -22,17 +22,18 @@ function SpeakerTagCheckboxes({ onTagsFilter }) {
     }
   });
 
-  const onChange = (event, result) => {
+  const onChange = async (event, result) => {
     let index = tags.indexOf(result.value);
     if (index !== -1) {
-      setTags(tags.filter((item) => item !== result.value));
+      await setTags(tags.filter((item) => item !== result.value));
+      executeSearch();
     } else {
-      setTags([...tags, result.value]);
+      await setTags([...tags, result.value]);
+      executeSearch();
     }
   };
 
-  const onClick = (event) => {
-    executeSearch();
+  const onClick = () => {
     onTagsFilter(tagSpeakers);
   };
 
@@ -48,7 +49,9 @@ function SpeakerTagCheckboxes({ onTagsFilter }) {
           label={tag.text}
         />
       ))}
-      <Button onClick={onClick}>Filter</Button>
+      <Button compact={true} className="yellowButton" onClick={onClick}>
+        Filter
+      </Button>
     </div>
   );
 }

@@ -42,6 +42,41 @@
   border-radius: 50px !important;
 }
 
+.testSlider .ui.input > input {
+  -webkit-appearance: none;
+  padding: 0px !important;
+  background: #d3d3d3;
+  border: none !important;
+  border-radius: 5px;
+  width: 100%;
+  height: 5px;
+  opacity: 0.7;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+}
+
+.testSlider .ui.input > input:hover {
+  opacity: 1;
+}
+
+.testSlider .ui.input > input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border-radius: 15px;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  background: #f4ce73;
+  cursor: pointer;
+}
+
+.testSlider .ui.input > input::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  background: #f4ce73;
+  cursor: pointer;
+}
+
 .ui.search > .results .result {
   padding: 5px 10px 5px 10px !important;
   border-bottom: none !important;
@@ -83,13 +118,13 @@
   border: 1px solid #dfe3e8 !important;
 }
 
-.ui.input > input {
-  border: 1px solid #dfe3e8 !important;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.05) !important;
+.ui.search .prompt:hover {
+  box-shadow: 0 0px 8px rgba(0, 0, 0, 0.1) !important;
 }
 
-.ui.input > input:focus {
+.ui.search .prompt:focus {
   border: 1px solid #f4cd73e0 !important;
+  box-shadow: 0 0px 8px rgba(0, 0, 0, 0.1) !important;
 }
 
 .ui.message > .icon {

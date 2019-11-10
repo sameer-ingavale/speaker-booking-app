@@ -1,0 +1,19 @@
+.distanceWrapper {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+}
+
+.distanceLabel {
+  padding: 10px !important;
+}
+
+.searchSortInfo {
+  color: #7b8489 !important;
+  font-style: italic !important;
+}
+
+.yellowButton {
+  background-color: #f4ce73 !important;
+  color: white !important;
+}
