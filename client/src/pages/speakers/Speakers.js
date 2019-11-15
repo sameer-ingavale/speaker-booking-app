@@ -4,9 +4,9 @@ import "./speakers.css";
 import { AuthContext } from "../../context/auth";
 
 import SpeakerSearchBar from "../../components/features/speaker-search-bar/SpeakerSearchBar";
-import { useQuery, useMutation } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/react-hooks";
 
-import { Grid, Responsive, Form, Button } from "semantic-ui-react";
+import { Grid, Responsive } from "semantic-ui-react";
 import SpeakersPlaceholder from "../../helpers/Placeholders/SpeakersPlaceholder";
 import SpeakerCard from "../../components/speaker-card/SpeakerCard";
 import SpeakerTagCheckboxes from "../../components/features/speaker-tag-checkboxes/SpeakerTagCheckboxes";

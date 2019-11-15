@@ -75,7 +75,7 @@ const userSchema = new Schema({
   ]
 });
 
-userSchema.index({ firstName: "text", lastName: "text" });
+userSchema.index({ firstName: "text", lastName: "text", city: "text" });
 userSchema.index(
   { location: "2dsphere" },
   { partialFilterExpression: { location: { $exists: true } } }

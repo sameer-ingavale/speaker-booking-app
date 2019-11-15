@@ -11,7 +11,7 @@ module.exports = {
         const users = await User.find({
           userType: "SPEAKER",
           userVisibility: true
-        });
+        }).sort({ availability: -1 });
 
         return users.map((user) => {
           return {

@@ -6,6 +6,7 @@ import BookingsCard from "../../../components/bookings-card/BookingsCard";
 import ConfirmedBookingsCard from "../../../components/confirmed-bookings-card/ConfirmedBookingsCard";
 import { AuthContext } from "../../../context/auth";
 import { GET_SINGLE_USER } from "../../../helpers/gql-queries/getSingleUserQuery";
+import Spinner from "../../../helpers/loaders/Spinner";
 
 function UserBookings() {
   const {
@@ -26,7 +27,11 @@ function UserBookings() {
   return (
     <Grid doubling>
       {loading ? (
-        <h1>loading</h1>
+        <Grid.Row className="loaderRow">
+          <Grid.Column className="loaderColumn">
+            <Spinner />
+          </Grid.Column>
+        </Grid.Row>
       ) : (
         <>
           <Grid.Row centered>

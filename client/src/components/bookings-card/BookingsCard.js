@@ -34,20 +34,21 @@ function BookingsCard({ authUser }) {
 
   return (
     <Grid.Column width={13}>
-      <Header as="h4" dividing>
+      <Header as="h3" className="marginHeader">
         Booking Requests
       </Header>
-      <Card fluid>
-        <Confirm
-          open={open}
-          onCancel={onConfirmClose}
-          onConfirm={onFinalConfirm}
-        />
-        {authUser &&
-          authUser.bookingRequests &&
-          authUser.bookingRequests.map((request) => {
-            return (
-              request.confirmed === false && (
+
+      <Confirm
+        open={open}
+        onCancel={onConfirmClose}
+        onConfirm={onFinalConfirm}
+      />
+      {authUser &&
+        authUser.bookingRequests &&
+        authUser.bookingRequests.map((request) => {
+          return (
+            request.confirmed === false && (
+              <Card fluid>
                 <Card.Content key={request._id}>
                   <Button
                     floated="right"
@@ -64,10 +65,10 @@ function BookingsCard({ authUser }) {
                     {moment(request.event.startTime).format("h:mm A")}
                   </Card.Meta>
                 </Card.Content>
-              )
-            );
-          })}
-      </Card>
+              </Card>
+            )
+          );
+        })}
     </Grid.Column>
   );
 }

@@ -3,7 +3,6 @@ import { useQuery } from "@apollo/react-hooks";
 import { Card, Image, Button, Grid, Header } from "semantic-ui-react";
 import moment from "moment";
 import { Link } from "react-router-dom";
-import "./userCompany.css";
 import Atomic from "../../../helpers/loaders/Atomic";
 
 import { GET_COMPANY } from "../../../helpers/gql-queries/getCompanyQuery";
@@ -22,8 +21,8 @@ function Home() {
   return (
     <Grid>
       {loading ? (
-        <Grid.Row className="emptyOrganizationsRow">
-          <Grid.Column className="emptyOrganizationsColumn">
+        <Grid.Row className="loaderRow">
+          <Grid.Column className="loaderColumn">
             <Atomic />
           </Grid.Column>
         </Grid.Row>

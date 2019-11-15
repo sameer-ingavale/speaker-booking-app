@@ -5,14 +5,15 @@ import moment from "moment";
 export default function BookingsCard({ authUser }) {
   return (
     <Grid.Column width={13}>
-      <Header as="h4" dividing>
+      <Header as="h3" className="marginHeader">
         Confirmed Bookings
       </Header>
-      <Card fluid>
-        {authUser &&
-          authUser.confirmedBookings &&
-          authUser.confirmedBookings.map((confirm) => {
-            return (
+
+      {authUser &&
+        authUser.confirmedBookings &&
+        authUser.confirmedBookings.map((confirm) => {
+          return (
+            <Card fluid>
               <Card.Content>
                 <Card.Header>{confirm.event.title}</Card.Header>
                 <Card.Meta>
@@ -21,9 +22,9 @@ export default function BookingsCard({ authUser }) {
                   {moment(confirm.event.startTime).format("h:mm A")}
                 </Card.Meta>
               </Card.Content>
-            );
-          })}
-      </Card>
+            </Card>
+          );
+        })}
     </Grid.Column>
   );
 }

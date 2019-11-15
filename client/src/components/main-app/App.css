@@ -208,3 +208,17 @@ h6 {
 .ui.dimmer {
   transition: background-color 0s ease !important;
 }
+
+.loaderRow {
+  display: flex !important;
+  min-height: 90vh !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.loaderColumn {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center !important;
+  align-items: center !important;
+}

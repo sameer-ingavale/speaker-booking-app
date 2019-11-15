@@ -8,19 +8,22 @@ function SpeakerTagCheckboxes({ onTagsFilter }) {
   const [tags, setTags] = useState([]);
   const [tagSpeakers, setTagSpeakers] = useState([]);
 
-  const [executeSearch] = useMutation(SEARCH_BY_TAGS, {
-    update(
-      proxy,
-      {
-        data: { searchByTags }
+  const [executeSearch, { loading: tagsLoading }] = useMutation(
+    SEARCH_BY_TAGS,
+    {
+      update(
+        proxy,
+        {
+          data: { searchByTags }
+        }
+      ) {
+        setTagSpeakers(searchByTags);
+      },
+      variables: {
+        tags: tags
       }
-    ) {
-      setTagSpeakers(searchByTags);
-    },
-    variables: {
-      tags: tags
     }
-  });
+  );
 
   const onChange = async (event, result) => {
     let index = tags.indexOf(result.value);
@@ -49,7 +52,12 @@ function SpeakerTagCheckboxes({ onTagsFilter }) {
           label={tag.text}
         />
       ))}
-      <Button compact={true} className="yellowButton" onClick={onClick}>
+      <Button
+        disabled={tagsLoading ? true : false}
+        compact={true}
+        className="yellowButton"
+        onClick={onClick}
+      >
         Filter
       </Button>
     </div>
