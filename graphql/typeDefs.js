@@ -173,6 +173,11 @@ module.exports = gql`
     picUrl: String
   }
 
+  type statData {
+    speakerCount: Int!
+    eventCount: Int!
+  }
+
   input address {
     streetAddress1: String!
     streetAddress2: String
@@ -266,6 +271,7 @@ module.exports = gql`
     getCompany: Company!
     getSingleUser(userId: ID!): User!
     getSingleUserEvents: [Event]!
+    getStats: statData
   }
 
   type Mutation {

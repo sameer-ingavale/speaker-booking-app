@@ -27,14 +27,6 @@
   line-height: 1.65em;
 }
 
-.main-wrapper {
-  padding: 30px !important;
-}
-
-.mainWrapper {
-  padding: 30px !important;
-}
-
 .ui.search > .results .result .image {
   height: 35px !important;
   width: 35px !important;
@@ -87,12 +79,20 @@
     border-radius: 5px 0px 0px 5px !important;
     width: 50vw !important;
   }
+
+  .mainBody {
+    padding: 30px !important;
+  }
 }
 
 @media only screen and (max-width: 600px) {
   .ui.search .prompt {
     border-radius: 5px 0px 0px 5px !important;
     width: 70vw !important;
+  }
+
+  .mainBody {
+    padding: 10px !important;
   }
 }
 

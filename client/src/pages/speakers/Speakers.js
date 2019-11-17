@@ -69,7 +69,7 @@ function Speakers(props) {
     <>
       {/* <pre>{JSON.stringify(clicked, null, 2)}</pre> */}
       <Responsive minWidth={600}>
-        <Grid columns={4} doubling className="main-wrapper">
+        <Grid columns={4} doubling className="mainBody">
           <Grid.Row>
             <SpeakerSearchBar props={props} onSearchClick={onSearchClick} />
           </Grid.Row>
@@ -122,7 +122,7 @@ function Speakers(props) {
       </Responsive>
 
       <Responsive maxWidth={600}>
-        <Grid columns={2} doubling className="main-wrapper">
+        <Grid columns={2} doubling className="mainBody">
           <Grid.Row>
             <SpeakerSearchBar props={props} onSearchClick={onSearchClick} />
           </Grid.Row>

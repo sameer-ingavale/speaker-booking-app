@@ -34,30 +34,24 @@ function MenuBar() {
             as={Link}
             to="/"
           />
-          <Menu.Item
-            className="main-nav-links"
-            name="Browse Speakers"
-            active={activeItem === "Browse Speakers"}
-            onClick={handleItemClick}
-            as={Link}
-            to="/speakers"
-          />
-          <Menu.Item
-            className="main-nav-links"
-            name="Explore Events"
-            active={activeItem === "Explore Events"}
-            onClick={handleItemClick}
-            as={Link}
-            to="/events"
-          />
           {user.userType === "SPEAKER" && (
             <Menu.Item
               className="main-nav-links"
-              name="bookings"
-              active={activeItem === "bookings"}
+              name="your bookings"
+              active={activeItem === "your bookings"}
               onClick={handleItemClick}
               as={Link}
               to={`/account/bookings`}
+            />
+          )}
+          {user.userType === "EVENT_PLANNER" && (
+            <Menu.Item
+              className="main-nav-links"
+              name="your events"
+              active={activeItem === "your events"}
+              onClick={handleItemClick}
+              as={Link}
+              to={`/account/events`}
             />
           )}
           <Menu.Item
@@ -73,11 +67,6 @@ function MenuBar() {
                 <i className="user icon"></i>View Profile
               </Dropdown.Item>
               <Divider />
-              {user.userType === "EVENT_PLANNER" && (
-                <Dropdown.Item as={Link} to={`/account/events`}>
-                  Events
-                </Dropdown.Item>
-              )}
               {user.userType === "EVENT_PLANNER" && (
                 <Dropdown.Item as={Link} to={`/account/company`}>
                   Company
