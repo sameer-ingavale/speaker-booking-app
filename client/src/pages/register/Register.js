@@ -42,12 +42,7 @@ function Register(props) {
   };
 
   const [registerUser, { loading }] = useMutation(REGISTER_USER, {
-    update(
-      proxy,
-      {
-        data: { register: userData }
-      }
-    ) {
+    update(proxy, { data: { register: userData } }) {
       context.login(userData);
       props.history.push("/");
     },
@@ -63,7 +58,7 @@ function Register(props) {
   };
 
   return (
-    <div className="mainWrapper">
+    <div className="mainBody">
       <Grid centered columns={2} doubling padded={"horizontally"}>
         <Grid.Column>
           {/* <pre>{JSON.stringify(errors, null, 2)}</pre> */}

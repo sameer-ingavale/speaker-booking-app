@@ -16,7 +16,7 @@ function Events() {
   }
 
   return (
-    <Grid columns={1} className="mainWrapper">
+    <Grid columns={1} className="mainBody">
       {loading ? (
         <EventsPlaceholder />
       ) : error ? (

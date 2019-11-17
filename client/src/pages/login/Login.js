@@ -26,12 +26,7 @@ function Login(props) {
   };
 
   const [loginUser, { loading }] = useMutation(LOGIN_USER, {
-    update(
-      proxy,
-      {
-        data: { login: userData }
-      }
-    ) {
+    update(proxy, { data: { login: userData } }) {
       context.login(userData);
       props.history.push("/");
     },
@@ -47,7 +42,7 @@ function Login(props) {
   };
 
   return (
-    <div className="mainWrapper">
+    <div className="mainBody">
       <Grid centered columns={2} doubling padded={"horizontally"}>
         <Grid.Column width={6}>
           {/* <pre>{JSON.stringify(context.authData, null, 2)}</pre> */}
