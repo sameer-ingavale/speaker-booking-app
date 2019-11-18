@@ -3,3 +3,38 @@
   margin-top: 5px !important;
   width: 100%;
 }
+
+.loginCard {
+  padding: 10px 5px 8px 5px !important;
+  max-width: 500px !important;
+}
+
+.loginCardColumn {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  flex-direction: column !important;
+}
+
+.loginErrorMessageBox {
+  width: 90vw !important;
+  max-width: 500px !important;
+}
+
+.loginHeader {
+  font-size: 30px !important;
+  color: #f4ce73 !important;
+  font-weight: 500 !important;
+}
+
+.loginSubheading {
+  font-size: 15px !important;
+  color: #212121 !important;
+}
+
+.createAccountText {
+  text-decoration: underline !important;
+  font-size: 14px !important;
+  font-weight: 300 !important;
+  color: #2185d0 !important;
+}

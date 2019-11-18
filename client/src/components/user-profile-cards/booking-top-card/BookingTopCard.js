@@ -92,7 +92,7 @@ function BookingTopCard({ UrlId }) {
             style={{ width: "370px" }}
             warning
             hidden={!bookingLoading ? true : false}
-            content="Loading.."
+            content="Please wait.."
           />
           <Message
             icon="exclamation"

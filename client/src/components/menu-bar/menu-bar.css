@@ -1,5 +1,5 @@
 .main-nav-wrapper {
-  background-color: #36474f;
+  background-color: #3a565d;
   color: white !important;
   padding: 5px 20px 5px 20px;
   box-shadow: 0 0 7px rgba(0, 0, 0, 0.25) !important;
@@ -10,7 +10,7 @@
 }
 
 .nav-logo {
-  font-size: 13px;
+  font-size: 16px;
 }
 
 .dropdown-menu-wrapper {

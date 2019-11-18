@@ -5,9 +5,7 @@ import moment from "moment";
 export default function BookingsCard({ authUser }) {
   return (
     <Grid.Column width={13}>
-      <Header as="h3" className="marginHeader">
-        Confirmed Bookings
-      </Header>
+      <Header className="marginHeader header2">Confirmed Bookings</Header>
 
       {authUser &&
         authUser.confirmedBookings &&

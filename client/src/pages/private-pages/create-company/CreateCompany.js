@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import {
   Button,
   Form,
-  Segment,
+  Card,
   Grid,
-  Responsive,
   Transition,
   Message
 } from "semantic-ui-react";
@@ -55,12 +54,7 @@ function CreateCompany(props) {
   };
 
   const [createCompany, { loading }] = useMutation(CREATE_COMPANY, {
-    update(
-      proxy,
-      {
-        data: { createCompany: companyData }
-      }
-    ) {
+    update(proxy, { data: { createCompany: companyData } }) {
       console.log(companyData);
       props.history.push("/account/company");
     },
@@ -77,126 +71,134 @@ function CreateCompany(props) {
   };
 
   return (
-    <Grid centered columns={2} doubling padded={"horizontally"}>
-      <Grid.Column>
-        {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
-        <Responsive as={Segment}>
-          <Form
-            noValidate
-            onSubmit={onSubmit}
-            className={loading ? "loading" : ""}
-          >
-            <Form.Group widths="equal">
-              <Form.Input
-                label="Company Name"
-                placeholder="Company Name"
-                name="name"
-                type="text"
-                value={values.name}
-                onChange={onChange}
-                error={errors.name ? true : false}
-              />
-              <Form.Dropdown
-                placeholder="Company Type"
-                name="companyType"
-                label="Company Type"
-                selection
-                onChange={onChange}
-                options={companyTypeOptions}
-                value={values.companyType}
-              />
-            </Form.Group>
+    <Grid className="mainBody">
+      <Grid.Column className="formCardColumn">
+        <Card fluid className="formCard">
+          <Card.Content>
+            <Card.Header className="header2">Add Organization</Card.Header>
+          </Card.Content>
+          <Card.Content>
+            <Form
+              noValidate
+              onSubmit={onSubmit}
+              className={loading ? "loading" : ""}
+            >
+              <Form.Group widths="equal">
+                <Form.Input
+                  label="Company Name"
+                  placeholder="Company Name"
+                  name="name"
+                  type="text"
+                  value={values.name}
+                  onChange={onChange}
+                  error={errors.name ? true : false}
+                />
+                <Form.Dropdown
+                  placeholder="Company Type"
+                  name="companyType"
+                  label="Company Type"
+                  selection
+                  onChange={onChange}
+                  options={companyTypeOptions}
+                  value={values.companyType}
+                />
+              </Form.Group>
 
-            <Form.Group widths="equal">
+              <Form.Group widths="equal">
+                <Form.Input
+                  label="EIN Number"
+                  placeholder="EIN Number"
+                  name="einNumber"
+                  type="password"
+                  value={values.einNumber}
+                  onChange={onChange}
+                  error={errors.einNumber ? true : false}
+                />
+                <Form.Input
+                  label="Phone"
+                  placeholder="Phone"
+                  name="phone"
+                  type="tel"
+                  value={values.phone}
+                  onChange={onChange}
+                  error={errors.phone ? true : false}
+                />
+              </Form.Group>
               <Form.Input
-                label="EIN Number"
-                placeholder="EIN Number"
-                name="einNumber"
-                type="password"
-                value={values.einNumber}
-                onChange={onChange}
-                error={errors.einNumber ? true : false}
-              />
-              <Form.Input
-                label="Phone"
-                placeholder="Phone"
-                name="phone"
-                type="tel"
-                value={values.phone}
-                onChange={onChange}
-                error={errors.phone ? true : false}
-              />
-            </Form.Group>
-            <Form.Input
-              label="Address Line 1"
-              placeholder="Address Line 1"
-              name="streetAddress1"
-              type="text"
-              value={values.streetAddress1}
-              onChange={onAddressChange}
-              error={errors.streetAddress1 ? true : false}
-            />
-            <Form.Input
-              label="Address Line 2"
-              placeholder="Address Line 2"
-              name="streetAddress2"
-              type="text"
-              value={values.streetAddress2}
-              onChange={onAddressChange}
-              error={errors.streetAddress2 ? true : false}
-            />
-
-            <Form.Group widths="equal">
-              <Form.Input
-                label="Zip Code"
-                placeholder="Zip Code"
-                name="zip"
+                label="Address Line 1"
+                placeholder="Address Line 1"
+                name="streetAddress1"
                 type="text"
-                value={values.zip}
+                value={values.streetAddress1}
                 onChange={onAddressChange}
-                error={errors.zip ? true : false}
+                error={errors.streetAddress1 ? true : false}
               />
               <Form.Input
-                label="City"
-                placeholder="City"
-                name="city"
+                label="Address Line 2"
+                placeholder="Address Line 2"
+                name="streetAddress2"
                 type="text"
-                value={values.city}
+                value={values.streetAddress2}
                 onChange={onAddressChange}
-                error={errors.city ? true : false}
+                error={errors.streetAddress2 ? true : false}
               />
-            </Form.Group>
-            <Form.Group widths="equal">
-              <Form.Dropdown
-                placeholder="State"
-                name="state"
-                label="State"
-                selection
-                search
-                onChange={onAddressChange}
-                options={stateOptions}
-                value={values.address.state}
-              />
-              <Form.Dropdown
-                placeholder="Country"
-                name="country"
-                label="Country"
-                selection
-                defaultValue="US"
-                onChange={onAddressChange}
-                options={countryOptions}
-                value={values.address.country}
-              />
-            </Form.Group>
 
-            <Button type="submit" primary>
-              Create Company
-            </Button>
-          </Form>
-        </Responsive>
+              <Form.Group widths="equal">
+                <Form.Dropdown
+                  placeholder="State"
+                  name="state"
+                  label="State"
+                  selection
+                  search
+                  onChange={onAddressChange}
+                  options={stateOptions}
+                  value={values.address.state}
+                />
+                <Form.Input
+                  label="City"
+                  placeholder="City"
+                  name="city"
+                  type="text"
+                  value={values.city}
+                  onChange={onAddressChange}
+                  error={errors.city ? true : false}
+                />
+              </Form.Group>
+              <Form.Group widths="equal">
+                <Form.Input
+                  label="Zip Code"
+                  placeholder="Zip Code"
+                  name="zip"
+                  type="text"
+                  value={values.zip}
+                  onChange={onAddressChange}
+                  error={errors.zip ? true : false}
+                />
+                <Form.Dropdown
+                  placeholder="Country"
+                  name="country"
+                  label="Country"
+                  selection
+                  defaultValue="US"
+                  onChange={onAddressChange}
+                  options={countryOptions}
+                  value={values.address.country}
+                />
+              </Form.Group>
+
+              <Button type="submit" primary className="formCardButton">
+                Add Organization
+              </Button>
+            </Form>
+          </Card.Content>
+        </Card>
         <Transition.Group animation="fade up" duration={500}>
           {Object.keys(errors).length > 0 && (
-            <Message error list={Object.values(errors)}></Message>
+            <Message
+              className="errorMessageBox"
+              error
+              list={Object.values(errors)}
+            ></Message>
           )}
         </Transition.Group>
       </Grid.Column>

@@ -3,13 +3,12 @@ import {
   Grid,
   Card,
   Checkbox,
-  Dropdown,
   Transition,
   Message,
   Form,
   Button,
-  Input,
-  Flag
+  Popup,
+  Label
 } from "semantic-ui-react";
 import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
@@ -20,7 +19,7 @@ function UserSettingsCard({ authUserData }) {
   const [values, setValues] = useState({
     userVisibility: authUserData.userVisibility,
     tags: authUserData.tags,
-    tagline: authUserData.tagline,
+    tagline: "" || authUserData.tagline,
     phone: authUserData.phone
   });
 
@@ -40,7 +39,7 @@ function UserSettingsCard({ authUserData }) {
     errors.tooManyTags = "Too many tags";
   }
 
-  const [changeSettings] = useMutation(CHANGE_USER_SETTINGS, {
+  const [changeSettings, { loading }] = useMutation(CHANGE_USER_SETTINGS, {
     update(proxy, data) {
       console.log(data);
     },
@@ -54,66 +53,97 @@ function UserSettingsCard({ authUserData }) {
   };
 
   return (
-    <Grid>
-      <Grid.Row centered>
-        <Grid.Column width={15}>
-          {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
-          <Card fluid>
-            <Card.Content>
-              <Card.Header>Settings</Card.Header>
-            </Card.Content>
-            <Card.Content>
-              <Checkbox
-                className="makePublicToggle"
-                toggle
-                label="Make your profile publicly visible"
-                name="userVisibility"
-                checked={values.userVisibility}
-                onChange={onToggle}
-              />
-              <Dropdown
-                placeholder="Your tags"
-                fluid
-                multiple
-                selection
-                name="tags"
-                onChange={onChange}
-                value={values.tags}
-                options={userTagsOptions}
-                error={errors.tooManyTags ? true : false}
-              />
-              <Form>
-                <Form.TextArea
-                  className="textarea"
-                  rows="2"
-                  label="Add Tagline"
-                  placeholder="Your tagline goes here"
-                  name="tagline"
-                  value={values.tagline}
-                  onChange={onChange}
-                />
-                <Form.Field>
-                  <label>Phone Number</label>
-                  <Input
-                    label={{ basic: true, content: "+1" }}
-                    placeholder="Phone Number"
-                    name="phone"
-                    value={values.phone}
-                    onChange={onChange}
+    <Grid.Column className="formCardColumn">
+      <Card fluid className="formCard">
+        <Card.Content>
+          <Card.Header className="header2">Settings & Privacy</Card.Header>
+        </Card.Content>
+        <Card.Content>
+          <Form noValidate className={loading ? "loading" : ""}>
+            <Form.Dropdown
+              label="Your Tags"
+              placeholder="Your tags"
+              fluid
+              multiple
+              selection
+              name="tags"
+              onChange={onChange}
+              value={values.tags}
+              options={userTagsOptions}
+              error={errors.tooManyTags ? true : false}
+            />
+            <Form.Field>
+              <Label className="toolTipLabel">Your Tagline</Label>
+              <Popup
+                pinned
+                content="This is your chance to capture attention"
+                trigger={
+                  <Button
+                    className="toolTipIcon"
+                    compact
+                    size="tiny"
+                    icon="question circle"
                   />
-                </Form.Field>
-              </Form>
-              <Button onClick={onSubmit}>Save Changes</Button>
-            </Card.Content>
-          </Card>
-          <Transition.Group animation="fade up" duration={500}>
-            {Object.keys(errors).length > 0 && (
-              <Message error list={Object.values(errors)}></Message>
-            )}
-          </Transition.Group>
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
+                }
+              />
+              <Form.TextArea
+                className="textarea"
+                rows="2"
+                placeholder="Your tagline goes here"
+                name="tagline"
+                value={values.tagline}
+                onChange={onChange}
+              />
+            </Form.Field>
+            <Form.Field>
+              <Label className="toolTipLabel">Phone Number</Label>
+              <Popup
+                pinned
+                content="Your phone number will only be shown to confirmed speakers"
+                trigger={
+                  <Button
+                    className="toolTipIcon"
+                    compact
+                    size="tiny"
+                    icon="question circle"
+                  />
+                }
+              />
+              <Form.Input
+                placeholder="Phone Number"
+                name="phone"
+                value={values.phone}
+                onChange={onChange}
+              />
+            </Form.Field>
+            <Checkbox
+              className="makePublicToggle"
+              toggle
+              label="Make your profile publicly visible"
+              name="userVisibility"
+              checked={values.userVisibility}
+              onChange={onToggle}
+            />
+          </Form>
+          <Button
+            onClick={onSubmit}
+            style={{ margin: "15px 0px 5px 0px" }}
+            primary
+          >
+            Save Changes
+          </Button>
+        </Card.Content>
+      </Card>
+      <Transition.Group animation="fade up" duration={500}>
+        {Object.keys(errors).length > 0 && (
+          <Message
+            className="errorMessageBox"
+            error
+            list={Object.values(errors)}
+          ></Message>
+        )}
+      </Transition.Group>
+    </Grid.Column>
   );
 }
 

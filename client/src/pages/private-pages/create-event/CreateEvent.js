@@ -6,17 +6,15 @@ import "./createEvent.css";
 import {
   Button,
   Form,
-  Segment,
   Grid,
-  Responsive,
   Transition,
   Message,
   Icon,
   Checkbox,
-  Divider,
   Popup,
   Label,
-  Input
+  Input,
+  Card
 } from "semantic-ui-react";
 import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
@@ -130,13 +128,9 @@ function CreateEvent(props) {
   };
 
   const [createEvent, { loading }] = useMutation(CREATE_EVENT, {
-    update(
-      proxy,
-      {
-        data: { createEvent: eventData }
-      }
-    ) {
+    update(proxy, { data: { createEvent: eventData } }) {
       props.history.push("/account/events");
+      window.location.reload();
     },
     onError(err) {
       console.log(err);
@@ -151,11 +145,13 @@ function CreateEvent(props) {
   };
 
   return (
-    <Grid columns={1} padded={"horizontally"} doubling>
-      <Grid.Row centered>
-        <Grid.Column widescreen={9} computer={13} tablet={12} mobile={16}>
-          {/*  <pre>{JSON.stringify(values, null, 2)}</pre> */}
-          <Responsive as={Segment}>
+    <Grid className="mainBody">
+      <Grid.Column className="formCardColumn">
+        <Card fluid className="formCard">
+          <Card.Content>
+            <Card.Header className="header2">Create Event</Card.Header>
+          </Card.Content>
+          <Card.Content>
             <Form
               noValidate
               onSubmit={onSubmit}
@@ -225,11 +221,11 @@ function CreateEvent(props) {
                 <Form.Field>
                   <Label className="toolTipLabel">Pay Amount</Label>
                   <Popup
-                    content="This is how much you will pay a speaker"
+                    pinned
+                    content="This is how much you promise to pay a speaker for this event"
                     trigger={
                       <Button
                         className="toolTipIcon"
-                        style={{ background: "none" }}
                         compact
                         size="tiny"
                         icon="question circle"
@@ -332,6 +328,7 @@ function CreateEvent(props) {
                 <Form.Dropdown
                   placeholder="Select State"
                   name="state"
+                  search
                   label="State"
                   selection
                   onChange={onAddressChange}
@@ -360,19 +357,22 @@ function CreateEvent(props) {
                   onChange={onToggle}
                 />
               </Form.Group>
-              <Divider />
-              <Button type="submit" primary>
+              <Button type="submit" primary className="formCardButton">
                 Create Event
               </Button>
             </Form>
-          </Responsive>
-          <Transition.Group animation="fade up" duration={500}>
-            {Object.keys(errors).length > 0 && (
-              <Message error list={Object.values(errors)}></Message>
-            )}
-          </Transition.Group>
-        </Grid.Column>
-      </Grid.Row>
+          </Card.Content>
+        </Card>
+        <Transition.Group animation="fade up" duration={500}>
+          {Object.keys(errors).length > 0 && (
+            <Message
+              className="errorMessageBox"
+              error
+              list={Object.values(errors)}
+            ></Message>
+          )}
+        </Transition.Group>
+      </Grid.Column>
     </Grid>
   );
 }

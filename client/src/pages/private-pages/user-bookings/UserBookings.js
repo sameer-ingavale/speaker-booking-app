@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Grid } from "semantic-ui-react";
 import { useQuery } from "@apollo/react-hooks";
 
-import BookingsCard from "../../../components/bookings-card/BookingsCard";
+import BookingRequestsCard from "../../../components/booking-requests-card/BookingRequestsCard";
 import ConfirmedBookingsCard from "../../../components/confirmed-bookings-card/ConfirmedBookingsCard";
 import { AuthContext } from "../../../context/auth";
 import { GET_SINGLE_USER } from "../../../helpers/gql-queries/getSingleUserQuery";
@@ -35,7 +35,7 @@ function UserBookings() {
       ) : (
         <>
           <Grid.Row centered>
-            <BookingsCard authUser={authUser} />
+            <BookingRequestsCard authUser={authUser} />
           </Grid.Row>
           <Grid.Row centered>
             <ConfirmedBookingsCard authUser={authUser} />

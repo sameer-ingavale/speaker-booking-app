@@ -23,7 +23,11 @@ function MenuBar() {
     <header className="main-nav-wrapper">
       <Menu secondary stackable size="large">
         <Menu.Item as={Link} to="/">
-          <img src={eagle} className="nav-logo" alt="logo" />
+          <img
+            src="https://image.flaticon.com/icons/svg/298/298121.svg"
+            className="nav-logo"
+            alt="logo"
+          />
         </Menu.Item>
         <Menu.Menu position="right">
           <Menu.Item
@@ -95,22 +99,6 @@ function MenuBar() {
             onClick={handleItemClick}
             as={Link}
             to="/"
-          />
-          <Menu.Item
-            className="main-nav-links"
-            name="Browse Speakers"
-            active={activeItem === "Browse Speakers"}
-            onClick={handleItemClick}
-            as={Link}
-            to="/speakers"
-          />
-          <Menu.Item
-            className="main-nav-links"
-            name="Explore Events"
-            active={activeItem === "Explore Events"}
-            onClick={handleItemClick}
-            as={Link}
-            to="/events"
           />
           <Menu.Item
             className="main-nav-links"

@@ -1,9 +1,12 @@
 import React, { useContext } from "react";
 import { useQuery } from "@apollo/react-hooks";
+import { Grid } from "semantic-ui-react";
 
 import { GET_SINGLE_USER } from "../../../helpers/gql-queries/getSingleUserQuery";
 import { AuthContext } from "../../../context/auth";
 import UserSettingsCard from "../../../components/user-settings-card/UserSettingsCard";
+
+import Spinner from "../../../helpers/loaders/Spinner";
 
 function SettingsPrivacy() {
   const {
@@ -22,7 +25,19 @@ function SettingsPrivacy() {
   }
 
   return (
-    <>{authUserData && <UserSettingsCard authUserData={authUserData} />}</>
+    <Grid>
+      {loading ? (
+        <Grid.Row className="loaderRow">
+          <Grid.Column className="loaderColumn">
+            <Spinner />
+          </Grid.Column>
+        </Grid.Row>
+      ) : (
+        <Grid.Row className="mainBody">
+          {authUserData && <UserSettingsCard authUserData={authUserData} />}
+        </Grid.Row>
+      )}
+    </Grid>
   );
 }
 

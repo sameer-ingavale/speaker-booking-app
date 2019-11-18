@@ -70,6 +70,7 @@ function TopCardEditModal({ pageUser, openModal, modalOpen }) {
               <Form.Dropdown
                 placeholder="State"
                 name="state"
+                search
                 label="State"
                 selection
                 onChange={onChange}

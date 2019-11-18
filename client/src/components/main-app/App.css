@@ -3,6 +3,36 @@
   src: url(../../assets/fonts/Lato-Regular.ttf);
 }
 
+@media only screen and (min-width: 600px) {
+  .ui.search .prompt {
+    border-radius: 5px 0px 0px 5px !important;
+    width: 50vw !important;
+  }
+
+  .mainBody {
+    padding: 45px 30px 30px 30px !important;
+  }
+
+  .marginHeader {
+    margin-top: 25px !important;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .ui.search .prompt {
+    border-radius: 5px 0px 0px 5px !important;
+    width: 70vw !important;
+  }
+
+  .mainBody {
+    padding: 30px 15px 30px 15px !important;
+  }
+
+  .marginHeader {
+    margin-top: 25px !important;
+  }
+}
+
 .ui.form .field > label {
   margin: 0 0 0.4rem 0;
 }
@@ -74,35 +104,13 @@
   border-bottom: none !important;
 }
 
-@media only screen and (min-width: 600px) {
-  .ui.search .prompt {
-    border-radius: 5px 0px 0px 5px !important;
-    width: 50vw !important;
-  }
-
-  .mainBody {
-    padding: 30px !important;
-  }
-}
-
-@media only screen and (max-width: 600px) {
-  .ui.search .prompt {
-    border-radius: 5px 0px 0px 5px !important;
-    width: 70vw !important;
-  }
-
-  .mainBody {
-    padding: 10px !important;
-  }
-}
-
 .ui.card {
   line-height: 1.65em;
   font-size: 0.9em;
   box-shadow: none;
   border-radius: 0.2em;
   border: 0.5px solid #dfe3e8;
-  /* box-shadow: 0 0 7px rgba(0, 0, 0, 0.1) !important; */
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.05) !important;
 }
 
 .ui.card .meta {
@@ -136,16 +144,53 @@
   margin-bottom: 0px !important;
 }
 
+.noContentGridRow {
+  height: 85vh !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.noContentGridColumn1 {
+  display: flex !important;
+  justify-content: flex-end !important;
+  align-items: center !important;
+}
+
+.noContentGridColumn2 {
+  flex-direction: column !important;
+  display: flex !important;
+  justify-content: flex-start !important;
+  align-items: flex-start !important;
+}
+
+.formCardColumn {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  flex-direction: column !important;
+}
+
+.formCard {
+  padding: 12px 7px 10px 7px !important;
+  max-width: 1100px !important;
+}
+
+.formCardButton {
+  margin: 7px 0px 3px 0px !important;
+}
+
+.errorMessageBox {
+  width: 90vw !important;
+  max-width: 1100px !important;
+}
+
 .shadowCard {
   box-shadow: 0 0 7px rgba(0, 0, 0, 0.1) !important;
 }
 
 .shadowCardHover:hover {
   box-shadow: 0 0 7px rgba(0, 0, 0, 0.1) !important;
-}
-
-.marginHeader {
-  margin-top: 25px !important;
 }
 
 .header1 {
@@ -190,23 +235,24 @@
   font-weight: 500 !important;
 }
 
-/* .header {
-  font-size: 1.5em !important;
-  line-height: 1.7em !important;
-  font-weight: 500 !important;
+.toolTipLabel {
+  padding: 0 !important;
+  color: #212121 !important;
+  background: none !important;
+  font-size: 0.95rem !important;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-weight: 500 !important;
-} */
+.toolTipIcon {
+  color: #3da73a !important;
+  background: none !important;
+}
 
 .ui.dimmer {
   transition: background-color 0s ease !important;
+}
+
+.ui.form .field > .multiple.selection.dropdown {
+  padding: 5px !important;
 }
 
 .loaderRow {

@@ -2,15 +2,17 @@ import React, { useState, useContext } from "react";
 import {
   Button,
   Form,
-  Segment,
+  Card,
   Grid,
-  Responsive,
+  Header,
   Transition,
   Message
 } from "semantic-ui-react";
 import { useMutation } from "@apollo/react-hooks";
+import { Link } from "react-router-dom";
 import gql from "graphql-tag";
 import { AuthContext } from "../../context/auth";
+import "./login.css";
 
 function Login(props) {
   const context = useContext(AuthContext);
@@ -42,11 +44,12 @@ function Login(props) {
   };
 
   return (
-    <div className="mainBody">
-      <Grid centered columns={2} doubling padded={"horizontally"}>
-        <Grid.Column width={6}>
-          {/* <pre>{JSON.stringify(context.authData, null, 2)}</pre> */}
-          <Responsive as={Segment}>
+    <Grid className="mainBody">
+      <Grid.Column className="loginCardColumn">
+        <Header className="loginHeader">Login</Header>
+        <p className="loginSubheading">Enter your details below to continue</p>
+        <Card fluid className="loginCard">
+          <Card.Content>
             <Form
               noValidate
               onSubmit={onSubmit}
@@ -70,19 +73,29 @@ function Login(props) {
                 onChange={onChange}
                 error={errors.password ? true : false}
               />
-              <Button type="submit" primary>
+              <Button type="submit" primary className="formCardButton">
                 Login
               </Button>
             </Form>
-          </Responsive>
-          <Transition.Group animation="fade up" duration={500}>
-            {Object.keys(errors).length > 0 && (
-              <Message error list={Object.values(errors)}></Message>
-            )}
-          </Transition.Group>
-        </Grid.Column>
-      </Grid>
-    </div>
+          </Card.Content>
+        </Card>
+        <p>
+          New Here?{" "}
+          <Header className="createAccountText" as={Link} to={"/register"}>
+            Create an Account instead.
+          </Header>
+        </p>
+        <Transition.Group animation="fade up" duration={500}>
+          {Object.keys(errors).length > 0 && (
+            <Message
+              className="loginErrorMessageBox"
+              error
+              list={Object.values(errors)}
+            ></Message>
+          )}
+        </Transition.Group>
+      </Grid.Column>
+    </Grid>
   );
 }
 

@@ -73,7 +73,7 @@ function Speakers(props) {
           <Grid.Row>
             <SpeakerSearchBar props={props} onSearchClick={onSearchClick} />
           </Grid.Row>
-          {authUser && authUser.userId && (
+          {authUser && authUser.userId && speakers === "damn" && (
             <Grid.Row className="distanceWrapper">
               <SpeakerSortByDistance onSortClick={onSortClick} />
             </Grid.Row>
@@ -108,7 +108,7 @@ function Speakers(props) {
             {loading ? (
               <SpeakersPlaceholder />
             ) : error ? (
-              <h1>fuck</h1>
+              <h1>Something went wrong..please try again</h1>
             ) : (
               speakers &&
               speakers.map((speaker) => (
@@ -126,7 +126,7 @@ function Speakers(props) {
           <Grid.Row>
             <SpeakerSearchBar props={props} onSearchClick={onSearchClick} />
           </Grid.Row>
-          {authUser && authUser.userId && (
+          {authUser && authUser.userId && speakers === "damn" && (
             <Grid.Row className="distanceWrapper">
               <SpeakerSortByDistance onSortClick={onSortClick} />
             </Grid.Row>
@@ -161,7 +161,7 @@ function Speakers(props) {
             {loading ? (
               <SpeakersPlaceholder />
             ) : error ? (
-              <h1>fuck</h1>
+              <h1>Something went wrong..please try again</h1>
             ) : (
               speakers &&
               speakers.map((speaker) => (

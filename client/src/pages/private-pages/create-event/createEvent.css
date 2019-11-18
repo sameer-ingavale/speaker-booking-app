@@ -6,14 +6,3 @@
   width: 100% !important;
   text-align: left !important;
 }
-
-.toolTipLabel {
-  padding: 0 !important;
-  color: #212121 !important;
-  background: none !important;
-  font-size: 0.95rem !important;
-}
-
-.toolTipIcon {
-  color: #3da73a !important;
-}
