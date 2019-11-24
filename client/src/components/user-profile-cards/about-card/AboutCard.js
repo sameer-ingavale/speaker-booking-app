@@ -26,7 +26,7 @@ function AboutCard({ pageUser, UrlId }) {
             modalOpen={modalOpen}
             openModal={openModal}
           />
-          <Card fluid className="shadowCard">
+          <Card fluid>
             <Card.Content className="aboutCardContent">
               {authUserId === UrlId && (
                 <Button

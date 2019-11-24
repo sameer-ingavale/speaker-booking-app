@@ -217,11 +217,13 @@ module.exports = {
 
       const token = authMiddleware(context);
 
+      const threeTags = tags.slice(0, 4);
+
       const user = await User.findById(token.userId);
 
       if (user) {
         user.userVisibility = userVisibility;
-        user.tags = tags;
+        user.tags = threeTags;
         user.tagline = tagline;
         user.phone = phone;
         await user.save();

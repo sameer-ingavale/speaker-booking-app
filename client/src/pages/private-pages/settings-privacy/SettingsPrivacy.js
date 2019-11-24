@@ -5,6 +5,7 @@ import { Grid } from "semantic-ui-react";
 import { GET_SINGLE_USER } from "../../../helpers/gql-queries/getSingleUserQuery";
 import { AuthContext } from "../../../context/auth";
 import UserSettingsCard from "../../../components/user-settings-card/UserSettingsCard";
+import AvailabilityCard from "../../../components/user-profile-cards/availability-card/AvailabilityCard";
 
 import Spinner from "../../../helpers/loaders/Spinner";
 
@@ -25,7 +26,7 @@ function SettingsPrivacy() {
   }
 
   return (
-    <Grid>
+    <Grid className="mainBody">
       {loading ? (
         <Grid.Row className="loaderRow">
           <Grid.Column className="loaderColumn">
@@ -33,9 +34,14 @@ function SettingsPrivacy() {
           </Grid.Column>
         </Grid.Row>
       ) : (
-        <Grid.Row className="mainBody">
-          {authUserData && <UserSettingsCard authUserData={authUserData} />}
-        </Grid.Row>
+        <>
+          <Grid.Row>
+            {authUserData && <UserSettingsCard authUserData={authUserData} />}
+          </Grid.Row>
+          <Grid.Row>
+            {authUserData && <AvailabilityCard pageUser={authUserData} />}
+          </Grid.Row>
+        </>
       )}
     </Grid>
   );

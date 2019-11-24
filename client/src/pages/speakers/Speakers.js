@@ -51,6 +51,8 @@ function Speakers(props) {
     }
   };
 
+  console.log(window.innerWidth);
+
   useEffect(() => {
     if (searchResult.data.length > 0) {
       setSpeakers(searchResult.data);
@@ -112,7 +114,7 @@ function Speakers(props) {
             ) : (
               speakers &&
               speakers.map((speaker) => (
-                <Grid.Column key={speaker._id}>
+                <Grid.Column key={speaker._id} className="speakerCardContainer">
                   <SpeakerCard speaker={speaker} />
                 </Grid.Column>
               ))

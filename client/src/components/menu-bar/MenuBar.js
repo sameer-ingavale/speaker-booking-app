@@ -23,11 +23,7 @@ function MenuBar() {
     <header className="main-nav-wrapper">
       <Menu secondary stackable size="large">
         <Menu.Item as={Link} to="/">
-          <img
-            src="https://image.flaticon.com/icons/svg/298/298121.svg"
-            className="nav-logo"
-            alt="logo"
-          />
+          <img src={eagle} className="logo" alt="logo" />
         </Menu.Item>
         <Menu.Menu position="right">
           <Menu.Item

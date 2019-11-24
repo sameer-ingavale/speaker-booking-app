@@ -36,46 +36,42 @@ function SetAvailabilityCard({ pageUser, UrlId }) {
   };
 
   return (
-    <Grid>
-      <Grid.Row centered>
-        <Grid.Column computer={15} mobile={16}>
-          <Card fluid className="shadowCard">
-            <Card.Content className="educationHeaderContent">
-              <Card.Header className="header2">
-                Set Your Availability
-              </Card.Header>
-              <Card.Meta>Only you can see this</Card.Meta>
-              <Card.Content>
-                From
-                <DatePicker
-                  minDate={new Date()}
-                  maxDate={new Date().setMonth(new Date().getMonth() + 1)}
-                  selected={values.fromDate}
-                  onChange={(date) => setValues({ ...values, fromDate: date })}
-                  customInput={<EventDateButton />}
-                />
-                to
-                <DatePicker
-                  minDate={new Date()}
-                  maxDate={new Date().setMonth(new Date().getMonth() + 1)}
-                  selected={values.toDate}
-                  onChange={(date) => setValues({ ...values, toDate: date })}
-                  customInput={<EventDateButton />}
-                />
-                <Button
-                  basic
-                  color="blue"
-                  onClick={onSubmit}
-                  className="setAvailabilityButton"
-                >
-                  Set Availability
-                </Button>
-              </Card.Content>
-            </Card.Content>
-          </Card>
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
+    <Grid.Column className="formCardColumn">
+      <Card fluid className="formCard">
+        <Card.Content className="educationHeaderContent">
+          <Card.Header className="header2">Set Your Availability</Card.Header>
+          <Card.Meta>
+            Organisers will know not to book you past your availability date
+          </Card.Meta>
+          <Card.Content>
+            From
+            <DatePicker
+              minDate={new Date()}
+              maxDate={new Date().setMonth(new Date().getMonth() + 1)}
+              selected={values.fromDate}
+              onChange={(date) => setValues({ ...values, fromDate: date })}
+              customInput={<EventDateButton />}
+            />
+            to
+            <DatePicker
+              minDate={new Date()}
+              maxDate={new Date().setMonth(new Date().getMonth() + 1)}
+              selected={values.toDate}
+              onChange={(date) => setValues({ ...values, toDate: date })}
+              customInput={<EventDateButton />}
+            />
+            <Button
+              basic
+              color="blue"
+              onClick={onSubmit}
+              className="setAvailabilityButton"
+            >
+              Set Availability
+            </Button>
+          </Card.Content>
+        </Card.Content>
+      </Card>
+    </Grid.Column>
   );
 }
 

@@ -16,7 +16,7 @@ function EducationCard({ pageUser, UrlId }) {
     <Grid>
       <Grid.Row centered>
         <Grid.Column width={15}>
-          <Card fluid style={{ paddingBottom: "25px" }} className="shadowCard">
+          <Card fluid style={{ paddingBottom: "25px" }}>
             <Card.Content className="educationHeaderContent">
               {authUserId === UrlId && (
                 <AddEducationModal pageUser={pageUser} />

@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Image, Icon, Label } from "semantic-ui-react";
+import { Card, Image, Icon, Label, Grid } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import "./speakerCard.css";
 import moment from "moment";
@@ -19,7 +19,7 @@ function SpeakerCard({
   }
 }) {
   return (
-    <Card fluid className="shadowCardHover">
+    <Card fluid className="shadowCardHover" style={{ marginBottom: "30px" }}>
       <Image
         wrapped
         fluid
@@ -37,16 +37,14 @@ function SpeakerCard({
         </Label>
       )}
       <Card.Content className="speakerCardContent">
-        {/*  <pre>{JSON.stringify(availability.toDate, null, 2)}</pre>
-        <pre>{JSON.stringify(new Date(), null, 2)}</pre> */}
         <Card.Header
           as={Link}
           to={`/profile/${_id}`}
         >{`${firstName} ${lastName}`}</Card.Header>
 
-        <Card.Meta>
+        <Card.Meta style={{ paddingTop: "5px" }}>
           <Icon color="grey" name="map pin"></Icon>
-          {city && state ? ` ${city}, ${state}` : "Location Unknown"}
+          {city && state ? ` ${city}, ${state}` : " Location not set"}
         </Card.Meta>
 
         <Card.Description>{tagline}</Card.Description>

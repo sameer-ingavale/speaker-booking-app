@@ -107,7 +107,6 @@
 .ui.card {
   line-height: 1.65em;
   font-size: 0.9em;
-  box-shadow: none;
   border-radius: 0.2em;
   border: 0.5px solid #dfe3e8;
   box-shadow: 0 0 7px rgba(0, 0, 0, 0.05) !important;

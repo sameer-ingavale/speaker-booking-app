@@ -16,34 +16,6 @@ function UserProfileTopCard({ pageUser, UrlId }) {
 
   let authUserId = authUser.userId;
 
-  /*  const { data } = useQuery(GET_AUTH_USER_EVENTS);
-  let authUserEventsArray;
-
-  if (data) {
-    authUserEventsArray = data.getSingleUserEvents;
-  }
-
-  let authUserEventsOptions;
-
-  if (authUserEventsArray) {
-    authUserEventsOptions = authUserEventsArray.map((event) => {
-      let eventTitle = event.title;
-      if (eventTitle.length > 20) {
-        eventTitle = eventTitle.slice(0, 18) + "...";
-      }
-      return { key: event._id, text: eventTitle, value: event._id };
-    });
-  }
-
-  const [values, setValues] = useState({
-    eventId: ""
-  });
-
-  const onChange = (event, result) => {
-    const { name, value } = result || event.target;
-    setValues({ ...values, [name]: value });
-  }; */
-
   const [modalOpen, setModalOpen] = useState({ open: false });
 
   const openModal = () => {
@@ -66,17 +38,8 @@ function UserProfileTopCard({ pageUser, UrlId }) {
       </Grid.Row>
       <Grid.Row centered>
         <Grid.Column width={15}>
-          <Card fluid className="shadowCard">
-            <Card.Content className="profileIntroCoverPhotoContainer">
-              {/* <Image
-                className="coverPhotoImage"
-                centered
-                wrapped={true}
-                verticalAlign="middle"
-                fluid
-                src="https://media.licdn.com/dms/image/C4D1BAQHEBhgTiA44vQ/company-background_10000/0?e=1571997600&v=beta&t=WGvgrsTfKJbVPjyhZGvrc6zqWkXn1mQ7V-vnwQ0Fnuw"
-              /> */}
-            </Card.Content>
+          <Card fluid>
+            <Card.Content className="profileIntroCoverPhotoContainer"></Card.Content>
             <Card.Content className="profileIntroImageContainer">
               <Image
                 floated="left"

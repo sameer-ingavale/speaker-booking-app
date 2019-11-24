@@ -35,7 +35,7 @@ function UserSettingsCard({ authUserData }) {
 
   let errors = {};
 
-  if (values.tags.length > 5) {
+  if (values.tags.length > 3) {
     errors.tooManyTags = "Too many tags";
   }
 
@@ -61,7 +61,7 @@ function UserSettingsCard({ authUserData }) {
         <Card.Content>
           <Form noValidate className={loading ? "loading" : ""}>
             <Form.Dropdown
-              label="Your Tags"
+              label="Your Tags (Maximum 3)"
               placeholder="Your tags"
               fluid
               multiple
@@ -88,6 +88,7 @@ function UserSettingsCard({ authUserData }) {
               />
               <Form.TextArea
                 className="textarea"
+                required
                 rows="2"
                 placeholder="Your tagline goes here"
                 name="tagline"
