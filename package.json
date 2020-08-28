@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/sameer-ingavale/speaker-booking-app#readme",
   "dependencies": {
-    "apollo-server-express": "^2.9.6",
+    "apollo-server-express": "^2.14.2",
     "bcrypt": "^5.0.0",
     "cloudinary": "^1.16.0",
     "config": "^3.2.3",
